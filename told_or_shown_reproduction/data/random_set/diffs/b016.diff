@@ -1,0 +1,159 @@
+diff --git a/src/Source/Controller/DeleteSourceController.php b/src/Source/Controller/DeleteSourceController.php
+index d9305c9..4b1e3b1 100644
+--- a/src/Source/Controller/DeleteSourceController.php
++++ b/src/Source/Controller/DeleteSourceController.php
+@@ -6,6 +6,7 @@ namespace App\Source\Controller;
+ 
+ use App\Source\Entity\Source;
+ use App\Source\Repository\SourceRepositoryInterface;
++use App\Source\Service\SourceDeletionServiceInterface;
+ use App\User\Entity\User;
+ use Symfony\Bundle\FrameworkBundle\Controller\ControllerHelper;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+@@ -19,6 +20,7 @@ final class DeleteSourceController
+     public function __construct(
+         private readonly ControllerHelper $controller,
+         private readonly SourceRepositoryInterface $sourceRepository,
++        private readonly SourceDeletionServiceInterface $sourceDeletionService,
+         private readonly UrlGeneratorInterface $urlGenerator,
+     ) {
+     }
+@@ -56,7 +58,7 @@ final class DeleteSourceController
+             return new RedirectResponse($this->urlGenerator->generate('app_sources'));
+         }
+ 
+-        $this->sourceRepository->remove($source, flush: true);
++        $this->sourceDeletionService->delete($source);
+ 
+         if ($isHtmx) {
+             return new Response('');
+diff --git a/src/Source/Service/SourceDeletionService.php b/src/Source/Service/SourceDeletionService.php
+new file mode 100644
+index 0000000..f0cfdac
+--- /dev/null
++++ b/src/Source/Service/SourceDeletionService.php
+@@ -0,0 +1,100 @@
++<?php
++
++declare(strict_types=1);
++
++namespace App\Source\Service;
++
++use App\Shared\Search\Service\ArticleSearchServiceInterface;
++use App\Source\Entity\Source;
++use App\Source\Repository\SourceRepositoryInterface;
++use Doctrine\DBAL\Connection;
++use Psr\Log\LoggerInterface;
++
++final readonly class SourceDeletionService implements SourceDeletionServiceInterface
++{
++    /**
++     * Tables holding rows that reference article.id via a foreign key.
++     * They must be emptied for the source's articles before the articles go.
++     */
++    private const array ARTICLE_DEPENDENT_TABLES = [
++        'user_article_read',
++        'user_article_bookmark',
++        'notification_log',
++    ];
++
++    public function __construct(
++        private Connection $connection,
++        private SourceRepositoryInterface $sourceRepository,
++        private ArticleSearchServiceInterface $searchService,
++        private LoggerInterface $logger,
++    ) {
++    }
++
++    public function delete(Source $source): int
++    {
++        $sourceId = $source->getId();
++        if ($sourceId === null) {
++            return 0;
++        }
++
++        /** @var list<int> $articleIds */
++        $articleIds = $this->connection->transactional(function (Connection $connection) use ($source, $sourceId): array {
++            $articleIds = array_map(
++                intval(...),
++                $connection->fetchFirstColumn(
++                    'SELECT id FROM article WHERE source_id = :sourceId',
++                    [
++                        'sourceId' => $sourceId,
++                    ],
++                ),
++            );
++
++            foreach (self::ARTICLE_DEPENDENT_TABLES as $table) {
++                $connection->executeStatement(
++                    sprintf(
++                        'DELETE FROM %s WHERE article_id IN (SELECT id FROM article WHERE source_id = :sourceId)',
++                        $table,
++                    ),
++                    [
++                        'sourceId' => $sourceId,
++                    ],
++                );
++            }
++
++            $connection->executeStatement(
++                'DELETE FROM article WHERE source_id = :sourceId',
++                [
++                    'sourceId' => $sourceId,
++                ],
++            );
++
++            $this->sourceRepository->remove($source, flush: true);
++
++            return $articleIds;
++        });
++
++        $this->removeFromSearchIndex($articleIds);
++
++        return count($articleIds);
++    }
++
++    /**
++     * Bulk DBAL deletes bypass the Doctrine entity listener that de-indexes
++     * articles, so remove them from the search index explicitly.
++     *
++     * @param list<int> $articleIds
++     */
++    private function removeFromSearchIndex(array $articleIds): void
++    {
++        foreach ($articleIds as $articleId) {
++            try {
++                $this->searchService->remove($articleId);
++            } catch (\Throwable $e) {
++                $this->logger->warning('Search de-index failed for article {id}: {error}', [
++                    'id' => $articleId,
++                    'error' => $e->getMessage(),
++                ]);
++            }
++        }
++    }
++}
+diff --git a/src/Source/Service/SourceDeletionServiceInterface.php b/src/Source/Service/SourceDeletionServiceInterface.php
+new file mode 100644
+index 0000000..0219057
+--- /dev/null
++++ b/src/Source/Service/SourceDeletionServiceInterface.php
+@@ -0,0 +1,18 @@
++<?php
++
++declare(strict_types=1);
++
++namespace App\Source\Service;
++
++use App\Source\Entity\Source;
++
++interface SourceDeletionServiceInterface
++{
++    /**
++     * Delete a source together with all of its articles and every row that
++     * depends on those articles (read states, bookmarks, notification logs).
++     *
++     * @return int Number of articles deleted
++     */
++    public function delete(Source $source): int;
++}

@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s0686",
+  "repo": "tony-stark-eth/news-aggregator",
+  "file": "CLAUDE.md",
+  "text": "- No direct `EntityManagerInterface` in services/handlers \u2014 use repository interfaces",
+  "heading": "CLAUDE.md > Hard Rules"
+ },
+ {
+  "id": "s0845",
+  "repo": "Lling0000/SiftMarks",
+  "file": "AGENTS.md",
+  "text": "- When changing data writes, preserve the local-first behavior and avoid silent external network calls.",
+  "heading": "SiftMarks Agent Notes > Working Rules"
+ },
+ {
+  "id": "s1091",
+  "repo": "Waynting/GuessSong",
+  "file": "CLAUDE.md",
+  "text": "- **The rule lives in `lib/`, not in the component.** Same reason\n  `lib/room-poll.ts` and `lib/song-count.ts` do: the suite reaches `lib/` and\n  vitest cannot import a `.tsx` module here, so a rule left in\n  `app/game/page.tsx` is a rule with no test. It was written inline first, under\n  a comment conceding exactly that.",
+  "heading": "CLAUDE.md > A round's async work must not land on the next round"
+ },
+ {
+  "id": "s2031",
+  "repo": "cli-agent-spec/cli-agent-spec",
+  "file": "AGENTS.md",
+  "text": "- No language-specific content",
+  "heading": "AGENTS.md \u2014 Spec Editor Guide for AI Agents > Schema files"
+ }
+]

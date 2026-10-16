@@ -1,0 +1,65 @@
+diff --git a/Console.sublime-syntax b/Console.sublime-syntax
+index 1c77381..eea0721 100644
+--- a/Console.sublime-syntax
++++ b/Console.sublime-syntax
+@@ -7,6 +7,18 @@ variables:
+ contexts:
+   main:
+     # -- Kornuz modifications BEGIN --
++    # Python tracebacks: header, then frames/source lines until the exception line
++    - match: '^Traceback \(most recent call last\):'
++      scope: entity.name.section.traceback.console
++      push: traceback
++    - match: '^(?:During handling of the above exception, another exception occurred|The above exception was the direct cause of the following exception):'
++      scope: comment.line.traceback.console
++    - match: '^(error)(:)(.*)$'
++      scope: meta.error.console
++      captures:
++        1: invalid.error.console
++        2: invalid.error.console
++        3: token.error-token.console
+     - match: '^(startup(?=, version:))'
+       scope: support.function.builtin.console
+     - match: '^(using gpu)'
+@@ -874,6 +886,41 @@ contexts:
+         - include: escaped_char
+         - include: escaped_unicode_char
+ 
++  traceback:
++    - meta_scope: meta.traceback.console
++    #   File "path", line N, in name
++    - match: '^\s+(File)\s+((")([^"]*)("))(,)\s+(line)\s+(\d+)(?:(,)\s+(in)\s+(.*?))?\s*$\n?'
++      scope: meta.traceback.frame.console
++      captures:
++        1: keyword.other.traceback.console
++        2: string.quoted.double.traceback.console
++        3: punctuation.definition.string.begin.console
++        5: punctuation.definition.string.end.console
++        6: punctuation.separator.traceback.console
++        7: keyword.other.traceback.console
++        8: constant.numeric.integer.decimal.console
++        9: punctuation.separator.traceback.console
++        10: keyword.other.traceback.console
++        11: entity.name.function.traceback.console
++    # Python 3.11+ position markers (~~~^^^)
++    - match: '^\s*[~^]+\s*$\n?'
++      scope: token.error-token.marker.console
++    # Quoted source lines: regular console highlighting, never leaking past the line
++    - match: '^(?=\s)'
++      embed: main
++      embed_scope: meta.traceback.source.console
++      escape: '\n'
++    # SomeError: message
++    - match: '^([A-Za-z_][A-Za-z0-9_.]*)(?:(:)(.*))?$\n?'
++      scope: meta.traceback.exception.console
++      captures:
++        1: support.type.exception.console
++        2: punctuation.separator.traceback.console
++        3: token.error-token.console
++      pop: true
++    - match: '^(?=\S)'
++      pop: true
++
+   strings:
+     - include: string_quoted_double
+     - include: string_quoted_single

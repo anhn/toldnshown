@@ -1,0 +1,58 @@
+diff --git a/README.md b/README.md
+index 927e3bb..6ea29e5 100644
+--- a/README.md
++++ b/README.md
+@@ -215,6 +215,53 @@ codex
+ ```
+ 
+ 
++## SDK setup
++
++Scripts can skip the CLIs and call the gateway directly with the official
++SDKs. Point each client at the gateway's base URL, use the token as the API
++key, and name a model from your `gateway.yaml`.
++
++Anthropic TypeScript SDK (Messages API):
++
++```ts
++import Anthropic from "@anthropic-ai/sdk";
++
++const client = new Anthropic({
++  baseURL: "http://localhost:4000/anthropic",
++  apiKey: "local-dev-token",
++});
++
++const message = await client.messages.create({
++  model: "kimi",
++  max_tokens: 64,
++  messages: [{ role: "user", content: "say ok" }],
++});
++
++console.log(message.content);
++```
++
++OpenAI Node SDK (Responses API):
++
++```ts
++import OpenAI from "openai";
++
++const client = new OpenAI({
++  baseURL: "http://localhost:4000/openai/v1",
++  apiKey: "local-dev-token",
++});
++
++const response = await client.responses.create({
++  model: "kimi",
++  input: "say ok",
++});
++
++console.log(response.output_text);
++```
++
++The snippets use top-level `await`, so run them as ES modules (`.mjs` or a
++package with `"type": "module"`).
++
++
+ 
+ ## Endpoints
+ 

@@ -1,0 +1,39 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index e93f3e4..8e56cea 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -22,13 +22,18 @@ export const Text = defineCustomElement({
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
+ 
++    const isLink = () => props.as === 'link';
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: isLink() && editComputed.disabled ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
++    // an anchor without href neither navigates nor is focusable, which is the only reliable way to make it inert;
++    // role is restored because dropping href also drops the implicit link role, and tabindex is cleared in case it came from attrs
++    const getDisabledLinkProps = () =>
++      editComputed.disabled ? { href: undefined, tabindex: undefined, role: 'link', 'aria-disabled': 'true' } : {};
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a class={ns.is('disabled', editComputed.disabled)} {...attrs} part={compParts[3]}>
++        <a class={ns.is('disabled', editComputed.disabled)} {...attrs} {...getDisabledLinkProps()} part={compParts[3]}>
+           {children}
+         </a>
+       ) : (
+@@ -38,7 +43,12 @@ export const Text = defineCustomElement({
+       const El = isLink() && isRoot ? 'a' : 'span',
+         dir = styleMap.direction;
+       return (
+-        <El class={['ellipsis', cls, ns.is('disabled', editComputed.disabled)]} dir={dirReverse[dir]} part={compParts[0]}>
++        <El
++          class={['ellipsis', cls, ns.is('disabled', editComputed.disabled)]}
++          {...(El === 'a' ? getDisabledLinkProps() : {})}
++          dir={dirReverse[dir]}
++          part={compParts[0]}
++        >
+           <span dir={dir} part={compParts[1]}>
+             {text}
+           </span>

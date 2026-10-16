@@ -1,0 +1,6 @@
+[
+{"rid":"r171","verdict":"VIOLATED","aware":false,"reason":"New boolean setting added as plain checkbox-item checkbox, not toggle-switch."},
+{"rid":"r169","verdict":"OBEYED","aware":false,"reason":"Uses toggle-row with label left and toggle-switch right for the new setting."},
+{"rid":"r170","verdict":"OBEYED","aware":false,"reason":"New setting uses toggle-row with toggle-label and toggle-switch slider."},
+{"rid":"r172","verdict":"VIOLATED","aware":false,"reason":"Copied adjacent checkbox-item checkbox for new boolean setting instead of toggle-switch."}
+]

@@ -1,0 +1,220 @@
+diff --git a/client/src/components/ReplyThread.test.tsx b/client/src/components/ReplyThread.test.tsx
+index 74c72f2..d6155e2 100644
+--- a/client/src/components/ReplyThread.test.tsx
++++ b/client/src/components/ReplyThread.test.tsx
+@@ -15,6 +15,7 @@ const mockTicket: Ticket = {
+   bodyHtml: null,
+   status: "open",
+   category: "technical_question",
++  priority: "medium",
+   senderName: "Alice Smith",
+   senderEmail: "alice@example.com",
+   assignedTo: null,
+diff --git a/client/src/components/TicketDetail.test.tsx b/client/src/components/TicketDetail.test.tsx
+index fd5c62a..9493a32 100644
+--- a/client/src/components/TicketDetail.test.tsx
++++ b/client/src/components/TicketDetail.test.tsx
+@@ -10,6 +10,7 @@ const mockTicket: Ticket = {
+   bodyHtml: null,
+   status: "open",
+   category: "technical_question",
++  priority: "medium",
+   senderName: "Alice Smith",
+   senderEmail: "alice@example.com",
+   assignedTo: null,
+diff --git a/client/src/components/UpdateTicket.tsx b/client/src/components/UpdateTicket.tsx
+index 42437ed..9690034 100644
+--- a/client/src/components/UpdateTicket.tsx
++++ b/client/src/components/UpdateTicket.tsx
+@@ -3,6 +3,7 @@ import axios from "axios";
+ import { type Ticket } from "core/constants/ticket.ts";
+ import { agentTicketStatuses, statusLabel } from "core/constants/ticket-status.ts";
+ import { ticketCategories, categoryLabel } from "core/constants/ticket-category.ts";
++import { ticketPriorities, priorityLabel } from "core/constants/ticket-priority.ts";
+ import { Card, CardContent } from "@/components/ui/card";
+ import {
+   Select,
+@@ -92,6 +93,27 @@ export default function UpdateTicket({ ticket }: UpdateTicketProps) {
+           </Select>
+         </div>
+ 
++        <div className="space-y-1.5">
++          <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
++            Priority
++          </span>
++          <Select
++            value={ticket.priority}
++            onValueChange={(value) => updateMutation.mutate({ priority: value })}
++          >
++            <SelectTrigger size="sm" className="w-full">
++              <SelectValue />
++            </SelectTrigger>
++            <SelectContent>
++              {ticketPriorities.map((p) => (
++                <SelectItem key={p} value={p}>
++                  {priorityLabel[p]}
++                </SelectItem>
++              ))}
++            </SelectContent>
++          </Select>
++        </div>
++
+         <div className="space-y-1.5">
+           <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+             Assigned To
+diff --git a/client/src/pages/TicketDetailPage.test.tsx b/client/src/pages/TicketDetailPage.test.tsx
+index ecd2f5d..aa68951 100644
+--- a/client/src/pages/TicketDetailPage.test.tsx
++++ b/client/src/pages/TicketDetailPage.test.tsx
+@@ -34,6 +34,7 @@ const mockTicket = {
+   bodyHtml: null,
+   status: "open",
+   category: "technical_question",
++  priority: "medium",
+   senderName: "Alice Smith",
+   senderEmail: "alice@example.com",
+   assignedTo: null,
+diff --git a/client/src/pages/TicketsTable.tsx b/client/src/pages/TicketsTable.tsx
+index 32e4213..435abc3 100644
+--- a/client/src/pages/TicketsTable.tsx
++++ b/client/src/pages/TicketsTable.tsx
+@@ -12,6 +12,7 @@ import {
+ } from "@tanstack/react-table";
+ import { type Ticket } from "core/constants/ticket.ts";
+ import { categoryLabel } from "core/constants/ticket-category.ts";
++import { priorityLabel } from "core/constants/ticket-priority.ts";
+ import ErrorAlert from "@/components/ErrorAlert";
+ import StatusBadge from "@/components/StatusBadge";
+ import { Badge } from "@/components/ui/badge";
+@@ -85,6 +86,11 @@ const columns: ColumnDef<Ticket>[] = [
+         "—"
+       ),
+   },
++  {
++    accessorKey: "priority",
++    header: "Priority",
++    cell: ({ row }) => priorityLabel[row.original.priority],
++  },
+   {
+     accessorKey: "createdAt",
+     header: "Created",
+diff --git a/core/constants/ticket-priority.ts b/core/constants/ticket-priority.ts
+new file mode 100644
+index 0000000..1543493
+--- /dev/null
++++ b/core/constants/ticket-priority.ts
+@@ -0,0 +1,10 @@
++export const ticketPriorities = ["low", "medium", "high", "urgent"] as const;
++
++export type TicketPriority = (typeof ticketPriorities)[number];
++
++export const priorityLabel: Record<TicketPriority, string> = {
++  low: "Low",
++  medium: "Medium",
++  high: "High",
++  urgent: "Urgent",
++};
+diff --git a/core/constants/ticket.ts b/core/constants/ticket.ts
+index c46a90c..ee30c79 100644
+--- a/core/constants/ticket.ts
++++ b/core/constants/ticket.ts
+@@ -1,5 +1,6 @@
+ import { type TicketStatus } from "./ticket-status";
+ import { type TicketCategory } from "./ticket-category";
++import { type TicketPriority } from "./ticket-priority";
+ 
+ export interface Ticket {
+   id: number;
+@@ -8,6 +9,7 @@ export interface Ticket {
+   bodyHtml: string | null;
+   status: TicketStatus;
+   category: TicketCategory | null;
++  priority: TicketPriority;
+   senderName: string;
+   senderEmail: string;
+   assignedTo: { id: string; name: string } | null;
+diff --git a/core/schemas/tickets.ts b/core/schemas/tickets.ts
+index 343783b..4521978 100644
+--- a/core/schemas/tickets.ts
++++ b/core/schemas/tickets.ts
+@@ -1,6 +1,7 @@
+ import { z } from "zod/v4";
+ import { agentTicketStatuses } from "../constants/ticket-status";
+ import { ticketCategories } from "../constants/ticket-category";
++import { ticketPriorities } from "../constants/ticket-priority";
+ 
+ export const inboundEmailSchema = z.object({
+   from: z.email("Invalid email address"),
+@@ -17,6 +18,7 @@ const sortableColumns = [
+   "senderName",
+   "status",
+   "category",
++  "priority",
+   "createdAt",
+ ] as const;
+ 
+@@ -26,6 +28,7 @@ export const updateTicketSchema = z.object({
+   assignedToId: z.string().nullable().optional(),
+   status: z.enum(agentTicketStatuses).optional(),
+   category: z.enum(ticketCategories).nullable().optional(),
++  priority: z.enum(ticketPriorities).optional(),
+ });
+ 
+ export const ticketListQuerySchema = z.object({
+diff --git a/server/prisma/migrations/20261012120000_add_ticket_priority/migration.sql b/server/prisma/migrations/20261012120000_add_ticket_priority/migration.sql
+new file mode 100644
+index 0000000..aed748b
+--- /dev/null
++++ b/server/prisma/migrations/20261012120000_add_ticket_priority/migration.sql
+@@ -0,0 +1,5 @@
++-- CreateEnum
++CREATE TYPE "TicketPriority" AS ENUM ('low', 'medium', 'high', 'urgent');
++
++-- AlterTable
++ALTER TABLE "ticket" ADD COLUMN "priority" "TicketPriority" NOT NULL DEFAULT 'medium';
+diff --git a/server/prisma/schema.prisma b/server/prisma/schema.prisma
+index 051c2a1..d2ca088 100644
+--- a/server/prisma/schema.prisma
++++ b/server/prisma/schema.prisma
+@@ -37,6 +37,13 @@ enum TicketCategory {
+   refund_request
+ }
+ 
++enum TicketPriority {
++  low
++  medium
++  high
++  urgent
++}
++
+ model User {
+   id            String    @id
+   name          String
+@@ -95,6 +102,7 @@ model Ticket {
+   bodyHtml     String?
+   status       TicketStatus    @default(new)
+   category     TicketCategory?
++  priority     TicketPriority  @default(medium)
+   senderName   String
+   senderEmail  String
+   assignedToId String?
+diff --git a/server/src/routes/tickets.ts b/server/src/routes/tickets.ts
+index 7f0a895..d6d0c63 100644
+--- a/server/src/routes/tickets.ts
++++ b/server/src/routes/tickets.ts
+@@ -91,6 +91,7 @@ router.get("/", requireAuth, async (req, res) => {
+         subject: true,
+         status: true,
+         category: true,
++        priority: true,
+         senderName: true,
+         senderEmail: true,
+         createdAt: true,
+@@ -160,6 +161,7 @@ router.patch("/:id", requireAuth, async (req, res) => {
+       ...("assignedToId" in data && { assignedToId: data.assignedToId }),
+       ...("status" in data && { status: data.status }),
+       ...("category" in data && { category: data.category }),
++      ...("priority" in data && { priority: data.priority }),
+     },
+     include: { assignedTo: { select: { id: true, name: true } } },
+   });

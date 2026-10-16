@@ -1,0 +1,64 @@
+diff --git a/.changeset/link-mock-as-prop.md b/.changeset/link-mock-as-prop.md
+new file mode 100644
+index 0000000..a93716b
+--- /dev/null
++++ b/.changeset/link-mock-as-prop.md
+@@ -0,0 +1,5 @@
++---
++"vite-plugin-storybook-nextjs": patch
++---
++
++`next/link` mock: honor the `as` prop (string or URL object) as the rendered `href` and the value passed to the `next/link::Link` action, including with `legacyBehavior`/`passHref`, matching real Next.js.
+diff --git a/src/plugins/next-mocks/alias/link/index.tsx b/src/plugins/next-mocks/alias/link/index.tsx
+index f2a66d9..2796388 100644
+--- a/src/plugins/next-mocks/alias/link/index.tsx
++++ b/src/plugins/next-mocks/alias/link/index.tsx
+@@ -48,7 +48,18 @@ const normalizePathTrailingSlash = (path: string) => {
+   return `${removeTrailingSlash(pathname)}${query}${hash}`;
+ };
+ 
+-type MockLinkProps = LinkProps &
++const formatUrl = (url: LinkProps["href"]) =>
++  typeof url === "object" && url !== null
++    ? `${url.pathname || ""}${
++        url.query
++          ? `?${new URLSearchParams(
++              url.query as Record<string, string>,
++            ).toString()}`
++          : ""
++      }${url.hash || ""}`
++    : url;
++
++type MockLinkProps =LinkProps &
+   Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> & {
+     children?: React.ReactNode;
+   };
+@@ -57,7 +68,7 @@ const MockLink = React.forwardRef<HTMLAnchorElement, MockLinkProps>(
+   function MockLink(
+     {
+       href,
+-      as: _as,
++      as,
+       replace,
+       scroll,
+       shallow,
+@@ -71,16 +82,9 @@ const MockLink = React.forwardRef<HTMLAnchorElement, MockLinkProps>(
+     },
+     ref,
+   ) {
+-    const rawHref =
+-      typeof href === "object"
+-        ? `${href.pathname || ""}${
+-            href.query
+-              ? `?${new URLSearchParams(
+-                  href.query as Record<string, string>,
+-                ).toString()}`
+-              : ""
+-          }${href.hash || ""}`
+-        : href;
++    // Like the real <Link>, the `as` decorator (when provided) is what gets rendered and
++    // navigated to; `href` is only the route pattern.
++    const rawHref = formatUrl(as ?? href);
+ 
+     const hrefString =
+       typeof rawHref === "string"

@@ -1,0 +1,57 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index ae80ebe..f5448e8 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -4,6 +4,7 @@ import { textEmits, textProps } from './type';
+ import { getCachedComputedStyle } from '@lun-web/utils';
+ import { ElementWithExpose, getCompParts } from 'common';
+ import { useAria, useCE, useNamespace, useSlot } from 'hooks';
++import { useSetupEdit } from '@lun-web/core';
+ 
+ const name = 'text';
+ const parts = ['ellipsis', 'inner', 'offset', 'link'] as const;
+@@ -19,24 +20,40 @@ export const Text = defineCustomElement({
+     const ns = useNamespace(name);
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
++    const [editComputed] = useSetupEdit();
+ 
++    const isLink = () => props.as === 'link';
++    const isDisabledLink = () => isLink() && !!editComputed.disabled;
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: isDisabledLink() ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
++    const preventDefault = (e: Event) => e.preventDefault();
++    // must be spread after attrs to override them. Dropping href is what really stops navigation and Enter activation;
++    // role is then required because an anchor without href is no longer exposed as a link
++    const getDisabledLinkProps = () =>
++      isDisabledLink()
++        ? { href: undefined, tabindex: -1, role: 'link', 'aria-disabled': 'true', onClick: preventDefault }
++        : {};
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a class={ns.is('disabled', props.disabled)} {...attrs} part={compParts[3]}>
++        <a class={ns.is('disabled', isDisabledLink())} {...attrs} {...getDisabledLinkProps()} part={compParts[3]}>
+           {children}
+         </a>
+       ) : (
+         children
+       );
+     const getReverse = (text: string, isRoot: boolean = false, cls?: any) => {
+-      const El = isLink() && isRoot ? 'a' : 'span',
++      const isRootLink = isLink() && isRoot,
++        El = isRootLink ? 'a' : 'span',
+         dir = styleMap.direction;
+       return (
+-        <El class={['ellipsis', cls, ns.is('disabled', props.disabled)]} dir={dirReverse[dir]} part={compParts[0]}>
++        <El
++          class={['ellipsis', cls, ns.is('disabled', isDisabledLink())]}
++          {...(isRootLink ? getDisabledLinkProps() : {})}
++          dir={dirReverse[dir]}
++          part={compParts[0]}
++        >
+           <span dir={dir} part={compParts[1]}>
+             {text}
+           </span>

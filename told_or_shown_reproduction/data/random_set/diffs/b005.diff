@@ -1,0 +1,34 @@
+diff --git a/Console.sublime-syntax b/Console.sublime-syntax
+index 1c77381..5303963 100644
+--- a/Console.sublime-syntax
++++ b/Console.sublime-syntax
+@@ -7,6 +7,29 @@ variables:
+ contexts:
+   main:
+     # -- Kornuz modifications BEGIN --
++    # Python tracebacks
++    - match: '^Traceback \(most recent call last\):$'
++      scope: markup.heading.traceback.console
++    - match: '^([ \t]+)(File )("[^"\n]+")(, line )(\d+)(?:(, in )(.+))?$'
++      scope: meta.traceback.frame.console
++      captures:
++        2: comment.traceback.console
++        3: markup.link.traceback.console
++        4: comment.traceback.console
++        5: constant.numeric.traceback.console
++        6: comment.traceback.console
++        7: entity.name.function.traceback.console
++    - match: '^([A-Za-z_][\w.]*(?:Error|Exception|Warning|Interrupt|Exit))(?:(: )(.*))?$'
++      scope: meta.traceback.error.console
++      captures:
++        1: invalid.illegal.traceback.console
++        2: comment.traceback.console
++    # Lines starting with "error:"
++    - match: '^(error:)(.*)$'
++      scope: meta.error-line.console
++      captures:
++        1: invalid.illegal.error.console
++
+     - match: '^(startup(?=, version:))'
+       scope: support.function.builtin.console
+     - match: '^(using gpu)'

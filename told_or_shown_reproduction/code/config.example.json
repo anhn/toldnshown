@@ -1,0 +1,40 @@
+{
+  "_comment": "Agents to test and the judge. 'builtin' uses the package's own tool-using agent with any chat model; 'cli' runs an agent CLI from a command template ({prompt_file}, {prompt}, {repo} are shell-quoted). API keys are read from the environment variables named in api_key_env.",
+  "agents": {
+    "gpt-4.1": {
+      "type": "builtin",
+      "model": {"api": "openai", "model": "gpt-4.1", "base_url": "https://api.openai.com/v1", "api_key_env": "OPENAI_API_KEY"},
+      "max_steps": 80,
+      "allow_shell": false
+    },
+    "qwen-coder-local": {
+      "type": "builtin",
+      "model": {"api": "openai", "model": "qwen2.5-coder:32b", "base_url": "http://localhost:11434/v1"},
+      "max_steps": 80
+    },
+    "openrouter-model": {
+      "type": "builtin",
+      "model": {"api": "openai", "model": "<vendor>/<model>", "base_url": "https://openrouter.ai/api/v1", "api_key_env": "OPENROUTER_API_KEY"}
+    },
+    "claude-api": {
+      "type": "builtin",
+      "model": {"api": "anthropic", "model": "<anthropic model id>", "api_key_env": "ANTHROPIC_API_KEY"}
+    },
+    "claude-code-cli": {
+      "type": "cli",
+      "command": "claude -p \"$(cat {prompt_file})\" --model <model> --permission-mode acceptEdits --allowedTools Read,Edit,Write,Grep,Glob,Bash",
+      "timeout": 1800
+    },
+    "codex-cli": {
+      "type": "cli",
+      "command": "codex exec --full-auto -C {repo} \"$(cat {prompt_file})\"",
+      "timeout": 1800
+    },
+    "gemini-cli": {
+      "type": "cli",
+      "command": "gemini --yolo -p \"$(cat {prompt_file})\"",
+      "timeout": 1800
+    }
+  },
+  "judge": {"api": "openai", "model": "gpt-4.1", "base_url": "https://api.openai.com/v1", "api_key_env": "OPENAI_API_KEY", "temperature": 0, "max_diff_chars": 150000}
+}

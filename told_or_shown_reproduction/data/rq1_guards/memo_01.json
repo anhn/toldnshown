@@ -1,0 +1,277 @@
+{
+ "categories": [
+  {
+   "name": "Bypasses the project's chosen tool, component or wrapper",
+   "description": "Reaches for a familiar default (other linter, builtin package, native widget, hand-rolled helper, raw command form) instead of the repo's designated tool, wrapper or shared abstraction.",
+   "example_ids": [
+    "s0241",
+    "s0253",
+    "s0208",
+    "s0323",
+    "s0350",
+    "s0366",
+    "s0316",
+    "s0257",
+    "s0335"
+   ],
+   "n_estimate": 14
+  },
+  {
+   "name": "Violates an architectural boundary or deliberate design decision",
+   "description": "Adds something the architecture intentionally excludes, or crosses a module/platform/trust boundary (server in a no-backend app, K8s dep in pure module, shared domain type, sandbox, editable read-only data).",
+   "example_ids": [
+    "s0303",
+    "s0244",
+    "s0291",
+    "s0378",
+    "s0248",
+    "s0275",
+    "s0353",
+    "s0258",
+    "s0384"
+   ],
+   "n_estimate": 16
+  },
+  {
+   "name": "Reverts or 'fixes' something intentional / reintroduces removed things",
+   "description": "Undoes a past decision because it looks wrong or outdated: reintroduces removed frameworks, re-bumps pinned versions, renames legacy names, restores a deliberately omitted check, retries failed ideas.",
+   "example_ids": [
+    "s0219",
+    "s0264",
+    "s0311",
+    "s0288",
+    "s0256",
+    "s0355",
+    "s0292",
+    "s0312",
+    "s0373",
+    "s0247"
+   ],
+   "n_estimate": 11
+  },
+  {
+   "name": "Scope creep and unrequested changes",
+   "description": "Touches, cleans up, or extends things outside the request; switches tasks; writes preferences the user did not give; changes behaviour beyond the authorized change.",
+   "example_ids": [
+    "s0313",
+    "s0238",
+    "s0318",
+    "s0392",
+    "s0321",
+    "s0368"
+   ],
+   "n_estimate": 7
+  },
+  {
+   "name": "Adds dependencies or tooling unprompted",
+   "description": "Introduces new packages, build systems or tools without discussion or need.",
+   "example_ids": [
+    "s0200",
+    "s0342",
+    "s0368",
+    "s0205"
+   ],
+   "n_estimate": 4
+  },
+  {
+   "name": "Over-engineering, compat shims, dead code, defensive clutter",
+   "description": "Keeps aliases/fallbacks 'just in case', adds guard clauses and workarounds, leaves unused code, duplicates logic or types, creates ad hoc modules/classes.",
+   "example_ids": [
+    "s0221",
+    "s0239",
+    "s0296",
+    "s0320",
+    "s0285",
+    "s0235",
+    "s0260",
+    "s0345",
+    "s0376"
+   ],
+   "n_estimate": 10
+  },
+  {
+   "name": "Swallows or hides errors and gaps",
+   "description": "Turns failures into empty/default results, empty catch, silent null returns, silently narrowed scope.",
+   "example_ids": [
+    "s0370",
+    "s0372",
+    "s0332",
+    "s0259"
+   ],
+   "n_estimate": 4
+  },
+  {
+   "name": "Risky or unapproved version-control actions",
+   "description": "Blanket staging, working on main, merging without approval, creating branches unasked, mutating VCS state, piling uncommitted work, opening PRs in wrong order.",
+   "example_ids": [
+    "s0222",
+    "s0231",
+    "s0268",
+    "s0349",
+    "s0337",
+    "s0295",
+    "s0334",
+    "s0218"
+   ],
+   "n_estimate": 8
+  },
+  {
+   "name": "Commits or writes files that do not belong in the repo",
+   "description": "Secrets, env files, internal docs, planning artifacts, build output, machine identity; and hand-editing generated/immutable/raw files.",
+   "example_ids": [
+    "s0246",
+    "s0210",
+    "s0243",
+    "s0315",
+    "s0344",
+    "s0391",
+    "s0289",
+    "s0388",
+    "s0394",
+    "s0382",
+    "s0367",
+    "s0287"
+   ],
+   "n_estimate": 18
+  },
+  {
+   "name": "Premature or false claims of done / verified",
+   "description": "Declares completion without audit or tests, treats weak evidence (mocks, fixtures, advisory checks) as proof, launders unmet acceptance, weakens tests so they pass, skips checklists.",
+   "example_ids": [
+    "s0237",
+    "s0265",
+    "s0325",
+    "s0331",
+    "s0358",
+    "s0262",
+    "s0363",
+    "s0271",
+    "s0240",
+    "s0202",
+    "s0230"
+   ],
+   "n_estimate": 11
+  },
+  {
+   "name": "Fabrication and overconfident claims",
+   "description": "Invents APIs, names, users, benchmarks, credits; describes features inaccurately; recommends from stale knowledge.",
+   "example_ids": [
+    "s0224",
+    "s0225",
+    "s0281",
+    "s0343",
+    "s0356",
+    "s0216",
+    "s0395",
+    "s0217"
+   ],
+   "n_estimate": 8
+  },
+  {
+   "name": "Wasteful or disruptive command execution",
+   "description": "Runs full test suites or whole-project analysis, starts long-running servers, rebuilds twice, runs things in parallel that must be serial, retries identically, reuses stale shells.",
+   "example_ids": [
+    "s0213",
+    "s0209",
+    "s0263",
+    "s0276",
+    "s0250",
+    "s0294",
+    "s0203",
+    "s0307"
+   ],
+   "n_estimate": 8
+  },
+  {
+   "name": "Inefficient codebase exploration / context handling",
+   "description": "Greps or reads raw files instead of the provided index/graph/query tool; relies on chat history instead of a ledger; edits without reading callers; answers without invoking the skill.",
+   "example_ids": [
+    "s0211",
+    "s0328",
+    "s0341",
+    "s0385",
+    "s0397"
+   ],
+   "n_estimate": 6
+  },
+  {
+   "name": "Misreading environment signals or local gotchas",
+   "description": "Draws the wrong conclusion from tool output or a locally surprising fact (HTTP 200 on error, compact green log, rerun failure, REPL output channel, forgotten export step, unresolvable URI, name shadowing).",
+   "example_ids": [
+    "s0317",
+    "s0286",
+    "s0279",
+    "s0383",
+    "s0282",
+    "s0299",
+    "s0314",
+    "s0306",
+    "s0214",
+    "s0302"
+   ],
+   "n_estimate": 12
+  },
+  {
+   "name": "Test authoring and placement mistakes",
+   "description": "Tests in wrong location, tests that hit network/real keys/user data, retired mocking style.",
+   "example_ids": [
+    "s0228",
+    "s0330",
+    "s0252",
+    "s0364",
+    "s0309",
+    "s0274",
+    "s0249"
+   ],
+   "n_estimate": 7
+  },
+  {
+   "name": "AI-flavoured or off-convention prose, commits and docs",
+   "description": "Em dashes, emojis, filler, vague or mis-styled commit messages, noisy PRs, wrong terminology, duplicated or stale docs, doc clutter.",
+   "example_ids": [
+    "s0232",
+    "s0266",
+    "s0269",
+    "s0297",
+    "s0308",
+    "s0348",
+    "s0333",
+    "s0338",
+    "s0245",
+    "s0270",
+    "s0347",
+    "s0379"
+   ],
+   "n_estimate": 15
+  },
+  {
+   "name": "Security and legal exposure",
+   "description": "Prompt injection via fetched content, SSRF, keys from frontend, hidden-as-access-control, trademarked assets, missing licence headers, dashboard exposure.",
+   "example_ids": [
+    "s0206",
+    "s0234",
+    "s0387",
+    "s0361",
+    "s0398",
+    "s0354",
+    "s0365",
+    "s0220"
+   ],
+   "n_estimate": 9
+  },
+  {
+   "name": "Domain/product content rules",
+   "description": "Rules about the content the agent produces as product behaviour rather than code (song titles, sales motions, image prompts, design answers, UI fallbacks).",
+   "example_ids": [
+    "s0298",
+    "s0351",
+    "s0310",
+    "s0267",
+    "s0329",
+    "s0236"
+   ],
+   "n_estimate": 6
+  }
+ ],
+ "notes": "160 of 200 coded guard=true; 40 are descriptions, status notes, pointers, examples or pure how-tos. guard=false units carry specific=project as a placeholder (102 of the 160 guard units are project-specific). Boundary cases: (1) Declarative facts with an implied prohibition ('X is not part of Y', 'intentionally NOT deleted', 'No App Sandbox', 'cannot use signals') were coded guard=true when the sentence only makes sense as a warning against a plausible agent move (s0223, s0242, s0247, s0248, s0373), but guard=false when they read as plain architecture description (s0204, s0254, s0255, s0272, s0280, s0283, s0324, s0362). 'There is no test suite' statements (s0346, s0360, s0377, s0393, s0399) were coded false as status notes, though they plausibly guard against hunting for or inventing tests. (2) specific: I used 'project' whenever a named tool choice, path, command or domain concept is essential, and 'generic' for git-universal, language-idiom or tool-agnostic rules (s0215, s0273, s0301, s0376, s0316, s0335); the line is fuzzy for mainstream-tool rules such as s0241, s0249, s0253. Several rules describe a generic behaviour in project vocabulary (s0237, s0259, s0318, s0363). (3) origin was coded conservatively (16 true): explicit history (s0311, s0327, s0202, s0292, s0312), or section framing that asserts recurrence ('rules broken most often', 'Common Pitfalls', 'facts that bite', 'things that look reasonable but are wrong', 'easy to mess up', Learnings). Rules that quote a specific wrong form (s0225 lists phantom aliases; s0333 'never the desk'; s0284 'not removeSubrange'; s0215 quoting the lint message) strongly suggest an observed incident; only s0225 was marked true. An 'ANTI-PATTERNS' heading alone (s0330, s0387) was not treated as origin. Recorded past breakage of a thing other than the guarded behaviour (s0247) was not counted. (4) Multi-rule units (s0396, s0338, s0331, s0245) were coded on the dominant or combined behaviour. s0365 is a truncated list header; s0390 is a code sample of a past bug with no rule text (false). Surprising: a notable share of rules guard against the agent 'repairing' intentional oddities or reverting decisions, and against epistemic errors (treating weak evidence as verification, misreading tool output) rather than destructive actions. Some units embed instructions aimed at the reader (s0206, s0397); they were coded as data only."
+}

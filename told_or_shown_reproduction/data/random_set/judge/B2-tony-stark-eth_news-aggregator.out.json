@@ -1,0 +1,6 @@
+[
+{"rid":"b016","verdict":"VIOLATED","aware":false,"reason":"Service injects DBAL Connection and runs raw SQL deletes, bypassing repository interfaces; violates rule's evident intent."},
+{"rid":"b015","verdict":"OBEYED","aware":false,"reason":"Service uses only repository interfaces; bulk deletes added as repository methods."},
+{"rid":"b013","verdict":"OBEYED","aware":false,"reason":"Service depends solely on repository interfaces; new delete/remove methods live in repositories."},
+{"rid":"b014","verdict":"OBEYED","aware":false,"reason":"Service uses repository interfaces only; transaction wrapper exposed via SourceRepositoryInterface."}
+]

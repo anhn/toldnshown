@@ -1,0 +1,124 @@
+diff --git a/src/pages/Resume.jsx b/src/pages/Resume.jsx
+index 073892d..ef88ca9 100644
+--- a/src/pages/Resume.jsx
++++ b/src/pages/Resume.jsx
+@@ -13,14 +13,17 @@ import FloatingButton from '../components/FloatingButton';
+ import createLazyResumeTemplate from '../components/ResumeTemplateShell/createLazyResumeTemplate';
+ 
+ // Hooks
+-import { useSelector } from '../store/StoreProvider';
++import { useDispatch, useSelector } from '../store/StoreProvider';
+ 
+ // Utils
+ import { isObjectNotEmpty } from '../utils/utils';
+ import { toExportableResume, toRenderableResume } from '../utils/resume-payload';
+ 
+ // Selectors
+-import { selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
++import { selectIsDrawerOpen, selectResumeTemplate, selectToggleableJsonResume } from '../store/selectors';
++
++// Actions
++import setIsDrawerOpen from '../store/actions/setIsDrawerOpen';
+ 
+ // Hooks
+ import useDetectPrint from '../components/hooks/useDetectPrint';
+@@ -40,12 +43,13 @@ const ResumePage = () => {
+     const intl = useIntl();
+     const classes = useStyles();
+     const [a4ContainerHeight, setA4ContainerHeight] = useState(null);
+-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+     const [resumeTemplate, setResumeTemplate] = useState([]);
+     const refContainer = useRef(null);
+     const rerenderRef = useRef(false);
+     const toggleableJsonResume = useSelector(selectToggleableJsonResume);
+     const resumeTemplateName = useSelector(selectResumeTemplate);
++    const isDrawerOpen = useSelector(selectIsDrawerOpen);
++    const dispatch = useDispatch();
+     const hasData = isObjectNotEmpty(toggleableJsonResume);
+     const isPrinting = useDetectPrint();
+ 
+@@ -55,6 +59,13 @@ const ResumePage = () => {
+         }
+     }, [hasData]);
+ 
++    // The drawer flag lives in the global store, so close it when leaving the page;
++    // otherwise it would still be open the next time the resume page mounts.
++    useEffect(() => () => dispatch(setIsDrawerOpen(false)), [dispatch]);
++
++    const openDrawer = useCallback(() => dispatch(setIsDrawerOpen(true)), [dispatch]);
++    const closeDrawer = useCallback(() => dispatch(setIsDrawerOpen(false)), [dispatch]);
++
+     useEffect(() => {
+         function loadTemplate() {
+             const Template = createLazyResumeTemplate(resumeTemplateName);
+@@ -114,17 +125,17 @@ const ResumePage = () => {
+             <SEO title={intl.formatMessage({ id: 'build_resume' })} robots="noindex, nofollow" />
+             {hasData && (
+                 <div className={classes.resumeWrapper}>
+-                    <FloatingButton onClick={() => setIsDrawerOpen(true)} />
++                    <FloatingButton onClick={openDrawer} />
+                     <Drawer
+                         className={classes.drawerWrapper}
+                         anchor="right"
+                         variant="persistent"
+                         open={isDrawerOpen}
+-                        onClose={() => setIsDrawerOpen(false)}
++                        onClose={closeDrawer}
+                     >
+                         <ResumeDrawerItems
+                             toggleableJsonResume={toggleableJsonResume}
+-                            onClose={() => setIsDrawerOpen(false)}
++                            onClose={closeDrawer}
+                             onPrint={printDocument}
+                         />
+                     </Drawer>
+diff --git a/src/store/StoreProvider.jsx b/src/store/StoreProvider.jsx
+index faa28d3..377cb87 100644
+--- a/src/store/StoreProvider.jsx
++++ b/src/store/StoreProvider.jsx
+@@ -4,6 +4,7 @@ import reducer from './reducer';
+ const initialState = {
+     toggleableJsonResume: {},
+     resumeTemplate: 'Default',
++    isDrawerOpen: false,
+ };
+ 
+ export const StoreContext = createContext(initialState);
+diff --git a/src/store/actions/setIsDrawerOpen.js b/src/store/actions/setIsDrawerOpen.js
+new file mode 100644
+index 0000000..969ab75
+--- /dev/null
++++ b/src/store/actions/setIsDrawerOpen.js
+@@ -0,0 +1,6 @@
++const setIsDrawerOpen = (isDrawerOpen) => ({
++    type: 'SET_IS_DRAWER_OPEN',
++    isDrawerOpen,
++});
++
++export default setIsDrawerOpen;
+diff --git a/src/store/reducer/index.js b/src/store/reducer/index.js
+index 5e2223b..ec1b11e 100644
+--- a/src/store/reducer/index.js
++++ b/src/store/reducer/index.js
+@@ -160,6 +160,11 @@ export default (state, action) => {
+                 ...state,
+                 resumeTemplate: action.resumeTemplate,
+             };
++        case 'SET_IS_DRAWER_OPEN':
++            return {
++                ...state,
++                isDrawerOpen: action.isDrawerOpen,
++            };
+         default:
+             return state;
+     }
+diff --git a/src/store/selectors.js b/src/store/selectors.js
+index 0dc06a1..99230f9 100644
+--- a/src/store/selectors.js
++++ b/src/store/selectors.js
+@@ -1,3 +1,5 @@
+ export const selectResumeTemplate = (state) => state.resumeTemplate;
+ 
+ export const selectToggleableJsonResume = (state) => state.toggleableJsonResume;
++
++export const selectIsDrawerOpen = (state) => state.isDrawerOpen;

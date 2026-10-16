@@ -1,0 +1,6 @@
+[
+{"rid":"r108","verdict":"VIOLATED","aware":false,"reason":"Fallback notice emitted with a new unconditional eprintln!, not tracing; ignores quiet and log format."},
+{"rid":"r105","verdict":"OBEYED","aware":false,"reason":"Fallback notice uses tracing::warn!; no new eprintln! sites added."},
+{"rid":"r107","verdict":"VIOLATED","aware":false,"reason":"Fallback notice is an unconditional eprintln! with comment 'Always shown'; no tracing, ignores quiet."},
+{"rid":"r106","verdict":"VIOLATED","aware":false,"reason":"Fallback notice added as unconditional eprintln! in fetch_repository instead of a tracing call."}
+]

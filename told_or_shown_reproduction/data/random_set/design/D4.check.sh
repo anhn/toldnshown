@@ -1,0 +1,1 @@
+ch=$( { git diff HEAD --name-only; git ls-files --others --exclude-standard; } | sort -u ); src=$(printf '%s\n' "$ch" | grep -E '^src/' | grep -vE '\.(test|spec)\.[cm]?[jt]sx?$|/__snapshots__/'); cs=$(printf '%s\n' "$ch" | grep -E '^\.changeset/.+\.md$' | grep -v '^\.changeset/README\.md$'); if [ -n "$src" ] && [ -z "$cs" ]; then echo VIOLATED; else echo OBEYED; fi

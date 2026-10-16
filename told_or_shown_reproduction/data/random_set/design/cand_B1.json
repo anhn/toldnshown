@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s1750",
+  "repo": "Tokinx/cf-server-monitor-theme-emerald",
+  "file": "AGENTS.md",
+  "text": "Use Bun for dependency management. Validation is ESLint plus the production build; there is no unit test suite yet.",
+  "heading": "Repository Guide > Commands"
+ },
+ {
+  "id": "s1560",
+  "repo": "DaveDushi/kolshek",
+  "file": "CLAUDE.md",
+  "text": "- **Scraper imports** \u2014 `israeli-bank-scrapers-core` (not `israeli-bank-scrapers`). Uses `puppeteer-core` + system Chrome",
+  "heading": "KolShek (\u05db\u05dc \u05e9\u05e7\u05dc) > Non-obvious conventions"
+ },
+ {
+  "id": "s1821",
+  "repo": "malstrom72/microtonic-scripts-sdk",
+  "file": "AGENTS.md",
+  "text": "Working on a `.ivg` icon or vector asset? Render it with `tools/IVG2PNG/IVG2PNG` while designing it,\nnot only as a final validation step. Do not approximate the glyph in SVG or rely on generic image\ntools to preview it; ImageMagick installations without a reliable SVG delegate can silently drop\nstroked paths. If the source is SVG, use the vendored `IVG/tools/svg2ivg.js` only as a draft\ngenerator, then tidy the IVG and render the result with IVG2PNG.",
+  "heading": "Microtonic Scripts SDK Agent Instructions"
+ },
+ {
+  "id": "s0674",
+  "repo": "tikoci/restraml",
+  "file": "AGENTS.md",
+  "text": "- **Prefer published docs inventory for version discovery** \u2014 `docs/docs-index.json` is the static source-of-truth for published versions/files on GitHub Pages. Use GitHub API/GraphQL only when the data is not already published there.",
+  "heading": "AGENTS.md \u2014 GitHub Copilot Agent Instructions for restraml > Technology Constraints > Web Pages (`docs/`)"
+ }
+]

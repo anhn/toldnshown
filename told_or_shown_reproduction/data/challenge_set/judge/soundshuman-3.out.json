@@ -1,0 +1,6 @@
+[
+{"rid":"r024","verdict":"VIOLATED","aware":false,"reason":"Only package.json bumped to 1.1.0; SKILL.md and plugin.json left at 1.0.0."},
+{"rid":"r023","verdict":"VIOLATED","aware":false,"reason":"package.json and plugin.json bumped, but SKILL.md metadata.version left at 1.0.0; three places out of step."},
+{"rid":"r021","verdict":"OBEYED","aware":true,"reason":"All three version locations bumped to 1.1.0 together."},
+{"rid":"r022","verdict":"OBEYED","aware":true,"reason":"All three version locations bumped to 1.1.0 together."}
+]

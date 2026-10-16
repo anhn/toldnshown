@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s0633",
+  "repo": "CHANG-JUI-LIN/Yuedu-reader",
+  "file": "CLAUDE.md",
+  "text": "- **Don't swallow errors.** In parsing/network pipelines, `try?` that discards the error is banned unless an empty result is truly equivalent; log through `AppLogger` (never wrapped in `#if DEBUG` \u2014 os_log is how on-device issues get diagnosed).",
+  "heading": "CLAUDE.md > Engineering Discipline"
+ },
+ {
+  "id": "s2257",
+  "repo": "microsoft/Agent365-devTools",
+  "file": "CLAUDE.md",
+  "text": "Every failure path in a command handler must set `context.ExitCode = 1` before returning or continuing. This includes `continue` statements inside loops, not just top-level `return` statements.",
+  "heading": "CLAUDE.md > Code Standards > CLI Command Exit Codes"
+ },
+ {
+  "id": "s2006",
+  "repo": "callumalpass/canvas-bases",
+  "file": "AGENTS.md",
+  "text": "7. Update translations in `src/i18n/resources/` when user-facing strings changed, and make sure they are real target-language strings rather than English placeholders.",
+  "heading": "Canvas Bases - Agent Development Guide > Prepare for a Release"
+ },
+ {
+  "id": "s1656",
+  "repo": "html2rss/html2rss-configs",
+  "file": "AGENTS.md",
+  "text": "If Botasaurus works but default strategy does not, keep the config narrow and classify it as Botasaurus-backed instead of trying to rescue it with brittle tweaks.",
+  "heading": "html2rss-configs Agent Guide > Runtime Debugging"
+ }
+]

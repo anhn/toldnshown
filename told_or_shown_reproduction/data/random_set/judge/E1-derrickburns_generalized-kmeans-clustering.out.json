@@ -1,0 +1,4 @@
+[{"rid":"b044","verdict":"OBEYED","aware":true,"reason":"Uses eclipse-temurin:17-jdk-jammy; comment says JDK 17 is the supported runtime."},
+{"rid":"b041","verdict":"OBEYED","aware":true,"reason":"Installs openjdk-17-jdk-headless; comment states project targets Java 17."},
+{"rid":"b042","verdict":"OBEYED","aware":true,"reason":"JAVA_VERSION=17 with eclipse-temurin 17 JDK copied in; docs state JDK 17."},
+{"rid":"b043","verdict":"OBEYED","aware":true,"reason":"Uses eclipse-temurin:17-jdk-jammy; comment says JDK 17 is required."}]

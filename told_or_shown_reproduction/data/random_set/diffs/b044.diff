@@ -1,0 +1,136 @@
+diff --git a/.dockerignore b/.dockerignore
+new file mode 100644
+index 0000000..c252ba6
+--- /dev/null
++++ b/.dockerignore
+@@ -0,0 +1,11 @@
++# The dev image does not copy sources (the repo is mounted at runtime),
++# so keep the build context small.
++**/target/
++.bsp/
++.git/
++.idea/
++.vscode/
++python/build/
++python/dist/
++**/*.egg-info/
++**/__pycache__/
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index 303ea9b..cde0115 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -62,6 +62,48 @@ sbt test
+ sbt scalastyle
+ \`\`\`
+ 
++### Docker Development Environment
++
++If you have trouble setting up JDK 17, sbt, or a compatible Python/PySpark locally, use the
++`Dockerfile` at the repository root. It provides JDK 17, sbt 1.11, and Python 3 with
++PySpark 3.5.1, pytest, and pytest-cov. The source tree is mounted into the container, not copied.
++
++Build the image (once, or after the `Dockerfile` changes):
++
++```bash
++docker build -t gkm-dev .
++```
++
++Start a shell in the container with the repo mounted at `/workspace`. The named volumes cache
++sbt/Coursier downloads between runs:
++
++```bash
++docker run --rm -it \
++  -v "$PWD":/workspace \
++  -v gkm-sbt:/root/.sbt -v gkm-ivy:/root/.ivy2 -v gkm-coursier:/root/.cache/coursier \
++  gkm-dev
++```
++
++Inside the container, run the Scala tests:
++
++```bash
++sbt test                 # default Scala 2.13 / Spark 3.5.1
++sbt ++2.12.18 test       # pin Scala 2.12
++```
++
++The Python tests need the library JAR on Spark's classpath. PySpark 3.5 uses Scala 2.12, so
++build the 2.12 JAR first and pass it in with `PYSPARK_SUBMIT_ARGS`:
++
++```bash
++sbt ++2.12.18 package
++cd python
++PYSPARK_SUBMIT_ARGS="--jars $(ls ../target/scala-2.12/massivedatascience-clusterer_2.12-*.jar | head -n1) pyspark-shell" \
++  pytest tests/
++```
++
++The container runs as root, so files it creates under `target/` will be owned by root on the
++host. If that is a problem, run `sbt clean` from inside the container before you leave.
++
+ ## Making Changes
+ 
+ ### Branch Naming
+diff --git a/Dockerfile b/Dockerfile
+new file mode 100644
+index 0000000..b5e8d21
+--- /dev/null
++++ b/Dockerfile
+@@ -0,0 +1,60 @@
++# Reproducible development environment for generalized-kmeans-clustering.
++#
++# Provides JDK 17, sbt, and Python 3 with PySpark so contributors can compile
++# the Scala library, run the ScalaTest suite, and run the Python wrapper tests
++# without installing a toolchain locally. The source tree is not copied into
++# the image; mount the repository at /workspace when running the container.
++#
++# Build:  docker build -t gkm-dev .
++# Run:    docker run --rm -it -v "$PWD":/workspace gkm-dev
++#
++# See CONTRIBUTING.md ("Docker Development Environment") for details.
++
++# JDK 17 is the supported runtime (Spark/Hadoop fail on newer JDKs); see .java-version.
++FROM eclipse-temurin:17-jdk-jammy
++
++# Keep these in sync with project/build.properties and .github/workflows/ci.yml.
++ARG SBT_VERSION=1.11.0
++ARG PYSPARK_VERSION=3.5.1
++
++ENV DEBIAN_FRONTEND=noninteractive \
++    LANG=C.UTF-8 \
++    LC_ALL=C.UTF-8
++
++RUN apt-get update \
++    && apt-get install -y --no-install-recommends \
++        ca-certificates \
++        curl \
++        git \
++        python3 \
++        python3-venv \
++        python3-pip \
++    && rm -rf /var/lib/apt/lists/*
++
++# sbt launcher (the project's sbt.version in project/build.properties is honored at runtime).
++RUN curl -fsSL "https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.tgz" \
++        | tar -xz -C /opt \
++    && ln -s /opt/sbt/bin/sbt /usr/local/bin/sbt
++
++# Python environment for the PySpark wrapper tests (python/). PySpark 3.5.x is built
++# against Scala 2.12, so the Python tests use the Scala 2.12 build of the library.
++ENV VIRTUAL_ENV=/opt/venv
++ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
++RUN python3 -m venv "${VIRTUAL_ENV}" \
++    && pip install --no-cache-dir --upgrade pip \
++    && pip install --no-cache-dir \
++        "pyspark==${PYSPARK_VERSION}" \
++        "numpy>=1.20.0,<2" \
++        "pytest>=7.0.0" \
++        "pytest-cov>=3.0.0"
++
++# Make the in-tree Python package importable without an editable install, and make
++# PySpark use the image's Python for both driver and workers.
++ENV PYTHONPATH=/workspace/python \
++    PYSPARK_PYTHON=python3 \
++    PYSPARK_DRIVER_PYTHON=python3 \
++    SBT_OPTS="-Xms512m -Xmx4g -Xss4m"
++
++WORKDIR /workspace
++
++CMD ["bash"]

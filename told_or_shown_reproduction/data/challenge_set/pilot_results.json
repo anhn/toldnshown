@@ -1,0 +1,2986 @@
+{
+"runs": [
+{
+"rid": "r001",
+"exp": "exabgp-1",
+"repo": "Exa-Networks_exabgp",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r002",
+"exp": "exabgp-1",
+"repo": "Exa-Networks_exabgp",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r003",
+"exp": "exabgp-1",
+"repo": "Exa-Networks_exabgp",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r004",
+"exp": "exabgp-1",
+"repo": "Exa-Networks_exabgp",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r005",
+"exp": "exabgp-2",
+"repo": "Exa-Networks_exabgp",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r006",
+"exp": "exabgp-2",
+"repo": "Exa-Networks_exabgp",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r007",
+"exp": "exabgp-2",
+"repo": "Exa-Networks_exabgp",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r008",
+"exp": "exabgp-2",
+"repo": "Exa-Networks_exabgp",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r009",
+"exp": "exabgp-3",
+"repo": "Exa-Networks_exabgp",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r010",
+"exp": "exabgp-3",
+"repo": "Exa-Networks_exabgp",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r011",
+"exp": "exabgp-3",
+"repo": "Exa-Networks_exabgp",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r012",
+"exp": "exabgp-3",
+"repo": "Exa-Networks_exabgp",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r013",
+"exp": "soundshuman-1",
+"repo": "aashaexo_soundshuman",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "shown"
+},
+{
+"rid": "r014",
+"exp": "soundshuman-1",
+"repo": "aashaexo_soundshuman",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown"
+},
+{
+"rid": "r015",
+"exp": "soundshuman-1",
+"repo": "aashaexo_soundshuman",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "shown"
+},
+{
+"rid": "r016",
+"exp": "soundshuman-1",
+"repo": "aashaexo_soundshuman",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown"
+},
+{
+"rid": "r017",
+"exp": "soundshuman-2",
+"repo": "aashaexo_soundshuman",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r018",
+"exp": "soundshuman-2",
+"repo": "aashaexo_soundshuman",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r019",
+"exp": "soundshuman-2",
+"repo": "aashaexo_soundshuman",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r020",
+"exp": "soundshuman-2",
+"repo": "aashaexo_soundshuman",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r021",
+"exp": "soundshuman-3",
+"repo": "aashaexo_soundshuman",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r022",
+"exp": "soundshuman-3",
+"repo": "aashaexo_soundshuman",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r023",
+"exp": "soundshuman-3",
+"repo": "aashaexo_soundshuman",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r024",
+"exp": "soundshuman-3",
+"repo": "aashaexo_soundshuman",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r025",
+"exp": "resume-builder-1",
+"repo": "blopa_Resume-Builder",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r026",
+"exp": "resume-builder-1",
+"repo": "blopa_Resume-Builder",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r027",
+"exp": "resume-builder-1",
+"repo": "blopa_Resume-Builder",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r028",
+"exp": "resume-builder-1",
+"repo": "blopa_Resume-Builder",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r029",
+"exp": "resume-builder-2",
+"repo": "blopa_Resume-Builder",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r030",
+"exp": "resume-builder-2",
+"repo": "blopa_Resume-Builder",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r031",
+"exp": "resume-builder-2",
+"repo": "blopa_Resume-Builder",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r032",
+"exp": "resume-builder-2",
+"repo": "blopa_Resume-Builder",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r033",
+"exp": "resume-builder-3",
+"repo": "blopa_Resume-Builder",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r034",
+"exp": "resume-builder-3",
+"repo": "blopa_Resume-Builder",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r035",
+"exp": "resume-builder-3",
+"repo": "blopa_Resume-Builder",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "VIOLATED"
+},
+{
+"rid": "r036",
+"exp": "resume-builder-3",
+"repo": "blopa_Resume-Builder",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r037",
+"exp": "moltbook-1",
+"repo": "darkmatter2222_moltbook",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r038",
+"exp": "moltbook-1",
+"repo": "darkmatter2222_moltbook",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r039",
+"exp": "moltbook-1",
+"repo": "darkmatter2222_moltbook",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r040",
+"exp": "moltbook-1",
+"repo": "darkmatter2222_moltbook",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r041",
+"exp": "moltbook-2",
+"repo": "darkmatter2222_moltbook",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r042",
+"exp": "moltbook-2",
+"repo": "darkmatter2222_moltbook",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r043",
+"exp": "moltbook-2",
+"repo": "darkmatter2222_moltbook",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r044",
+"exp": "moltbook-2",
+"repo": "darkmatter2222_moltbook",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r045",
+"exp": "moltbook-3",
+"repo": "darkmatter2222_moltbook",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r046",
+"exp": "moltbook-3",
+"repo": "darkmatter2222_moltbook",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r047",
+"exp": "moltbook-3",
+"repo": "darkmatter2222_moltbook",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r048",
+"exp": "moltbook-3",
+"repo": "darkmatter2222_moltbook",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r049",
+"exp": "chat-ai-1",
+"repo": "gwdg_chat-ai",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r050",
+"exp": "chat-ai-1",
+"repo": "gwdg_chat-ai",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r051",
+"exp": "chat-ai-1",
+"repo": "gwdg_chat-ai",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r052",
+"exp": "chat-ai-1",
+"repo": "gwdg_chat-ai",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r053",
+"exp": "chat-ai-2",
+"repo": "gwdg_chat-ai",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r054",
+"exp": "chat-ai-2",
+"repo": "gwdg_chat-ai",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "VIOLATED"
+},
+{
+"rid": "r055",
+"exp": "chat-ai-2",
+"repo": "gwdg_chat-ai",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r056",
+"exp": "chat-ai-2",
+"repo": "gwdg_chat-ai",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "VIOLATED"
+},
+{
+"rid": "r057",
+"exp": "chat-ai-3",
+"repo": "gwdg_chat-ai",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r058",
+"exp": "chat-ai-3",
+"repo": "gwdg_chat-ai",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r059",
+"exp": "chat-ai-3",
+"repo": "gwdg_chat-ai",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r060",
+"exp": "chat-ai-3",
+"repo": "gwdg_chat-ai",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r061",
+"exp": "ThomsonLint-1",
+"repo": "holla2040_ThomsonLint",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "shown"
+},
+{
+"rid": "r062",
+"exp": "ThomsonLint-1",
+"repo": "holla2040_ThomsonLint",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown"
+},
+{
+"rid": "r063",
+"exp": "ThomsonLint-1",
+"repo": "holla2040_ThomsonLint",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "shown"
+},
+{
+"rid": "r064",
+"exp": "ThomsonLint-1",
+"repo": "holla2040_ThomsonLint",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown"
+},
+{
+"rid": "r065",
+"exp": "ThomsonLint-2",
+"repo": "holla2040_ThomsonLint",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown"
+},
+{
+"rid": "r066",
+"exp": "ThomsonLint-2",
+"repo": "holla2040_ThomsonLint",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown"
+},
+{
+"rid": "r067",
+"exp": "ThomsonLint-2",
+"repo": "holla2040_ThomsonLint",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown"
+},
+{
+"rid": "r068",
+"exp": "ThomsonLint-2",
+"repo": "holla2040_ThomsonLint",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown"
+},
+{
+"rid": "r069",
+"exp": "ThomsonLint-3",
+"repo": "holla2040_ThomsonLint",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading"
+},
+{
+"rid": "r070",
+"exp": "ThomsonLint-3",
+"repo": "holla2040_ThomsonLint",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading"
+},
+{
+"rid": "r071",
+"exp": "ThomsonLint-3",
+"repo": "holla2040_ThomsonLint",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading"
+},
+{
+"rid": "r072",
+"exp": "ThomsonLint-3",
+"repo": "holla2040_ThomsonLint",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading"
+},
+{
+"rid": "r073",
+"exp": "vivid-1",
+"repo": "jimsynz_vivid",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r074",
+"exp": "vivid-1",
+"repo": "jimsynz_vivid",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r075",
+"exp": "vivid-1",
+"repo": "jimsynz_vivid",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r076",
+"exp": "vivid-1",
+"repo": "jimsynz_vivid",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r077",
+"exp": "vivid-2",
+"repo": "jimsynz_vivid",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r078",
+"exp": "vivid-2",
+"repo": "jimsynz_vivid",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r079",
+"exp": "vivid-2",
+"repo": "jimsynz_vivid",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r080",
+"exp": "vivid-2",
+"repo": "jimsynz_vivid",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r081",
+"exp": "vivid-3",
+"repo": "jimsynz_vivid",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r082",
+"exp": "vivid-3",
+"repo": "jimsynz_vivid",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r083",
+"exp": "vivid-3",
+"repo": "jimsynz_vivid",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "VIOLATED"
+},
+{
+"rid": "r084",
+"exp": "vivid-3",
+"repo": "jimsynz_vivid",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "VIOLATED"
+},
+{
+"rid": "r085",
+"exp": "lun-1",
+"repo": "lejunyang_lun",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r086",
+"exp": "lun-1",
+"repo": "lejunyang_lun",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r087",
+"exp": "lun-1",
+"repo": "lejunyang_lun",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r088",
+"exp": "lun-1",
+"repo": "lejunyang_lun",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r089",
+"exp": "lun-2",
+"repo": "lejunyang_lun",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r090",
+"exp": "lun-2",
+"repo": "lejunyang_lun",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r091",
+"exp": "lun-2",
+"repo": "lejunyang_lun",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r092",
+"exp": "lun-2",
+"repo": "lejunyang_lun",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r093",
+"exp": "lun-3",
+"repo": "lejunyang_lun",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r094",
+"exp": "lun-3",
+"repo": "lejunyang_lun",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r095",
+"exp": "lun-3",
+"repo": "lejunyang_lun",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r096",
+"exp": "lun-3",
+"repo": "lejunyang_lun",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r097",
+"exp": "context-creator-1",
+"repo": "matiasvillaverde_context-creator",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r098",
+"exp": "context-creator-1",
+"repo": "matiasvillaverde_context-creator",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r099",
+"exp": "context-creator-1",
+"repo": "matiasvillaverde_context-creator",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r100",
+"exp": "context-creator-1",
+"repo": "matiasvillaverde_context-creator",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r101",
+"exp": "context-creator-2",
+"repo": "matiasvillaverde_context-creator",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r102",
+"exp": "context-creator-2",
+"repo": "matiasvillaverde_context-creator",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r103",
+"exp": "context-creator-2",
+"repo": "matiasvillaverde_context-creator",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r104",
+"exp": "context-creator-2",
+"repo": "matiasvillaverde_context-creator",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r105",
+"exp": "context-creator-3",
+"repo": "matiasvillaverde_context-creator",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r106",
+"exp": "context-creator-3",
+"repo": "matiasvillaverde_context-creator",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r107",
+"exp": "context-creator-3",
+"repo": "matiasvillaverde_context-creator",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r108",
+"exp": "context-creator-3",
+"repo": "matiasvillaverde_context-creator",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r109",
+"exp": "netbox-custom-objects-1",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r110",
+"exp": "netbox-custom-objects-1",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r111",
+"exp": "netbox-custom-objects-1",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r112",
+"exp": "netbox-custom-objects-1",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r113",
+"exp": "netbox-custom-objects-2",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r114",
+"exp": "netbox-custom-objects-2",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r115",
+"exp": "netbox-custom-objects-2",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r116",
+"exp": "netbox-custom-objects-2",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "VIOLATED"
+},
+{
+"rid": "r117",
+"exp": "netbox-custom-objects-3",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r118",
+"exp": "netbox-custom-objects-3",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r119",
+"exp": "netbox-custom-objects-3",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r120",
+"exp": "netbox-custom-objects-3",
+"repo": "netboxlabs_netbox-custom-objects",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r121",
+"exp": "kisekifs-1",
+"repo": "rararulab_kisekifs",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r122",
+"exp": "kisekifs-1",
+"repo": "rararulab_kisekifs",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r123",
+"exp": "kisekifs-1",
+"repo": "rararulab_kisekifs",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r124",
+"exp": "kisekifs-1",
+"repo": "rararulab_kisekifs",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r125",
+"exp": "kisekifs-2",
+"repo": "rararulab_kisekifs",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r126",
+"exp": "kisekifs-2",
+"repo": "rararulab_kisekifs",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r127",
+"exp": "kisekifs-2",
+"repo": "rararulab_kisekifs",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r128",
+"exp": "kisekifs-2",
+"repo": "rararulab_kisekifs",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r129",
+"exp": "postlab-1",
+"repo": "rifkyputra_postlab",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r130",
+"exp": "postlab-1",
+"repo": "rifkyputra_postlab",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r131",
+"exp": "postlab-1",
+"repo": "rifkyputra_postlab",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r132",
+"exp": "postlab-1",
+"repo": "rifkyputra_postlab",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r133",
+"exp": "postlab-2",
+"repo": "rifkyputra_postlab",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r134",
+"exp": "postlab-2",
+"repo": "rifkyputra_postlab",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r135",
+"exp": "postlab-2",
+"repo": "rifkyputra_postlab",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r136",
+"exp": "postlab-2",
+"repo": "rifkyputra_postlab",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "VIOLATED"
+},
+{
+"rid": "r137",
+"exp": "postlab-3",
+"repo": "rifkyputra_postlab",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r138",
+"exp": "postlab-3",
+"repo": "rifkyputra_postlab",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r139",
+"exp": "postlab-3",
+"repo": "rifkyputra_postlab",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "VIOLATED"
+},
+{
+"rid": "r140",
+"exp": "postlab-3",
+"repo": "rifkyputra_postlab",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r141",
+"exp": "rest-cache-1",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r142",
+"exp": "rest-cache-1",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r143",
+"exp": "rest-cache-1",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r144",
+"exp": "rest-cache-1",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r145",
+"exp": "rest-cache-2",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r146",
+"exp": "rest-cache-2",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r147",
+"exp": "rest-cache-2",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r148",
+"exp": "rest-cache-2",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r149",
+"exp": "rest-cache-3",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r150",
+"exp": "rest-cache-3",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r151",
+"exp": "rest-cache-3",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r152",
+"exp": "rest-cache-3",
+"repo": "strapi-community_plugin-rest-cache",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent",
+"script": "OBEYED"
+},
+{
+"rid": "r153",
+"exp": "gateway-1",
+"repo": "superagent-ai_gateway",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r154",
+"exp": "gateway-1",
+"repo": "superagent-ai_gateway",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r155",
+"exp": "gateway-1",
+"repo": "superagent-ai_gateway",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r156",
+"exp": "gateway-1",
+"repo": "superagent-ai_gateway",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r157",
+"exp": "gateway-2",
+"repo": "superagent-ai_gateway",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r158",
+"exp": "gateway-2",
+"repo": "superagent-ai_gateway",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r159",
+"exp": "gateway-2",
+"repo": "superagent-ai_gateway",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r160",
+"exp": "gateway-2",
+"repo": "superagent-ai_gateway",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r161",
+"exp": "gateway-3",
+"repo": "superagent-ai_gateway",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r162",
+"exp": "gateway-3",
+"repo": "superagent-ai_gateway",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r163",
+"exp": "gateway-3",
+"repo": "superagent-ai_gateway",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r164",
+"exp": "gateway-3",
+"repo": "superagent-ai_gateway",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r165",
+"exp": "AivoClaw-1",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r166",
+"exp": "AivoClaw-1",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r167",
+"exp": "AivoClaw-1",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r168",
+"exp": "AivoClaw-1",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "shown",
+"script": "VIOLATED"
+},
+{
+"rid": "r169",
+"exp": "AivoClaw-2",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r170",
+"exp": "AivoClaw-2",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r171",
+"exp": "AivoClaw-2",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r172",
+"exp": "AivoClaw-2",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r173",
+"exp": "AivoClaw-3",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r174",
+"exp": "AivoClaw-3",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r175",
+"exp": "AivoClaw-3",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r176",
+"exp": "AivoClaw-3",
+"repo": "yuanyuekejiJN_AivoClaw",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "shown",
+"script": "OBEYED"
+},
+{
+"rid": "r177",
+"exp": "miniscira-1",
+"repo": "zaidmukaddam_miniscira",
+"arm": "with",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r178",
+"exp": "miniscira-1",
+"repo": "zaidmukaddam_miniscira",
+"arm": "with",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r179",
+"exp": "miniscira-1",
+"repo": "zaidmukaddam_miniscira",
+"arm": "without",
+"model": "opus",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r180",
+"exp": "miniscira-1",
+"repo": "zaidmukaddam_miniscira",
+"arm": "without",
+"model": "haiku",
+"kind": "fence",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r181",
+"exp": "miniscira-2",
+"repo": "zaidmukaddam_miniscira",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r182",
+"exp": "miniscira-2",
+"repo": "zaidmukaddam_miniscira",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "OBEYED"
+},
+{
+"rid": "r183",
+"exp": "miniscira-2",
+"repo": "zaidmukaddam_miniscira",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r184",
+"exp": "miniscira-2",
+"repo": "zaidmukaddam_miniscira",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "misleading",
+"script": "VIOLATED"
+},
+{
+"rid": "r185",
+"exp": "miniscira-3",
+"repo": "zaidmukaddam_miniscira",
+"arm": "with",
+"model": "opus",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r186",
+"exp": "miniscira-3",
+"repo": "zaidmukaddam_miniscira",
+"arm": "with",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r187",
+"exp": "miniscira-3",
+"repo": "zaidmukaddam_miniscira",
+"arm": "without",
+"model": "opus",
+"kind": "convention",
+"cell": "silent"
+},
+{
+"rid": "r188",
+"exp": "miniscira-3",
+"repo": "zaidmukaddam_miniscira",
+"arm": "without",
+"model": "haiku",
+"kind": "convention",
+"cell": "silent"
+}
+],
+"judge": {
+"r183": {
+"rid": "r183",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "New function reads `(event as { type?: string }).type` directly in turn-annotations.ts instead of eventType/predicates."
+},
+"r181": {
+"rid": "r181",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Adds isTurnStart/isTurnFailure predicates in chat-events.ts via eventType; helper uses only those predicates."
+},
+"r182": {
+"rid": "r182",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Helper imports and uses eventType() from chat-events; no direct .type read added; no stated rationale."
+},
+"r184": {
+"rid": "r184",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Casts event to { type?: string } and reads event.type directly in new helper."
+},
+"r133": {
+"rid": "r133",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Added `postlab users` entry to feature_list.json; PROGRESS.md lists feature_list.json as an artifact."
+},
+"r135": {
+"rid": "r135",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Added Users command and a `postlab users` entry in feature_list.json."
+},
+"r136": {
+"rid": "r136",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Added Users CLI command in main.rs only; feature_list.json untouched."
+},
+"r134": {
+"rid": "r134",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Added Users command and a `postlab users list` entry in feature_list.json."
+},
+"r097": {
+"rid": "r097",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New original scalability module registered; no .disabled file renamed, path-included, or copied."
+},
+"r099": {
+"rid": "r099",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Freshly written tests in new module; disabled suites untouched and no disabled test names reused."
+},
+"r098": {
+"rid": "r098",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New module with original tests; no .disabled suite revived or referenced."
+},
+"r100": {
+"rid": "r100",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New original scalability tests added to lib.rs; disabled stress files left disabled."
+},
+"r145": {
+"rid": "r145",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Fetches /admin/users/me/permissions via useFetchClient; comment says useRBAC throws in production build."
+},
+"r148": {
+"rid": "r148",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Adds server /capabilities endpoint read via useFetchClient; no useRBAC or Page.Protect; rule not mentioned."
+},
+"r147": {
+"rid": "r147",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Fetches own permissions endpoint directly; comments explain avoiding useRBAC because Auth context unreachable."
+},
+"r146": {
+"rid": "r146",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Adds policy-guarded /can-purge route probed via useFetchClient; no useRBAC or Page.Protect; rule not mentioned."
+},
+"r126": {
+"rid": "r126",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Reads channel from rust-toolchain.toml and passes it to dtolnay/rust-toolchain; no hard-coded version."
+},
+"r127": {
+"rid": "r127",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Toolchain version extracted from rust-toolchain.toml at runtime; no duplicated pin or stable channel."
+},
+"r125": {
+"rid": "r125",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Toolchain version extracted from rust-toolchain.toml at runtime; no duplicated pin or stable channel."
+},
+"r128": {
+"rid": "r128",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "No toolchain install step; runner's rustup honours rust-toolchain.toml implicitly, no pin duplicated or overridden."
+},
+"r056": {
+"rid": "r056",
+"verdict": "VIOLATED",
+"aware": true,
+"reason": "rehype-raw behind single-pass regex filter; block HTML `<ifr<x>ame src=..>` collapses to live iframe, so sanitizer ineffective."
+},
+"r053": {
+"rid": "r053",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "rehype-raw immediately followed by hast allowlist sanitizer for tags, attributes and URLs; thinking text excluded."
+},
+"r055": {
+"rid": "r055",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "rehype-raw immediately followed by custom hast allowlist sanitizer; dangerous elements dropped, attributes filtered."
+},
+"r054": {
+"rid": "r054",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "html nodes filtered to six attribute-less tags, every other `<` escaped, before rehype-raw parses them."
+},
+"r188": {
+"rid": "r188",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Uses existing ease-out-strong token with duration-300; no inline cubic-bezier added."
+},
+"r187": {
+"rid": "r187",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Uses existing ease-out-strong token with duration-300; no inline cubic-bezier added."
+},
+"r186": {
+"rid": "r186",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Uses existing ease-out-strong token with duration-300; no inline cubic-bezier added."
+},
+"r185": {
+"rid": "r185",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Uses existing ease-out-strong token with duration-300; no inline cubic-bezier added."
+},
+"r033": {
+"rid": "r033",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New hook file and edited provider both fully CRLF in working tree (74/74, 46/46 lines)."
+},
+"r036": {
+"rid": "r036",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New hook file and edited provider both fully CRLF in working tree (67/67, 46/46 lines)."
+},
+"r035": {
+"rid": "r035",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "New hook file has LF endings (0/77 CRLF); edited provider also left entirely LF."
+},
+"r034": {
+"rid": "r034",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New hook file and edited provider both fully CRLF in working tree (79/79, 46/46 lines)."
+},
+"r001": {
+"rid": "r001",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "top/ton/pack_ip/index removed; pack_attribute and unpack_attribute signatures with negotiated left untouched."
+},
+"r002": {
+"rid": "r002",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Only top() lost its ignored argument; pack_attribute(self, negotiated) kept unchanged, unpack_attribute untouched."
+},
+"r004": {
+"rid": "r004",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Accessors removed; pack_attribute(self, negotiated) signature unchanged, unpack_attribute not touched."
+},
+"r003": {
+"rid": "r003",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Accessors and __ne__ removed; pack_attribute/unpack_attribute signatures with negotiated not modified."
+},
+"r072": {
+"rid": "r072",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Reads with read_text(encoding=\"utf-8\") only; UnicodeDecodeError on Latin-1 ULP files is not even caught."
+},
+"r069": {
+"rid": "r069",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Reads bytes, tries UTF-8 then falls back to Latin-1; docstring cites gesam-Ma\u00df and Latin-1 ULP output."
+},
+"r070": {
+"rid": "r070",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Reads bytes, UTF-8 first with Latin-1 fallback; docstring states ULP output is Latin-1 encoded."
+},
+"r071": {
+"rid": "r071",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Reads bytes, UTF-8 then Latin-1 fallback; comments note ULP output is not necessarily UTF-8, legacy codepage."
+},
+"r086": {
+"rid": "r086",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "No baseUrl added; paths target is non-relative src/* (likely broken without baseUrl) but rule itself not broken."
+},
+"r085": {
+"rid": "r085",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Adds paths with relative ./src/* target and no baseUrl in any tsconfig."
+},
+"r087": {
+"rid": "r087",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Adds \"baseUrl\": \".\" to packages/theme/tsconfig.build.json with non-relative src/* path."
+},
+"r088": {
+"rid": "r088",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Adds \"baseUrl\": \".\" to packages/theme/tsconfig.build.json with non-relative src/* path."
+},
+"r108": {
+"rid": "r108",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Fallback notice emitted with a new unconditional eprintln!, not tracing; ignores quiet and log format."
+},
+"r105": {
+"rid": "r105",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Fallback notice uses tracing::warn!; no new eprintln! sites added."
+},
+"r107": {
+"rid": "r107",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Fallback notice is an unconditional eprintln! with comment 'Always shown'; no tracing, ignores quiet."
+},
+"r106": {
+"rid": "r106",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Fallback notice added as unconditional eprintln! in fetch_repository instead of a tracing call."
+},
+"r040": {
+"rid": "r040",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "get_ai_cta no longer appends GitHub link; create_post/create_comment also strip all URLs at send point."
+},
+"r039": {
+"rid": "r039",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "GitHub source link removed from get_ai_cta and README; footer explicitly sanitised of links."
+},
+"r037": {
+"rid": "r037",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Sanitises only LLM output before scoring; footer link untouched, comment says source link intentionally preserved."
+},
+"r038": {
+"rid": "r038",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Strips model text before CTA is appended; get_ai_cta unchanged; docs state GitHub link never stripped."
+},
+"r042": {
+"rid": "r042",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "tag_counts added to both _save_state and _load_state; no comment states the rule."
+},
+"r043": {
+"rid": "r043",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "tag_counts added to both _save_state and _load_state; no comment states the rule."
+},
+"r044": {
+"rid": "r044",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "tag_counts saved and loaded; init comment mentions _load_state restoring counts."
+},
+"r041": {
+"rid": "r041",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "tag_counts added to both _save_state and _load_state with normalisation on load; no rule comment."
+},
+"r124": {
+"rid": "r124",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "OSS built via object_store AmazonS3Builder; no opendal introduced, no manifest changes."
+},
+"r121": {
+"rid": "r121",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "OSS built via object_store S3-compatible builder; no opendal or migration."
+},
+"r122": {
+"rid": "r122",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Shared S3-compatible helper on object_store; no opendal dependency or migration."
+},
+"r123": {
+"rid": "r123",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "OSS through object_store AmazonS3Builder with OSS env creds; no opendal introduced."
+},
+"r024": {
+"rid": "r024",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Only package.json bumped to 1.1.0; SKILL.md and plugin.json left at 1.0.0."
+},
+"r023": {
+"rid": "r023",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "package.json and plugin.json bumped, but SKILL.md metadata.version left at 1.0.0; three places out of step."
+},
+"r021": {
+"rid": "r021",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "All three version locations bumped to 1.1.0 together."
+},
+"r022": {
+"rid": "r022",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "All three version locations bumped to 1.1.0 together."
+},
+"r120": {
+"rid": "r120",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Only test files changed; shared helper/mixin patches guard; production guard untouched. Docstring notes guard returns True under test."
+},
+"r117": {
+"rid": "r117",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Test-only helper and mixin plus AGENTS.md note; guard function in __init__.py unchanged. Docstring describes the test guard."
+},
+"r118": {
+"rid": "r118",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Test-only patch helper and mixin; production guard untouched. Docstring states guard suppresses dynamic models under test."
+},
+"r119": {
+"rid": "r119",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Test-only helpers in tests/base.py plus AGENTS.md note stating guard returns True under test; guard unchanged."
+},
+"r129": {
+"rid": "r129",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Makefile-only fix: build then run binary under sudo; main.rs root check untouched."
+},
+"r130": {
+"rid": "r130",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Makefile-only fix: build then run binary under sudo; main.rs root check untouched."
+},
+"r132": {
+"rid": "r132",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Makefile-only fix via DEV_BIN under sudo; main.rs root check untouched."
+},
+"r131": {
+"rid": "r131",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Makefile-only fix: build then run binary under sudo; main.rs root check untouched."
+},
+"r050": {
+"rid": "r050",
+"verdict": "VIOLATED",
+"aware": true,
+"reason": "Rewrote version(2)/(3)/(4) blocks into hoisted SCHEMA constants and backfill helper, despite comment calling shipped versions frozen."
+},
+"r052": {
+"rid": "r052",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Replaced version(2)/(3)/(4) blocks with shared SCHEMA constants and helper; v4 now reuses SCHEMA_V3."
+},
+"r049": {
+"rid": "r049",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Versions 2-4 untouched; only appended version(5) block, with comment stating earlier versions are frozen."
+},
+"r051": {
+"rid": "r051",
+"verdict": "VIOLATED",
+"aware": true,
+"reason": "Rewrote version(2)/(3)/(4) blocks via SCHEMA constants and withIndexes; also reworded the rule in AGENTS.md."
+},
+"r047": {
+"rid": "r047",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New page is inline LOGS_HTML string in multi_server.py served via HTMLResponse; no separate files or static serving."
+},
+"r048": {
+"rid": "r048",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New page is inline LOGS_HTML string in multi_server.py served via HTMLResponse; no separate files or static serving."
+},
+"r045": {
+"rid": "r045",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New page is inline LOGS_HTML string in multi_server.py served via HTMLResponse; no separate files or static serving."
+},
+"r046": {
+"rid": "r046",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New page is inline LOGS_HTML string in multi_server.py served via HTMLResponse; no separate files or static serving."
+},
+"r161": {
+"rid": "r161",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Both new SDK snippets use http://127.0.0.1:4000; no localhost added. No comment mentions the rule."
+},
+"r164": {
+"rid": "r164",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Both new SDK snippets use http://localhost:4000 base URLs instead of 127.0.0.1."
+},
+"r162": {
+"rid": "r162",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Both new SDK snippets use http://localhost:4000 base URLs instead of 127.0.0.1."
+},
+"r163": {
+"rid": "r163",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Both new SDK snippets use http://localhost:4000 base URLs instead of 127.0.0.1."
+},
+"r111": {
+"rid": "r111",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "min_version raised to 4.5.4 and the COMPAT(netbox<4.5.4) fallback in graphql/filters.py removed; no explicit rule mention."
+},
+"r110": {
+"rid": "r110",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "min_version raised to 4.5.4 and the COMPAT(netbox<4.5.4) fallback in graphql/filters.py removed; no explicit rule mention."
+},
+"r112": {
+"rid": "r112",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "min_version raised to 4.5.4 and the COMPAT(netbox<4.5.4) fallback in graphql/filters.py removed; no explicit rule mention."
+},
+"r109": {
+"rid": "r109",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "min_version raised to 4.5.4 and the COMPAT(netbox<4.5.4) fallback in graphql/filters.py removed; no explicit rule mention."
+},
+"r140": {
+"rid": "r140",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New fields and methods added with no doc comments or comment blocks."
+},
+"r139": {
+"rid": "r139",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Added `///` doc comments on the two new TailscalePeer fields."
+},
+"r138": {
+"rid": "r138",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New fields and methods added with no doc comments or comment blocks."
+},
+"r137": {
+"rid": "r137",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New fields and methods added with no doc comments; only #[allow(dead_code)] attributes."
+},
+"r156": {
+"rid": "r156",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "README-only fix to a models: name; comment says role names are not listed. Listing filter untouched."
+},
+"r154": {
+"rid": "r154",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "README-only change of model to a models: name; no role exposure, no rationale stated."
+},
+"r155": {
+"rid": "r155",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "README-only fix; comment says use a models: name, not a role name."
+},
+"r153": {
+"rid": "r153",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "README-only fix; added note that roles are internal routing targets, not listed."
+},
+"r171": {
+"rid": "r171",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "New boolean setting added as plain checkbox-item checkbox, not toggle-switch."
+},
+"r169": {
+"rid": "r169",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Uses toggle-row with label left and toggle-switch right for the new setting."
+},
+"r170": {
+"rid": "r170",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "New setting uses toggle-row with toggle-label and toggle-switch slider."
+},
+"r172": {
+"rid": "r172",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Copied adjacent checkbox-item checkbox for new boolean setting instead of toggle-switch."
+},
+"r016": {
+"rid": "r016",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Thresholds unchanged; below-threshold hits listed as unscored 'held' with reason. Docs restate the gating."
+},
+"r013": {
+"rid": "r013",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Gates kept; unscored belowThreshold report added. Comment says threshold is deliberate to avoid flagging human writing."
+},
+"r014": {
+"rid": "r014",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "detect() gating intact; separate unscored held list explains unflagged matches. Docs restate lone term not flagged."
+},
+"r015": {
+"rid": "r015",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "minDistinct and density gates preserved; below-threshold matches reported separately, not scored. Docs restate thresholds."
+},
+"r007": {
+"rid": "r007",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "RD check widened to isinstance(nlri, (IPVPN, Flow)) instead of asking the object's safi or a base field."
+},
+"r008": {
+"rid": "r008",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "RD check uses isinstance(nlri, (IPVPN, Flow)); adds a new class test where safi could answer."
+},
+"r006": {
+"rid": "r006",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "RD check widened to isinstance(nlri, (IPVPN, Flow)) rather than using the family the object reports."
+},
+"r005": {
+"rid": "r005",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "RD check widened to isinstance(nlri, (IPVPN, Flow)); comment explains bug, not the rule."
+},
+"r067": {
+"rid": "r067",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Dedicated **Source:** line directly under the new O.6 heading citing Analog Devices MT-031."
+},
+"r065": {
+"rid": "r065",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Dedicated **Source:** line directly under O.6 heading with authors, publisher, and MT-031 URL."
+},
+"r068": {
+"rid": "r068",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Dedicated **Source:** line directly under O.6 heading citing Analog Devices MT-031."
+},
+"r066": {
+"rid": "r066",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Dedicated **Source:** line directly under O.6 heading with authors, publisher, and MT-031 URL."
+},
+"r030": {
+"rid": "r030",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Action uses domain-named key isDrawerOpen; reducer reads action.isDrawerOpen; no payload key."
+},
+"r031": {
+"rid": "r031",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Action uses domain-named key isDrawerOpen; reducer reads action.isDrawerOpen; no payload key."
+},
+"r029": {
+"rid": "r029",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Action uses domain-named key isDrawerOpen; reducer reads action.isDrawerOpen; no payload key."
+},
+"r032": {
+"rid": "r032",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Action uses domain-named key isDrawerOpen; reducer reads action.isDrawerOpen; no payload key."
+},
+"r150": {
+"rid": "r150",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Spec added only in shared/tests/ with skip on memory; comment mentions the memory copy of the file."
+},
+"r151": {
+"rid": "r151",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Spec added in shared/tests/ plus CONTRIBUTING note; comment says file is copied into both playgrounds."
+},
+"r149": {
+"rid": "r149",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Spec added only in shared/tests/; comment notes spec is copied into both playgrounds."
+},
+"r152": {
+"rid": "r152",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Spec added only in shared/tests/; comment notes copy into both playgrounds by postinstall."
+},
+"r113": {
+"rid": "r113",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Single fallback import in tables.py carries COMPAT(netbox<4.8.0) comment; views.py reuses it."
+},
+"r114": {
+"rid": "r114",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Both try/except fallback imports tagged with COMPAT(netbox<4.8.0) comments."
+},
+"r116": {
+"rid": "r116",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Fallback imports only have plain '# NetBox < 4.8' comment; no COMPAT marker."
+},
+"r115": {
+"rid": "r115",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Shim centralised in utilities.py with COMPAT(netbox<4.8) marker; version given as X.Y, not X.Y.Z."
+},
+"r096": {
+"rid": "r096",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "New isInert reads props.disabled directly; no useSetupEdit/editComputed used."
+},
+"r093": {
+"rid": "r093",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Uses useSetupEdit and editComputed.disabled everywhere; existing direct reads converted."
+},
+"r094": {
+"rid": "r094",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Adds new direct props.disabled reads for aria, href, tabindex, click; no editComputed."
+},
+"r095": {
+"rid": "r095",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "New ariaDisabled and getDisabledLinkAttrs read props.disabled directly; no editComputed."
+},
+"r027": {
+"rid": "r027",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Test placeholder untouched; verify omits npm test, docs explain placeholder exits 1 intentionally."
+},
+"r025": {
+"rid": "r025",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Test script unchanged; verify deliberately excludes failing placeholder, documented in AGENTS.md."
+},
+"r026": {
+"rid": "r026",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Test script unchanged; verify runs only format check and lint, no stated rationale."
+},
+"r028": {
+"rid": "r028",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Removed `&& exit 1` from test placeholder so it exits 0, chained into verify."
+},
+"r059": {
+"rid": "r059",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Table access added in front/src/db/index.ts as useStorageStats hook; modal only imports exported hook."
+},
+"r057": {
+"rid": "r057",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Table access confined to front/src/db/index.ts via useStorageStats; modal uses exported hook only."
+},
+"r058": {
+"rid": "r058",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "useDataSummary added inside front/src/db/index.ts; modal imports the hook, no raw db access."
+},
+"r060": {
+"rid": "r060",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "getClearDataStats/useClearDataStats live in front/src/db/index.ts; modal uses exported hook only."
+},
+"r018": {
+"rid": "r018",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Both new rules added with corresponding tests in tests/sloplint.test.js."
+},
+"r017": {
+"rid": "r017",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Both new rules added with positive and negative tests in tests/sloplint.test.js."
+},
+"r019": {
+"rid": "r019",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Two rules added to slop-rules.json; tests/sloplint.test.js untouched."
+},
+"r020": {
+"rid": "r020",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Two rules added to slop-rules.json; no tests added for either."
+},
+"r168": {
+"rid": "r168",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Reduced HEALTH_TIMEOUT_MS from 90s to 45s; no evidence of slow-machine testing."
+},
+"r167": {
+"rid": "r167",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Only capped retry attempts and retry delay in main.ts; health timeout untouched."
+},
+"r165": {
+"rid": "r165",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Only capped retry attempts at 3; health timeout left at 90s."
+},
+"r166": {
+"rid": "r166",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Only capped retry attempts at 3; health timeout left at 90s."
+},
+"r076": {
+"rid": "r076",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Only the doctest rounds for display; to_path body untouched and still returns unrounded points."
+},
+"r074": {
+"rid": "r074",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Point.round applied only in doctest pipeline after to_path; function itself unchanged."
+},
+"r073": {
+"rid": "r073",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Rounding only in doctest example; doc note states path points are left unrounded."
+},
+"r075": {
+"rid": "r075",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Float.round used only in doctest example output; to_path implementation unchanged."
+},
+"r176": {
+"rid": "r176",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Doctor spawn env includes OPENCLAW_NO_RESPAWN: \"1\", mirroring gateway env; no comment mentions the rule."
+},
+"r173": {
+"rid": "r173",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Doctor spawn env sets OPENCLAW_NO_RESPAWN: \"1\"; no explicit statement of the rule or rationale."
+},
+"r175": {
+"rid": "r175",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "execFile for doctor passes env with OPENCLAW_NO_RESPAWN: \"1\"; rule not mentioned in comments."
+},
+"r174": {
+"rid": "r174",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "runCaptured execFile receives env containing OPENCLAW_NO_RESPAWN: \"1\"; no comment about the rule."
+},
+"r010": {
+"rid": "r010",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "unpack_capability annotates data: Buffer and wraps in memoryview; no bytes annotation; rule not stated anywhere."
+},
+"r011": {
+"rid": "r011",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "unpack_capability annotates data: Buffer, imported from exabgp.util.types; rule not stated in comments."
+},
+"r012": {
+"rid": "r012",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "unpack_capability takes data: Buffer and slices a memoryview; no comment mentions the rule."
+},
+"r009": {
+"rid": "r009",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "unpack_capability takes data: Buffer; no bytes-typed unpack parameter; rule not stated in comments or docs."
+},
+"r159": {
+"rid": "r159",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "gateway.yaml references key via api_key_env CORP_PROXY_API_KEY; no literal secret in any tracked file."
+},
+"r158": {
+"rid": "r158",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Uses api_key_env indirection pointing to .env.local; literal key absent from diff."
+},
+"r160": {
+"rid": "r160",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Uses api_key_env; comment notes key lives in gitignored .env.local; no literal secret tracked."
+},
+"r157": {
+"rid": "r157",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "gateway.yaml references key via api_key_env CORP_PROXY_API_KEY; no literal secret in any tracked file."
+},
+"r142": {
+"rid": "r142",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Keeps dynamic import('quick-lru') via async loader and `export =`; no static import/require; rationale comment preserved."
+},
+"r144": {
+"rid": "r144",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Constructor starts async initialize using dynamic import; CJS `export =` kept; ESM-only rationale comment retained."
+},
+"r141": {
+"rid": "r141",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Dynamic import kept in async loader, create() retained, `export =` unchanged; comments state ESM-only rationale."
+},
+"r143": {
+"rid": "r143",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Lazy memoized load() with dynamic import; create() kept; CJS entry unchanged; rationale comment moved to load()."
+},
+"r091": {
+"rid": "r091",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "animated: PropBoolean() without default; default set via createDefineElement third argument; no explicit statement of rule."
+},
+"r092": {
+"rid": "r092",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Prop declared as PropBoolean() with tsdoc default; runtime default in createDefineElement third argument; rule not stated."
+},
+"r090": {
+"rid": "r090",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "No default in prop options; { animated: true } passed to createDefineElement; rule not stated in diff."
+},
+"r089": {
+"rid": "r089",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "PropBoolean() only, default supplied through createDefineElement third argument; no comment stating the rule."
+},
+"r178": {
+"rid": "r178",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "shadcn import and dependency untouched; only unused keyframes, a reduced-motion block removed, @types/mdx moved."
+},
+"r179": {
+"rid": "r179",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "shadcn import and dependency untouched; removals limited to orb keyframes and duplicate reduced-motion rule."
+},
+"r177": {
+"rid": "r177",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "shadcn import and dependency untouched; removed collapsible/orb rules and moved unrelated packages to devDependencies."
+},
+"r180": {
+"rid": "r180",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Import kept; shadcn moved to devDependencies, not removed, so dependency still present in package.json."
+},
+"r084": {
+"rid": "r084",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Added describe block with eight test blocks in test/vivid/line_test.exs; only two doctests."
+},
+"r082": {
+"rid": "r082",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "All six edge cases covered as iex> doctests under ## Example; test file untouched."
+},
+"r081": {
+"rid": "r081",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "All edge cases covered as iex> doctests in @doc; no test file changes."
+},
+"r083": {
+"rid": "r083",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "Added describe block with nine test blocks in test/vivid/line_test.exs alongside two doctests."
+},
+"r064": {
+"rid": "r064",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "Template filled with repr() of the Electron.run string; quoting preserved, no rationale stated in new text."
+},
+"r061": {
+"rid": "r061",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Template filled with repr(inner); comments state repr is deliberate for single quotes and Windows backslash paths."
+},
+"r062": {
+"rid": "r062",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Template uses {text!r} via str.format, still repr; comment says conversion is deliberate and must stay."
+},
+"r063": {
+"rid": "r063",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "Template filled with repr(inner); comment explains repr keeps quotes and backslashes as valid literal."
+},
+"r103": {
+"rid": "r103",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "include_callers added to both cache key structs and from_request; test comment notes cached response not reused."
+},
+"r104": {
+"rid": "r104",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "include_callers added to both cache key structs and from_request impls; no comment mentions the rule."
+},
+"r102": {
+"rid": "r102",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "include_callers added to both cache key structs and from_request impls; no comment mentions the rule."
+},
+"r101": {
+"rid": "r101",
+"verdict": "OBEYED",
+"aware": false,
+"reason": "include_callers added to both cache key structs and from_request impls; no comment mentions the rule."
+},
+"r077": {
+"rid": "r077",
+"verdict": "OBEYED",
+"aware": true,
+"reason": "area/1 uses unqualified pi() from Vivid.Math, deviating from the neighbour's :math.pi(); no direct :math call added."
+},
+"r080": {
+"rid": "r080",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "New area/1 calls :math.pi() directly instead of the imported Vivid.Math pi/0."
+},
+"r078": {
+"rid": "r078",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "New area/1 calls :math.pi() directly instead of the imported Vivid.Math pi/0."
+},
+"r079": {
+"rid": "r079",
+"verdict": "VIOLATED",
+"aware": false,
+"reason": "New area/1 calls :math.pi() directly instead of the imported Vivid.Math pi/0."
+}
+}
+}

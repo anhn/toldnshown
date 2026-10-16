@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s1623",
+  "repo": "danieltamas/cloak",
+  "file": "AGENTS.md",
+  "text": "Default answer is **no**. Extension ships zero runtime deps. If unavoidable, justify in the PR and pin the version.",
+  "heading": "Cloak \u2014 Protect .env secrets from AI coding agents > SOPs > When you add a VS Code extension dependency"
+ },
+ {
+  "id": "s2101",
+  "repo": "danieltamas/cloak",
+  "file": "AGENTS.md",
+  "text": "- **Extension has zero runtime dependencies.** Use Node built-ins (`crypto`, `fs`, `path`) and the VS Code API only. Do not add npm packages without a very strong reason.",
+  "heading": "Cloak \u2014 Protect .env secrets from AI coding agents > Critical Rules"
+ },
+ {
+  "id": "s1312",
+  "repo": "ricardodantas/feedo",
+  "file": "AGENTS.md",
+  "text": "- **Prefer pure Rust** \u2014 No C bindings if avoidable",
+  "heading": "AGENTS.md \u2014 Feedo Development Guide > Dependencies Policy"
+ },
+ {
+  "id": "s2091",
+  "repo": "withLinda/claude-JSONL-browser",
+  "file": "AGENTS.md",
+  "text": "- **State Management**: React useState hooks (no external state library)",
+  "heading": "AGENTS.md > Architecture > Tech Stack"
+ }
+]

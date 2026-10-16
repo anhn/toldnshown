@@ -1,0 +1,6 @@
+[
+{"rid":"r064","verdict":"OBEYED","aware":false,"reason":"Template filled with repr() of the Electron.run string; quoting preserved, no rationale stated in new text."},
+{"rid":"r061","verdict":"OBEYED","aware":true,"reason":"Template filled with repr(inner); comments state repr is deliberate for single quotes and Windows backslash paths."},
+{"rid":"r062","verdict":"OBEYED","aware":true,"reason":"Template uses {text!r} via str.format, still repr; comment says conversion is deliberate and must stay."},
+{"rid":"r063","verdict":"OBEYED","aware":true,"reason":"Template filled with repr(inner); comment explains repr keeps quotes and backslashes as valid literal."}
+]

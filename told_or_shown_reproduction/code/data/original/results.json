@@ -1,0 +1,3146 @@
+[
+{
+"set": "challenge",
+"rule": "exabgp-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r001"
+},
+{
+"set": "challenge",
+"rule": "exabgp-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r002"
+},
+{
+"set": "challenge",
+"rule": "exabgp-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r003"
+},
+{
+"set": "challenge",
+"rule": "exabgp-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r004"
+},
+{
+"set": "challenge",
+"rule": "exabgp-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r005"
+},
+{
+"set": "challenge",
+"rule": "exabgp-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r006"
+},
+{
+"set": "challenge",
+"rule": "exabgp-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r007"
+},
+{
+"set": "challenge",
+"rule": "exabgp-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r008"
+},
+{
+"set": "challenge",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r009"
+},
+{
+"set": "challenge",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r010"
+},
+{
+"set": "challenge",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r011"
+},
+{
+"set": "challenge",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r012"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r013"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r014"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r015"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r016"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r017"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r018"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": null,
+"rid": "r019"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": null,
+"rid": "r020"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r021"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r022"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": null,
+"rid": "r023"
+},
+{
+"set": "challenge",
+"rule": "soundshuman-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": null,
+"rid": "r024"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r025"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r026"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r027"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r028"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r029"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r030"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r031"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r032"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r033"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r034"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r035"
+},
+{
+"set": "challenge",
+"rule": "resume-builder-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r036"
+},
+{
+"set": "challenge",
+"rule": "moltbook-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r037"
+},
+{
+"set": "challenge",
+"rule": "moltbook-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r038"
+},
+{
+"set": "challenge",
+"rule": "moltbook-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r039"
+},
+{
+"set": "challenge",
+"rule": "moltbook-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r040"
+},
+{
+"set": "challenge",
+"rule": "moltbook-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r041"
+},
+{
+"set": "challenge",
+"rule": "moltbook-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r042"
+},
+{
+"set": "challenge",
+"rule": "moltbook-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r043"
+},
+{
+"set": "challenge",
+"rule": "moltbook-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r044"
+},
+{
+"set": "challenge",
+"rule": "moltbook-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r045"
+},
+{
+"set": "challenge",
+"rule": "moltbook-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r046"
+},
+{
+"set": "challenge",
+"rule": "moltbook-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r047"
+},
+{
+"set": "challenge",
+"rule": "moltbook-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r048"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r049"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r050"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r051"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r052"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r053"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "VIOLATED",
+"rid": "r054"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r055"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r056"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r057"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r058"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r059"
+},
+{
+"set": "challenge",
+"rule": "chat-ai-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r060"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r061"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r062"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r063"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r064"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r065"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r066"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r067"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r068"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r069"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r070"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r071"
+},
+{
+"set": "challenge",
+"rule": "ThomsonLint-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": null,
+"rid": "r072"
+},
+{
+"set": "challenge",
+"rule": "vivid-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r073"
+},
+{
+"set": "challenge",
+"rule": "vivid-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r074"
+},
+{
+"set": "challenge",
+"rule": "vivid-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r075"
+},
+{
+"set": "challenge",
+"rule": "vivid-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r076"
+},
+{
+"set": "challenge",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r077"
+},
+{
+"set": "challenge",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r078"
+},
+{
+"set": "challenge",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r079"
+},
+{
+"set": "challenge",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r080"
+},
+{
+"set": "challenge",
+"rule": "vivid-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r081"
+},
+{
+"set": "challenge",
+"rule": "vivid-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r082"
+},
+{
+"set": "challenge",
+"rule": "vivid-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r083"
+},
+{
+"set": "challenge",
+"rule": "vivid-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r084"
+},
+{
+"set": "challenge",
+"rule": "lun-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r085"
+},
+{
+"set": "challenge",
+"rule": "lun-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r086"
+},
+{
+"set": "challenge",
+"rule": "lun-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r087"
+},
+{
+"set": "challenge",
+"rule": "lun-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r088"
+},
+{
+"set": "challenge",
+"rule": "lun-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r089"
+},
+{
+"set": "challenge",
+"rule": "lun-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r090"
+},
+{
+"set": "challenge",
+"rule": "lun-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r091"
+},
+{
+"set": "challenge",
+"rule": "lun-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r092"
+},
+{
+"set": "challenge",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r093"
+},
+{
+"set": "challenge",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r094"
+},
+{
+"set": "challenge",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r095"
+},
+{
+"set": "challenge",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r096"
+},
+{
+"set": "challenge",
+"rule": "context-creator-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r097"
+},
+{
+"set": "challenge",
+"rule": "context-creator-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r098"
+},
+{
+"set": "challenge",
+"rule": "context-creator-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r099"
+},
+{
+"set": "challenge",
+"rule": "context-creator-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r100"
+},
+{
+"set": "challenge",
+"rule": "context-creator-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r101"
+},
+{
+"set": "challenge",
+"rule": "context-creator-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r102"
+},
+{
+"set": "challenge",
+"rule": "context-creator-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r103"
+},
+{
+"set": "challenge",
+"rule": "context-creator-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r104"
+},
+{
+"set": "challenge",
+"rule": "context-creator-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r105"
+},
+{
+"set": "challenge",
+"rule": "context-creator-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r106"
+},
+{
+"set": "challenge",
+"rule": "context-creator-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r107"
+},
+{
+"set": "challenge",
+"rule": "context-creator-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r108"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r109"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r110"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r111"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r112"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r113"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r114"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r115"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r116"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r117"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r118"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r119"
+},
+{
+"set": "challenge",
+"rule": "netbox-custom-objects-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r120"
+},
+{
+"set": "challenge",
+"rule": "kisekifs-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r121"
+},
+{
+"set": "challenge",
+"rule": "kisekifs-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r122"
+},
+{
+"set": "challenge",
+"rule": "kisekifs-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r123"
+},
+{
+"set": "challenge",
+"rule": "kisekifs-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r124"
+},
+{
+"set": "challenge",
+"rule": "kisekifs-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r125"
+},
+{
+"set": "challenge",
+"rule": "kisekifs-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r126"
+},
+{
+"set": "challenge",
+"rule": "kisekifs-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r127"
+},
+{
+"set": "challenge",
+"rule": "kisekifs-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r128"
+},
+{
+"set": "challenge",
+"rule": "postlab-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r129"
+},
+{
+"set": "challenge",
+"rule": "postlab-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r130"
+},
+{
+"set": "challenge",
+"rule": "postlab-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r131"
+},
+{
+"set": "challenge",
+"rule": "postlab-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r132"
+},
+{
+"set": "challenge",
+"rule": "postlab-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r133"
+},
+{
+"set": "challenge",
+"rule": "postlab-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r134"
+},
+{
+"set": "challenge",
+"rule": "postlab-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r135"
+},
+{
+"set": "challenge",
+"rule": "postlab-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r136"
+},
+{
+"set": "challenge",
+"rule": "postlab-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r137"
+},
+{
+"set": "challenge",
+"rule": "postlab-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r138"
+},
+{
+"set": "challenge",
+"rule": "postlab-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r139"
+},
+{
+"set": "challenge",
+"rule": "postlab-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r140"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r141"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r142"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r143"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r144"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r145"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r146"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r147"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r148"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r149"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r150"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r151"
+},
+{
+"set": "challenge",
+"rule": "rest-cache-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r152"
+},
+{
+"set": "challenge",
+"rule": "gateway-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r153"
+},
+{
+"set": "challenge",
+"rule": "gateway-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r154"
+},
+{
+"set": "challenge",
+"rule": "gateway-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r155"
+},
+{
+"set": "challenge",
+"rule": "gateway-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r156"
+},
+{
+"set": "challenge",
+"rule": "gateway-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r157"
+},
+{
+"set": "challenge",
+"rule": "gateway-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r158"
+},
+{
+"set": "challenge",
+"rule": "gateway-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r159"
+},
+{
+"set": "challenge",
+"rule": "gateway-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r160"
+},
+{
+"set": "challenge",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r161"
+},
+{
+"set": "challenge",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r162"
+},
+{
+"set": "challenge",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r163"
+},
+{
+"set": "challenge",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r164"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r165"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r166"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r167"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r168"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r169"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r170"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r171"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r172"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r173"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r174"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r175"
+},
+{
+"set": "challenge",
+"rule": "AivoClaw-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r176"
+},
+{
+"set": "challenge",
+"rule": "miniscira-1",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r177"
+},
+{
+"set": "challenge",
+"rule": "miniscira-1",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r178"
+},
+{
+"set": "challenge",
+"rule": "miniscira-1",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r179"
+},
+{
+"set": "challenge",
+"rule": "miniscira-1",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r180"
+},
+{
+"set": "challenge",
+"rule": "miniscira-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r181"
+},
+{
+"set": "challenge",
+"rule": "miniscira-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "r182"
+},
+{
+"set": "challenge",
+"rule": "miniscira-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r183"
+},
+{
+"set": "challenge",
+"rule": "miniscira-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "r184"
+},
+{
+"set": "challenge",
+"rule": "miniscira-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r185"
+},
+{
+"set": "challenge",
+"rule": "miniscira-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r186"
+},
+{
+"set": "challenge",
+"rule": "miniscira-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r187"
+},
+{
+"set": "challenge",
+"rule": "miniscira-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": null,
+"rid": "r188"
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a001",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a002",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a003",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a004",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a005",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a006",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a007",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a008",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a009",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a010",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a011",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a012",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a013",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a014",
+"code": "silent",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a015",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a016",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a017",
+"code": "silent",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "vivid-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a018",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a019",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "VIOLATED",
+"rid": "a020",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "VIOLATED",
+"rid": "a021",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a022",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a023",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a024",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a025",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "VIOLATED",
+"rid": "a026",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a027",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a028",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a029",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a030",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a031",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a032",
+"code": "silent",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "VIOLATED",
+"rid": "a033",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a034",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a035",
+"code": "silent",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "gateway-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a036",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "VIOLATED",
+"rid": "a037",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a038",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a039",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a040",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "VIOLATED",
+"rid": "a041",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a042",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "VIOLATED",
+"rid": "a043",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a044",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a045",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a046",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a047",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a048",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "OBEYED",
+"rid": "a049",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a050",
+"code": "silent",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "OBEYED",
+"rid": "a051",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "OBEYED",
+"rid": "a052",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a053",
+"code": "silent",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "exabgp-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "OBEYED",
+"rid": "a054",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "OBEYED",
+"rid": "a055",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a056",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a057",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a058",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a059",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a060",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a061",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a062",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a063",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a064",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a065",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a066",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a067",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "OBEYED",
+"rid": "a068",
+"code": "silent",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a069",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a070",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a071",
+"code": "silent",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "lun-3",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a072",
+"code": "silent",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a073",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a074",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a075",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a076",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a077",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a078",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a079",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a080",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a081",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a082",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a083",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "miniscira-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a084",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a085",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a086",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a087",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a088",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a089",
+"code": "shown",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a090",
+"code": "shown",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a091",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a092",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "a093",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a094",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a095",
+"code": "misleading",
+"rep": 1
+},
+{
+"set": "code_variant",
+"rule": "resume-builder-2",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "a096",
+"code": "misleading",
+"rep": 0
+},
+{
+"set": "random",
+"rule": "A3-danieltamas_cloak",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b001"
+},
+{
+"set": "random",
+"rule": "A3-danieltamas_cloak",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b002"
+},
+{
+"set": "random",
+"rule": "A3-danieltamas_cloak",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b003"
+},
+{
+"set": "random",
+"rule": "A3-danieltamas_cloak",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b004"
+},
+{
+"set": "random",
+"rule": "A4-Kronuz_kronuz-theme-sublime",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b005"
+},
+{
+"set": "random",
+"rule": "A4-Kronuz_kronuz-theme-sublime",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b006"
+},
+{
+"set": "random",
+"rule": "A4-Kronuz_kronuz-theme-sublime",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "b007"
+},
+{
+"set": "random",
+"rule": "A4-Kronuz_kronuz-theme-sublime",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b008"
+},
+{
+"set": "random",
+"rule": "B1-Tokinx_cf-server-monitor-theme-emerald",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b009"
+},
+{
+"set": "random",
+"rule": "B1-Tokinx_cf-server-monitor-theme-emerald",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b010"
+},
+{
+"set": "random",
+"rule": "B1-Tokinx_cf-server-monitor-theme-emerald",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b011"
+},
+{
+"set": "random",
+"rule": "B1-Tokinx_cf-server-monitor-theme-emerald",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b012"
+},
+{
+"set": "random",
+"rule": "B2-tony-stark-eth_news-aggregator",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b013"
+},
+{
+"set": "random",
+"rule": "B2-tony-stark-eth_news-aggregator",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b014"
+},
+{
+"set": "random",
+"rule": "B2-tony-stark-eth_news-aggregator",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b015"
+},
+{
+"set": "random",
+"rule": "B2-tony-stark-eth_news-aggregator",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "OBEYED",
+"rid": "b016"
+},
+{
+"set": "random",
+"rule": "B3-mosh-hamedani_helpdesk",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b017"
+},
+{
+"set": "random",
+"rule": "B3-mosh-hamedani_helpdesk",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b018"
+},
+{
+"set": "random",
+"rule": "B3-mosh-hamedani_helpdesk",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b019"
+},
+{
+"set": "random",
+"rule": "B3-mosh-hamedani_helpdesk",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b020"
+},
+{
+"set": "random",
+"rule": "B5-loocor_codmate",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b021"
+},
+{
+"set": "random",
+"rule": "B5-loocor_codmate",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b022"
+},
+{
+"set": "random",
+"rule": "B5-loocor_codmate",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b023"
+},
+{
+"set": "random",
+"rule": "B5-loocor_codmate",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b024"
+},
+{
+"set": "random",
+"rule": "C3-CHANG-JUI-LIN_Yuedu-reader",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b025"
+},
+{
+"set": "random",
+"rule": "C3-CHANG-JUI-LIN_Yuedu-reader",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "VIOLATED",
+"rid": "b026"
+},
+{
+"set": "random",
+"rule": "C3-CHANG-JUI-LIN_Yuedu-reader",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b027"
+},
+{
+"set": "random",
+"rule": "C3-CHANG-JUI-LIN_Yuedu-reader",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "VIOLATED",
+"rid": "b028"
+},
+{
+"set": "random",
+"rule": "D2-Xceptance_neodymium",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "b029"
+},
+{
+"set": "random",
+"rule": "D2-Xceptance_neodymium",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b030"
+},
+{
+"set": "random",
+"rule": "D2-Xceptance_neodymium",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "b031"
+},
+{
+"set": "random",
+"rule": "D2-Xceptance_neodymium",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "b032"
+},
+{
+"set": "random",
+"rule": "D3-craigjbass_clearancekit",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b033"
+},
+{
+"set": "random",
+"rule": "D3-craigjbass_clearancekit",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b034"
+},
+{
+"set": "random",
+"rule": "D3-craigjbass_clearancekit",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "OBEYED",
+"rid": "b035"
+},
+{
+"set": "random",
+"rule": "D3-craigjbass_clearancekit",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "VIOLATED",
+"script": "OBEYED",
+"rid": "b036"
+},
+{
+"set": "random",
+"rule": "D4-storybookjs_vite-plugin-storybook-nextjs",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "b037"
+},
+{
+"set": "random",
+"rule": "D4-storybookjs_vite-plugin-storybook-nextjs",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b038"
+},
+{
+"set": "random",
+"rule": "D4-storybookjs_vite-plugin-storybook-nextjs",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "VIOLATED",
+"script": "VIOLATED",
+"rid": "b039"
+},
+{
+"set": "random",
+"rule": "D4-storybookjs_vite-plugin-storybook-nextjs",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b040"
+},
+{
+"set": "random",
+"rule": "E1-derrickburns_generalized-kmeans-clustering",
+"arm": "present",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b041"
+},
+{
+"set": "random",
+"rule": "E1-derrickburns_generalized-kmeans-clustering",
+"arm": "present",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b042"
+},
+{
+"set": "random",
+"rule": "E1-derrickburns_generalized-kmeans-clustering",
+"arm": "removed",
+"model": "claude-haiku-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b043"
+},
+{
+"set": "random",
+"rule": "E1-derrickburns_generalized-kmeans-clustering",
+"arm": "removed",
+"model": "claude-opus-5-5",
+"verdict": "OBEYED",
+"script": "OBEYED",
+"rid": "b044"
+}
+]

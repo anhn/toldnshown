@@ -1,0 +1,179 @@
+diff --git a/extension/src/commands.ts b/extension/src/commands.ts
+index 6456c13..ec3b686 100644
+--- a/extension/src/commands.ts
++++ b/extension/src/commands.ts
+@@ -81,8 +81,14 @@ async function cmdInit(helpers: CommandHelpers, presetRoot?: string): Promise<vo
+         projectRoot = picked.uri.fsPath;
+     }
+ 
+-    // 2. Recursively scan for .env files containing secrets.
+-    const found = await filemanager.findEnvFilesWithSecrets(projectRoot);
++    // 2. Recursively scan for .env files containing secrets, skipping folders the
++    //    workspace excludes via files.exclude (resolved per folder, so folder-level
++    //    settings apply).
++    const filesExclude = vscode.workspace
++        .getConfiguration('files', vscode.Uri.file(projectRoot))
++        .get<Record<string, boolean>>('exclude') ?? {};
++    const excludePatterns = Object.keys(filesExclude).filter(glob => filesExclude[glob] === true);
++    const found = await filemanager.findEnvFilesWithSecrets(projectRoot, excludePatterns);
+     if (found.length === 0) {
+         void vscode.window.showInformationMessage('Cloak: No unprotected secrets found in this project.');
+         return;
+diff --git a/extension/src/filemanager.ts b/extension/src/filemanager.ts
+index 243c13b..5584ff0 100644
+--- a/extension/src/filemanager.ts
++++ b/extension/src/filemanager.ts
+@@ -101,18 +101,73 @@ const IGNORE_DIRS = new Set(['node_modules', 'dist', 'build', 'target', 'vendor'
+ /** Maximum directory depth to descend (0 = project root only). */
+ const MAX_SCAN_DEPTH = 5;
+ 
++function escapeRegExp(text: string): string {
++    return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
++}
++
++/**
++ * Compile a VS Code `files.exclude` glob into a matcher for workspace-relative,
++ * forward-slash folder paths. Supports `**`, `*`, `?` and `{a,b}` alternation.
++ *
++ * - A pattern containing no `/` matches a folder name at any depth (`fixtures`).
++ * - `**` + `/` matches zero or more leading segments (`**\/fixtures`).
++ * - A trailing `/**` also matches the folder itself (`packages/legacy/**`).
++ *
++ * Wildcards inside `{...}` alternatives are treated literally.
++ */
++function excludePatternToRegExp(pattern: string): RegExp {
++    let glob = pattern.replace(/\\/g, '/').replace(/^(\.\/|\/)+/, '').replace(/\/+$/, '');
++    if (!glob.includes('/')) glob = '**/' + glob;
++
++    let re = '';
++    let i = 0;
++    while (i < glob.length) {
++        if (glob.startsWith('**/', i)) {
++            re += '(?:.*/)?';
++            i += 3;
++        } else if (glob.startsWith('/**', i) && i + 3 === glob.length) {
++            re += '(?:/.*)?';
++            i += 3;
++        } else if (glob.startsWith('**', i)) {
++            re += '.*';
++            i += 2;
++        } else if (glob[i] === '*') {
++            re += '[^/]*';
++            i += 1;
++        } else if (glob[i] === '?') {
++            re += '[^/]';
++            i += 1;
++        } else if (glob[i] === '{' && glob.indexOf('}', i) !== -1) {
++            const end = glob.indexOf('}', i);
++            const alternatives = glob.slice(i + 1, end).split(',').map(escapeRegExp);
++            re += `(?:${alternatives.join('|')})`;
++            i = end + 1;
++        } else {
++            re += escapeRegExp(glob[i]);
++            i += 1;
++        }
++    }
++    return new RegExp(`^${re}$`);
++}
++
+ /**
+  * Recursively scan `rootDir` (subdirectories up to {@link MAX_SCAN_DEPTH}) for
+  * candidate env files that contain at least one detected secret.
+  *
++ * `excludePatterns` are `files.exclude`-style globs (relative to `rootDir`). Any
++ * folder matching one of them is skipped together with its whole subtree, so env
++ * files inside it are neither detected nor protected.
++ *
+  * Returns `{ relPath, secretCount }` for each, with forward-slash relative paths
+  * sorted deterministically. `node_modules`, build output, and dot-directories are
+  * skipped, and symlinked directories are not followed — same rules as `cloak init`.
+  */
+ export async function findEnvFilesWithSecrets(
+     rootDir: string,
++    excludePatterns: readonly string[] = [],
+ ): Promise<Array<{ relPath: string; secretCount: number }>> {
+     const results: Array<{ relPath: string; secretCount: number }> = [];
++    const excludeMatchers = excludePatterns.map(excludePatternToRegExp);
+ 
+     async function scan(dir: string, depth: number): Promise<void> {
+         // Candidate env files in this directory.
+@@ -148,6 +203,9 @@ export async function findEnvFilesWithSecrets(
+             if (!entry.isDirectory()) continue;
+             if (entry.name.startsWith('.') || IGNORE_DIRS.has(entry.name)) continue;
+             const child = path.join(dir, entry.name);
++            // Skip folders excluded by the workspace's files.exclude setting.
++            const childRel = path.relative(rootDir, child).replace(/\\/g, '/');
++            if (excludeMatchers.some(re => re.test(childRel))) continue;
+             // Don't descend into an independently-protected sub-project — its own
+             // .cloak owns those files.
+             try {
+diff --git a/extension/tests/filemanager-scan.test.ts b/extension/tests/filemanager-scan.test.ts
+index 6b46e01..16773db 100644
+--- a/extension/tests/filemanager-scan.test.ts
++++ b/extension/tests/filemanager-scan.test.ts
+@@ -81,4 +81,65 @@ describe('findEnvFilesWithSecrets', () => {
+         const found = await findEnvFilesWithSecrets(root);
+         expect(found).toEqual([]);
+     });
++
++    describe('files.exclude patterns', () => {
++        async function seed(relDirs: string[]): Promise<void> {
++            await fs.writeFile(path.join(root, '.env'), SECRET_LINE);
++            for (const dir of relDirs) {
++                await fs.mkdir(path.join(root, dir), { recursive: true });
++                await fs.writeFile(path.join(root, dir, '.env'), SECRET_LINE);
++            }
++        }
++
++        it('skips a folder matched by a **-prefixed pattern at any depth', async () => {
++            await seed(['fixtures', 'apps/api/fixtures', 'apps/api/src']);
++
++            const found = (await findEnvFilesWithSecrets(root, ['**/fixtures'])).map(f => f.relPath);
++            expect(found).toEqual(['.env', 'apps/api/src/.env']);
++        });
++
++        it('skips the whole subtree of a trailing /** pattern but not its siblings', async () => {
++            await seed(['packages/legacy/app', 'packages/legacy', 'packages/current']);
++
++            const found = (await findEnvFilesWithSecrets(root, ['packages/legacy/**'])).map(f => f.relPath);
++            expect(found).toContain('packages/current/.env');
++            expect(found.some(p => p.startsWith('packages/legacy/'))).toBe(false);
++        });
++
++        it('treats a pattern without a slash as a folder name at any depth', async () => {
++            await seed(['apps/web/fixtures', 'fixtures-keep']);
++
++            const found = (await findEnvFilesWithSecrets(root, ['fixtures'])).map(f => f.relPath);
++            expect(found).not.toContain('apps/web/fixtures/.env');
++            expect(found).toContain('fixtures-keep/.env');
++        });
++
++        it('does not exclude folders that the pattern does not match', async () => {
++            await seed(['fixture', 'fixtures_v2']);
++
++            const found = (await findEnvFilesWithSecrets(root, ['**/fixtures'])).map(f => f.relPath);
++            expect(found).toEqual(['.env', 'fixture/.env', 'fixtures_v2/.env']);
++        });
++
++        it('supports brace alternation and single-character wildcards', async () => {
++            await seed(['tmp1', 'tmp2', 'tmpx/deep', 'mocks']);
++
++            const found = (await findEnvFilesWithSecrets(root, ['**/{mocks,tmp2}', 'tmp?'])).map(f => f.relPath);
++            expect(found).toEqual(['.env', 'tmpx/deep/.env']);
++        });
++
++        it('does not read env files inside excluded folders at all', async () => {
++            await seed(['legacy/nested/deeper']);
++
++            const found = await findEnvFilesWithSecrets(root, ['legacy']);
++            expect(found.map(f => f.relPath)).toEqual(['.env']);
++        });
++
++        it('ignores the empty pattern list (behaviour unchanged)', async () => {
++            await seed(['fixtures']);
++
++            const found = (await findEnvFilesWithSecrets(root, [])).map(f => f.relPath);
++            expect(found).toEqual(['.env', 'fixtures/.env']);
++        });
++    });
+ });

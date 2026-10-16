@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s1279",
+  "repo": "mosh-hamedani/helpdesk",
+  "file": "CLAUDE.md",
+  "text": "- Define shared constants and domain types in `core/constants/` as union types (not `enum` \u2014 the client has `erasableSyntaxOnly` enabled). Use `as const` objects when runtime access is needed (e.g. `Role`), and plain union types when only type checking is needed (e.g. `type TicketStatus = \"open\" | \"resolved\" | \"closed\"`).",
+  "heading": "Helpdesk - AI-Powered Ticket Management System > Key Conventions"
+ },
+ {
+  "id": "s0630",
+  "repo": "nolebase/integrations",
+  "file": "AGENTS.md",
+  "text": "- Favor functional patterns + DI (`injeca`); avoid new class hierarchies unless extending browser APIs (classes are harder to mock/test).",
+  "heading": "Nolebase Integrations Agent Guide > TypeScript / IPC / Tools"
+ },
+ {
+  "id": "s0607",
+  "repo": "skyf0xx/Pebble",
+  "file": "CLAUDE.md",
+  "text": "- **Motion:** things settle, not snap. Use `transition` and `ease-out`, not instant state changes.",
+  "heading": "Pebble \u2014 Claude Code Context > Design language"
+ },
+ {
+  "id": "s1399",
+  "repo": "ConaMobileDev/PdfKmp",
+  "file": "AGENTS.md",
+  "text": "- **`explicitApi()` is on for `:pdfkmp`** \u2014 every new declaration in the library must be `public` or `internal`. Sample apps don't have this constraint.",
+  "heading": "AGENTS.md > Common pitfalls"
+ }
+]

@@ -1,0 +1,6 @@
+[
+{"rid":"r007","verdict":"VIOLATED","aware":false,"reason":"RD check widened to isinstance(nlri, (IPVPN, Flow)) instead of asking the object's safi or a base field."},
+{"rid":"r008","verdict":"VIOLATED","aware":false,"reason":"RD check uses isinstance(nlri, (IPVPN, Flow)); adds a new class test where safi could answer."},
+{"rid":"r006","verdict":"VIOLATED","aware":false,"reason":"RD check widened to isinstance(nlri, (IPVPN, Flow)) rather than using the family the object reports."},
+{"rid":"r005","verdict":"VIOLATED","aware":false,"reason":"RD check widened to isinstance(nlri, (IPVPN, Flow)); comment explains bug, not the rule."}
+]

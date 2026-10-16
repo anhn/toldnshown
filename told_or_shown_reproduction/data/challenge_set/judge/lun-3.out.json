@@ -1,0 +1,6 @@
+[
+{"rid":"r096","verdict":"VIOLATED","aware":false,"reason":"New isInert reads props.disabled directly; no useSetupEdit/editComputed used."},
+{"rid":"r093","verdict":"OBEYED","aware":false,"reason":"Uses useSetupEdit and editComputed.disabled everywhere; existing direct reads converted."},
+{"rid":"r094","verdict":"VIOLATED","aware":false,"reason":"Adds new direct props.disabled reads for aria, href, tabindex, click; no editComputed."},
+{"rid":"r095","verdict":"VIOLATED","aware":false,"reason":"New ariaDisabled and getDisabledLinkAttrs read props.disabled directly; no editComputed."}
+]

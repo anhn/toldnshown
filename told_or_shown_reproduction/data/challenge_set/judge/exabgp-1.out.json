@@ -1,0 +1,6 @@
+[
+{"rid":"r001","verdict":"OBEYED","aware":false,"reason":"top/ton/pack_ip/index removed; pack_attribute and unpack_attribute signatures with negotiated left untouched."},
+{"rid":"r002","verdict":"OBEYED","aware":false,"reason":"Only top() lost its ignored argument; pack_attribute(self, negotiated) kept unchanged, unpack_attribute untouched."},
+{"rid":"r004","verdict":"OBEYED","aware":false,"reason":"Accessors removed; pack_attribute(self, negotiated) signature unchanged, unpack_attribute not touched."},
+{"rid":"r003","verdict":"OBEYED","aware":false,"reason":"Accessors and __ne__ removed; pack_attribute/unpack_attribute signatures with negotiated not modified."}
+]

@@ -1,0 +1,54 @@
+diff --git a/README.md b/README.md
+index 927e3bb..df4f07f 100644
+--- a/README.md
++++ b/README.md
+@@ -216,6 +216,49 @@ codex
+ 
+ 
+ 
++## SDK setup
++
++Scripts can call the gateway directly with the official SDKs. Set the base URL
++to the front door and pass the gateway token as the API key. Use `127.0.0.1`
++rather than `localhost` (Node resolves `localhost` to IPv6 first).
++
++Anthropic TypeScript SDK (Messages API):
++
++```ts
++import Anthropic from "@anthropic-ai/sdk";
++
++const client = new Anthropic({
++  baseURL: "http://127.0.0.1:4000/anthropic",
++  apiKey: "local-dev-token",
++});
++
++const msg = await client.messages.create({
++  model: "kimi",
++  max_tokens: 64,
++  messages: [{ role: "user", content: "say ok" }],
++});
++console.log(msg.content);
++```
++
++OpenAI Node SDK (Responses API):
++
++```ts
++import OpenAI from "openai";
++
++const client = new OpenAI({
++  baseURL: "http://127.0.0.1:4000/openai/v1",
++  apiKey: "local-dev-token",
++});
++
++const res = await client.responses.create({
++  model: "kimi",
++  input: "say ok",
++});
++console.log(res.output_text);
++```
++
++
++
+ ## Endpoints
+ 
+ ```text

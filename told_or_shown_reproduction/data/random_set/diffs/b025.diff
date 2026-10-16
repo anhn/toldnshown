@@ -1,0 +1,143 @@
+diff --git a/Modules/Services/OPDS/OPDS2FeedParser.swift b/Modules/Services/OPDS/OPDS2FeedParser.swift
+index d3d659a..66b5487 100644
+--- a/Modules/Services/OPDS/OPDS2FeedParser.swift
++++ b/Modules/Services/OPDS/OPDS2FeedParser.swift
+@@ -161,6 +161,11 @@ private struct Mapper {
+         if let description = metadata.description, !description.isEmpty {
+             entry.summary = Self.plain(description, limit: 8_000)
+         }
++        entry.subjects = metadata.subject.map { Self.plain($0.name, limit: 256) }.filter { !$0.isEmpty }
++        let publishers = metadata.publisher.map { Self.plain($0.name, limit: 256) }.filter { !$0.isEmpty }
++        entry.publisher = publishers.isEmpty ? nil : publishers.joined(separator: ", ")
++        entry.languages = metadata.language.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }.filter { !$0.isEmpty }
++        entry.published = metadata.published.flatMap(Self.parseDate)
+         guard entry.isBook || entry.isNavigation else { return nil }
+         if entry.alternateURL == nil, entry.isBook { entry.alternateURL = feedAlternateURL }
+         entry.id = metadata.identifier ?? entry.navigationURL?.absoluteString
+@@ -210,6 +215,20 @@ private struct Mapper {
+     }
+ 
+     private static func plain(_ value: String, limit: Int) -> String { OPDSClient.plainMetadata(value, limit: limit) }
++
++    /// OPDS 2 dates are ISO 8601: a full date, or a date-time with an offset and
++    /// optional fractional seconds. Any other text is not a date, so it yields nil.
++    private static func parseDate(_ value: String) -> Date? {
++        let trimmed = value.trimmingCharacters(in: .whitespaces)
++        let dateTime = ISO8601DateFormatter()
++        dateTime.formatOptions = [.withInternetDateTime]
++        if let date = dateTime.date(from: trimmed) { return date }
++        dateTime.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
++        if let date = dateTime.date(from: trimmed) { return date }
++        let day = ISO8601DateFormatter()
++        day.formatOptions = [.withFullDate]
++        return day.date(from: trimmed)
++    }
+ }
+ 
+ // MARK: - Document model
+@@ -247,8 +266,13 @@ extension OPDS2FeedParser {
+         var description: String?
+         var language: [String] = []
+         var author: [Contributor] = []
++        var publisher: [Contributor] = []
++        var subject: [Subject] = []
++        var published: String?
+ 
+-        private enum CodingKeys: String, CodingKey { case identifier, title, description, language, author }
++        private enum CodingKeys: String, CodingKey {
++            case identifier, title, description, language, author, publisher, subject, published
++        }
+ 
+         init(from decoder: Decoder) throws {
+             let values = try decoder.container(keyedBy: CodingKeys.self)
+@@ -257,6 +281,24 @@ extension OPDS2FeedParser {
+             description = try values.decodeIfPresent(String.self, forKey: .description)
+             language = try values.decodeIfPresent(OneOrMany<String>.self, forKey: .language)?.values ?? []
+             author = try values.decodeIfPresent(OneOrMany<Contributor>.self, forKey: .author)?.values ?? []
++            publisher = try values.decodeIfPresent(OneOrMany<Contributor>.self, forKey: .publisher)?.values ?? []
++            subject = try values.decodeIfPresent(OneOrMany<Subject>.self, forKey: .subject)?.values ?? []
++            published = try values.decodeIfPresent(String.self, forKey: .published)
++        }
++    }
++
++    /// A subject is a bare string or an object whose `name` may be a language map.
++    struct Subject: Decodable {
++        var name: String
++
++        private enum CodingKeys: String, CodingKey { case name }
++
++        init(from decoder: Decoder) throws {
++            do {
++                name = try decoder.singleValueContainer().decode(String.self)
++            } catch DecodingError.typeMismatch {
++                name = try decoder.container(keyedBy: CodingKeys.self).decode(LocalizedString.self, forKey: .name).value
++            }
+         }
+     }
+ 
+diff --git a/Modules/Services/OPDS/OPDSClient.swift b/Modules/Services/OPDS/OPDSClient.swift
+index 2b0d8fe..937b993 100644
+--- a/Modules/Services/OPDS/OPDSClient.swift
++++ b/Modules/Services/OPDS/OPDSClient.swift
+@@ -52,6 +52,11 @@ struct OPDSEntry: Identifiable, Hashable {
+     var alternateURL: URL?
+     var authorNames: [String] = []
+     var relatedLinks: [OPDSRelatedLink] = []
++    /// Dublin Core metadata. OPDS 2 supplies it; the Atom parser leaves it empty.
++    var subjects: [String] = []
++    var publisher: String?
++    var published: Date?
++    var languages: [String] = []
+ 
+     var isBook: Bool { !acquisitions.isEmpty }
+     var isNavigation: Bool { acquisitions.isEmpty && navigationURL != nil }
+diff --git a/Tests/iOS/yuedu appTests/OPDS2ParserTests.swift b/Tests/iOS/yuedu appTests/OPDS2ParserTests.swift
+index ad6ebc5..34e4dbd 100644
+--- a/Tests/iOS/yuedu appTests/OPDS2ParserTests.swift	
++++ b/Tests/iOS/yuedu appTests/OPDS2ParserTests.swift	
+@@ -200,6 +200,45 @@ struct OPDS2ParserTests {
+         #expect(second.coverURL == nil)
+     }
+ 
++    @Test("subjects, publisher, published and languages come from OPDS 2 metadata")
++    func dublinCoreMetadata() throws {
++        let json = """
++        {"metadata": {"title": "Catalog"}, "publications": [
++          {"metadata": {"identifier": "urn:a", "title": "Dated", "language": "en",
++                        "publisher": "Philadelphia: George W. Jacobs, 1910.",
++                        "subject": ["Bare", {"name": "Object"}, {"name": {"de": "Geschichte"}}, {"name": ""}],
++                        "published": "2026-10-06"},
++           "links": [{"rel": "http://opds-spec.org/acquisition", "href": "a.epub", "type": "application/epub+zip"}]},
++          {"metadata": {"identifier": "urn:b", "title": "Timestamped", "language": ["zh", "en"],
++                        "publisher": [{"name": {"de": "Verlag"}}, {"name": "Second"}],
++                        "subject": {"name": "Single"}, "published": "2026-10-01T12:30:00Z"},
++           "links": [{"rel": "http://opds-spec.org/acquisition", "href": "b.epub", "type": "application/epub+zip"}]},
++          {"metadata": {"identifier": "urn:c", "title": "Undated", "published": "October 2026", "publisher": []},
++           "links": [{"rel": "http://opds-spec.org/acquisition", "href": "c.epub", "type": "application/epub+zip"}]}
++        ]}
++        """
++        let entries = try parse(json).entries
++        #expect(entries.count == 3)
++
++        let dated = try #require(entries.first)
++        #expect(dated.subjects == ["Bare", "Object", "Geschichte"])
++        #expect(dated.publisher == "Philadelphia: George W. Jacobs, 1910.")
++        #expect(dated.published == Date(timeIntervalSince1970: 1_791_244_800))
++        #expect(dated.languages == ["en"])
++
++        let timestamped = entries[1]
++        #expect(timestamped.subjects == ["Single"])
++        #expect(timestamped.publisher == "Verlag, Second")
++        #expect(timestamped.published == Date(timeIntervalSince1970: 1_790_857_800))
++        #expect(timestamped.languages == ["zh", "en"])
++
++        let undated = entries[2]
++        #expect(undated.subjects.isEmpty)
++        #expect(undated.publisher == nil)
++        #expect(undated.published == nil)
++        #expect(undated.languages.isEmpty)
++    }
++
+     @Test("a publication document becomes a one-entry feed")
+     func publicationDocument() throws {
+         let feed = try parse(publication, URL(string: "https://opds-test.pglaf.org/opds/ebooks/1342")!)

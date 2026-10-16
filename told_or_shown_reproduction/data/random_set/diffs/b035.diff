@@ -1,0 +1,238 @@
+diff --git a/Tests/PostRespondHandlerTests.swift b/Tests/PostRespondHandlerTests.swift
+new file mode 100644
+index 0000000..5bb5df9
+--- /dev/null
++++ b/Tests/PostRespondHandlerTests.swift
+@@ -0,0 +1,200 @@
++//
++//  PostRespondHandlerTests.swift
++//  clearancekitTests
++//
++
++import Testing
++import Foundation
++
++@Suite("PostRespondHandler")
++struct PostRespondHandlerTests {
++
++    private struct TTYDenial: Equatable {
++        let path: String
++        let reason: String
++        let ttyPath: String?
++    }
++
++    private final class Recorder: @unchecked Sendable {
++        private let lock = NSLock()
++        private var denials: [TTYDenial] = []
++        private var events: [FolderOpenEvent] = []
++
++        func recordDenial(_ denial: TTYDenial) {
++            lock.withLock { denials.append(denial) }
++        }
++
++        func recordEvent(_ event: FolderOpenEvent) {
++            lock.withLock { events.append(event) }
++        }
++
++        var recordedDenials: [TTYDenial] {
++            lock.withLock { denials }
++        }
++
++        var recordedEvents: [FolderOpenEvent] {
++            lock.withLock { events }
++        }
++    }
++
++    private func makeFileEvent(
++        path: String = "/protected/file.txt",
++        secondaryPath: String? = nil,
++        ttyPath: String? = "/dev/ttys001",
++        operation: FileOperation = .open,
++        processID: pid_t = 100,
++        processPath: String = "/usr/bin/test",
++        teamID: String = "TEAM1",
++        signingID: String = "com.example.app",
++        uid: uid_t = 501
++    ) -> FileAuthEvent {
++        FileAuthEvent(
++            correlationID: UUID(),
++            operation: operation,
++            accessKind: .read,
++            path: path,
++            secondaryPath: secondaryPath,
++            processIdentity: ProcessIdentity(pid: processID, pidVersion: 1),
++            processID: processID,
++            parentPID: 1,
++            parentPIDVersion: 0,
++            processPath: processPath,
++            teamID: teamID,
++            signingID: signingID,
++            uid: uid,
++            gid: 20,
++            ttyPath: ttyPath,
++            deadline: 0,
++            respond: { _, _ in }
++        )
++    }
++
++    private func makeHandler(recorder: Recorder, queue: DispatchQueue) -> PostRespondHandler {
++        let handler = PostRespondHandler(postRespondQueue: queue) { path, reason, ttyPath in
++            recorder.recordDenial(TTYDenial(path: path, reason: reason, ttyPath: ttyPath))
++        }
++        handler.onEvent = { recorder.recordEvent($0) }
++        return handler
++    }
++
++    /// The handler dispatches onto a serial queue, so a synchronous no-op on that queue
++    /// returns only after all previously dispatched work has run.
++    private func drain(_ queue: DispatchQueue) {
++        queue.sync {}
++    }
++
++    @Test("denied decision writes a TTY denial carrying the event path and decision reason")
++    func deniedDecisionWritesTTYDenial() {
++        let recorder = Recorder()
++        let queue = DispatchQueue(label: "test.post-respond.denied")
++        let handler = makeHandler(recorder: recorder, queue: queue)
++        let decision = PolicyDecision.denied(
++            ruleID: UUID(),
++            ruleName: "Protect secrets",
++            ruleSource: .user,
++            allowedCriteria: "signingID=com.example.editor"
++        )
++
++        handler.postRespond(
++            fileEvent: makeFileEvent(path: "/protected/secret.txt", ttyPath: "/dev/ttys007"),
++            decision: decision,
++            ancestors: [],
++            dwellNanoseconds: 0
++        )
++        drain(queue)
++
++        #expect(recorder.recordedDenials == [
++            TTYDenial(path: "/protected/secret.txt", reason: decision.reason, ttyPath: "/dev/ttys007")
++        ])
++    }
++
++    @Test("allowed decision does not write a TTY denial")
++    func allowedDecisionDoesNotWriteTTYDenial() {
++        let recorder = Recorder()
++        let queue = DispatchQueue(label: "test.post-respond.allowed")
++        let handler = makeHandler(recorder: recorder, queue: queue)
++        let decision = PolicyDecision.allowed(
++            ruleID: UUID(),
++            ruleName: "Protect secrets",
++            ruleSource: .user,
++            matchedCriterion: "signingID=com.example.app"
++        )
++
++        handler.postRespond(
++            fileEvent: makeFileEvent(),
++            decision: decision,
++            ancestors: [],
++            dwellNanoseconds: 0
++        )
++        drain(queue)
++
++        #expect(recorder.recordedDenials.isEmpty)
++    }
++
++    @Test("folder open event carries the file event fields and the denied access decision")
++    func folderOpenEventCarriesFileEventFieldsAndDeniedDecision() {
++        let recorder = Recorder()
++        let queue = DispatchQueue(label: "test.post-respond.event-denied")
++        let handler = makeHandler(recorder: recorder, queue: queue)
++        let ruleID = UUID()
++        let decision = PolicyDecision.denied(
++            ruleID: ruleID,
++            ruleName: "Protect secrets",
++            ruleSource: .user,
++            allowedCriteria: "signingID=com.example.editor"
++        )
++        let fileEvent = makeFileEvent(
++            path: "/protected/secret.txt",
++            secondaryPath: "/protected/other.txt",
++            operation: .rename,
++            processID: 4321,
++            processPath: "/Applications/Example.app/Contents/MacOS/Example",
++            teamID: "TEAM42",
++            signingID: "com.example.app",
++            uid: 502
++        )
++        let ancestor = AncestorInfo(path: "/sbin/launchd", teamID: appleTeamID, signingID: "com.apple.launchd")
++
++        handler.postRespond(fileEvent: fileEvent, decision: decision, ancestors: [ancestor], dwellNanoseconds: 0)
++        drain(queue)
++
++        let event = recorder.recordedEvents.first
++        #expect(recorder.recordedEvents.count == 1)
++        #expect(event?.eventID == fileEvent.correlationID)
++        #expect(event?.operation == FileOperation.rename.rawValue)
++        #expect(event?.path == "/protected/secret.txt")
++        #expect(event?.secondaryPath == "/protected/other.txt")
++        #expect(event?.processID == 4321)
++        #expect(event?.processPath == "/Applications/Example.app/Contents/MacOS/Example")
++        #expect(event?.teamID == "TEAM42")
++        #expect(event?.signingID == "com.example.app")
++        #expect(event?.uid == 502)
++        #expect(event?.accessAllowed == false)
++        #expect(event?.decisionReason == decision.reason)
++        #expect(event?.ancestors.map(\.path) == ["/sbin/launchd"])
++        #expect(event?.matchedRuleID == ruleID)
++        #expect(event?.jailedRuleID == nil)
++    }
++
++    @Test("folder open event reports access allowed for an allowed decision")
++    func folderOpenEventReportsAccessAllowedForAllowedDecision() {
++        let recorder = Recorder()
++        let queue = DispatchQueue(label: "test.post-respond.event-allowed")
++        let handler = makeHandler(recorder: recorder, queue: queue)
++        let ruleID = UUID()
++        let decision = PolicyDecision.allowed(
++            ruleID: ruleID,
++            ruleName: "Protect secrets",
++            ruleSource: .user,
++            matchedCriterion: "signingID=com.example.app"
++        )
++
++        handler.postRespond(fileEvent: makeFileEvent(), decision: decision, ancestors: [], dwellNanoseconds: 0)
++        drain(queue)
++
++        let event = recorder.recordedEvents.first
++        #expect(event?.accessAllowed == true)
++        #expect(event?.decisionReason == decision.reason)
++        #expect(event?.matchedRuleID == ruleID)
++    }
++}
+diff --git a/opfilter/Filter/PostRespondHandler.swift b/opfilter/Filter/PostRespondHandler.swift
+index 0331b68..f4a438b 100644
+--- a/opfilter/Filter/PostRespondHandler.swift
++++ b/opfilter/Filter/PostRespondHandler.swift
+@@ -10,10 +10,16 @@ final class PostRespondHandler: @unchecked Sendable {
+ 
+     private let postRespondQueue: DispatchQueue
+     private let auditLogger = AuditLogger()
+-    private let ttyNotifier = TTYNotifier()
++    private let writeTTYDenial: @Sendable (_ path: String, _ reason: String, _ ttyPath: String?) -> Void
+ 
+-    init(postRespondQueue: DispatchQueue = DispatchQueue(label: "uk.craigbass.clearancekit.post-respond", qos: .background)) {
++    init(
++        postRespondQueue: DispatchQueue = DispatchQueue(label: "uk.craigbass.clearancekit.post-respond", qos: .background),
++        writeTTYDenial: @escaping @Sendable (_ path: String, _ reason: String, _ ttyPath: String?) -> Void = { path, reason, ttyPath in
++            TTYNotifier().writeDenial(path: path, reason: reason, ttyPath: ttyPath)
++        }
++    ) {
+         self.postRespondQueue = postRespondQueue
++        self.writeTTYDenial = writeTTYDenial
+     }
+ 
+     func postRespond(fileEvent: FileAuthEvent, decision: PolicyDecision, ancestors: [AncestorInfo], dwellNanoseconds: UInt64) {
+@@ -23,7 +29,7 @@ final class PostRespondHandler: @unchecked Sendable {
+             auditLogger.log(decision, for: fileEvent, ancestors: ancestors, dwellNanoseconds: dwellNanoseconds, operationID: fileEvent.correlationID)
+ 
+             if !allowed {
+-                ttyNotifier.writeDenial(path: fileEvent.path, reason: decision.reason, ttyPath: fileEvent.ttyPath)
++                writeTTYDenial(fileEvent.path, decision.reason, fileEvent.ttyPath)
+             }
+ 
+             let folderOpenEvent = FolderOpenEvent(

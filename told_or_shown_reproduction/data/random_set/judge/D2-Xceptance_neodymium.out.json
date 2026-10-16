@@ -1,0 +1,6 @@
+[
+{"rid":"b032","verdict":"VIOLATED","aware":false,"reason":"New CloseWindowAction and CloseWindowActionTest class Javadocs lack both required @author tags."},
+{"rid":"b029","verdict":"VIOLATED","aware":true,"reason":"Plugin and unit test tagged correctly, but new integration CloseWindowActionTest lacks @author tags."},
+{"rid":"b031","verdict":"VIOLATED","aware":false,"reason":"New CloseWindowAction and its test have class Javadoc without any @author tags."},
+{"rid":"b030","verdict":"OBEYED","aware":true,"reason":"Both new classes carry @author AI-generated and @author Xceptance GmbH 2026 tags."}
+]

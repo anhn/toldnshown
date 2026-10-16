@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s1663",
+  "repo": "loocor/codmate",
+  "file": "AGENTS.md",
+  "text": "- Full\u2011text search: chunked stream scan (128 KB), case\u2011insensitive; avoid `lowercased()` on whole file.",
+  "heading": ""
+ },
+ {
+  "id": "s1058",
+  "repo": "openworkload/swm-core",
+  "file": "AGENTS.md",
+  "text": "- First `podman run --userns=keep-id` of the multi-GB `swm-build` image can take\n  several minutes (ID-mapped layer copy). Do not interrupt it.",
+  "heading": "Agent instructions \u2014 swm-core > Dev container (`make cr`)"
+ },
+ {
+  "id": "s1174",
+  "repo": "jgarzik/apython",
+  "file": "CLAUDE.md",
+  "text": "- **A builtin's behaviour that lives only in a slot.** The stdlib asks questions by name: `hasattr(f, '__get__')` decides whether something is a descriptor, `member_type.__str__ is object.__str__` decides whether a type defines its own `str()`. A slot with no matching entry in `tp_dict` answers those wrong. When adding one, the thunk must call the *defining* type's slot, not the argument's, or a subclass re-dispatches into itself.",
+  "heading": "CLAUDE.md > Known Bug Patterns"
+ },
+ {
+  "id": "s2149",
+  "repo": "purzbeats/interfaces",
+  "file": "CLAUDE.md",
+  "text": "- No individual meshes per grid cell \u2014 use canvas textures or Points",
+  "heading": "INTERFACES - Project Guidelines > Element Quality"
+ }
+]

@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s1240",
+  "repo": "Kronuz/kronuz-theme-sublime",
+  "file": "AGENTS.md",
+  "text": "`Kronuz.sublime-color-scheme` and `Kronuz-Light.sublime-color-scheme` are generated\nby the sibling `KronuzTheme` repository. Never hand-edit them.",
+  "heading": "AGENTS.md: working on kronuz-theme-sublime > Generated color schemes"
+ },
+ {
+  "id": "s1437",
+  "repo": "jtenniswood/esphome-media-player",
+  "file": "AGENTS.md",
+  "text": "- Do not edit generated webserver output directly. Update the source and run the\n  generator instead.",
+  "heading": "Agent Instructions > Development workflow"
+ },
+ {
+  "id": "s2205",
+  "repo": "alefduarte/image-resize-compress",
+  "file": "CLAUDE.md",
+  "text": "- **Never hand-bump the `version` field.** semantic-release stamps the real\n  version into the published tarball; the in-repo value stays stale by design.\n  The changelog lives in GitHub Releases, not the repo.",
+  "heading": "CLAUDE.md \u2014 project invariants"
+ },
+ {
+  "id": "s1814",
+  "repo": "sugarforever/01coder-agent-skills",
+  "file": "CLAUDE.md",
+  "text": "2. Sync `marketplace.json` from the filesystem:\n   ```bash\n   ./scripts/sync-marketplace-skills.sh\n   ```\n   The script scans `skills/*/SKILL.md`, respects `.gitignore` (so personal-only skills excluded via gitignore stay out), and rewrites the `skills[]` array alphabetically. Never edit `skills[]` by hand.",
+  "heading": "01coder Agent Skills > Adding a New Skill"
+ }
+]

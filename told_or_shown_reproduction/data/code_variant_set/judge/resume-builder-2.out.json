@@ -1,0 +1,14 @@
+[
+{"rid":"a091","verdict":"OBEYED","aware":false,"reason":"Action uses domain key isResumeDrawerOpen; reducer reads action.isResumeDrawerOpen."},
+{"rid":"a085","verdict":"OBEYED","aware":false,"reason":"Action uses domain key isDrawerOpen; reducer reads action.isDrawerOpen."},
+{"rid":"a093","verdict":"OBEYED","aware":false,"reason":"Action uses domain key isDrawerOpen; reducer reads action.isDrawerOpen."},
+{"rid":"a088","verdict":"OBEYED","aware":false,"reason":"Action uses domain key isDrawerOpen; reducer reads action.isDrawerOpen."},
+{"rid":"a096","verdict":"VIOLATED","aware":false,"reason":"New action uses payload key; reducer reads action.payload."},
+{"rid":"a087","verdict":"OBEYED","aware":false,"reason":"Action uses domain key isDrawerOpen; reducer reads action.isDrawerOpen."},
+{"rid":"a094","verdict":"VIOLATED","aware":false,"reason":"New action uses payload key; reducer reads action.payload."},
+{"rid":"a092","verdict":"OBEYED","aware":false,"reason":"Action uses domain key isDrawerOpen; reducer reads action.isDrawerOpen."},
+{"rid":"a095","verdict":"VIOLATED","aware":false,"reason":"New action uses payload key; reducer reads action.payload."},
+{"rid":"a090","verdict":"OBEYED","aware":false,"reason":"Action uses domain key isDrawerOpen; reducer reads action.isDrawerOpen."},
+{"rid":"a089","verdict":"OBEYED","aware":false,"reason":"Action uses domain key isDrawerOpen; reducer reads action.isDrawerOpen."},
+{"rid":"a086","verdict":"OBEYED","aware":false,"reason":"Action uses domain key isDrawerOpen; reducer reads action.isDrawerOpen."}
+]

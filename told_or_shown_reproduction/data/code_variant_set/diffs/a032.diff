@@ -1,0 +1,55 @@
+diff --git a/README.md b/README.md
+index b4471d8..3a71df0 100644
+--- a/README.md
++++ b/README.md
+@@ -214,6 +214,50 @@ export GATEWAY_TOKEN="local-dev-token"
+ codex
+ ```
+ 
++## SDK setup
++
++Scripts can talk to the gateway directly with the official SDKs. Point the
++client's base URL at the gateway's front door for that protocol; the SDK adds
++the rest of the path. The token goes in the SDK's API key field. The model
++name is any name from `models:` in your `gateway.yaml` (`kimi` here).
++
++### Anthropic TypeScript SDK (Messages API)
++
++```ts
++import Anthropic from "@anthropic-ai/sdk";
++
++const client = new Anthropic({
++  baseURL: "http://127.0.0.1:4000/anthropic",
++  apiKey: "local-dev-token",
++});
++
++const message = await client.messages.create({
++  model: "kimi",
++  max_tokens: 64,
++  messages: [{ role: "user", content: "say ok" }],
++});
++
++console.log(message.content);
++```
++
++### OpenAI Node SDK (Responses API)
++
++```ts
++import OpenAI from "openai";
++
++const client = new OpenAI({
++  baseURL: "http://127.0.0.1:4000/openai/v1",
++  apiKey: "local-dev-token",
++});
++
++const response = await client.responses.create({
++  model: "kimi",
++  input: "say ok",
++});
++
++console.log(response.output_text);
++```
++
+ 
+ 
+ ## Endpoints

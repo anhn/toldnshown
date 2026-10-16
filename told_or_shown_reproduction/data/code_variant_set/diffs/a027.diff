@@ -1,0 +1,65 @@
+diff --git a/README.md b/README.md
+index a8c00cf..8eb6c8a 100644
+--- a/README.md
++++ b/README.md
+@@ -216,6 +216,60 @@ codex
+ 
+ 
+ 
++## SDK setup
++
++Scripts can use the official SDKs against the same front doors. Set the base
++URL to the gateway and pass the gateway token as the API key; the model is a
++name from `models:`.
++
++```bash
++npm install @anthropic-ai/sdk openai
++```
++
++Anthropic TypeScript SDK (Messages API) — `anthropic.mjs`:
++
++```js
++import Anthropic from "@anthropic-ai/sdk";
++
++const client = new Anthropic({
++  baseURL: "http://127.0.0.1:4000/anthropic",
++  apiKey: "local-dev-token",
++});
++
++const message = await client.messages.create({
++  model: "kimi",
++  max_tokens: 256,
++  messages: [{ role: "user", content: "say ok" }],
++});
++
++console.log(message.content.filter((b) => b.type === "text").map((b) => b.text).join(""));
++```
++
++OpenAI Node SDK (Responses API) — `openai.mjs`:
++
++```js
++import OpenAI from "openai";
++
++const client = new OpenAI({
++  baseURL: "http://127.0.0.1:4000/openai/v1",
++  apiKey: "local-dev-token",
++});
++
++const response = await client.responses.create({
++  model: "kimi",
++  input: "say ok",
++});
++
++console.log(response.output_text);
++```
++
++```bash
++node anthropic.mjs
++node openai.mjs
++```
++
++
++
+ ## Endpoints
+ 
+ ```text

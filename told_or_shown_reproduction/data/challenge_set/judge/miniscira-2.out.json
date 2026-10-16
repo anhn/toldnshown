@@ -1,0 +1,6 @@
+[
+{"rid":"r183","verdict":"VIOLATED","aware":false,"reason":"New function reads `(event as { type?: string }).type` directly in turn-annotations.ts instead of eventType/predicates."},
+{"rid":"r181","verdict":"OBEYED","aware":true,"reason":"Adds isTurnStart/isTurnFailure predicates in chat-events.ts via eventType; helper uses only those predicates."},
+{"rid":"r182","verdict":"OBEYED","aware":false,"reason":"Helper imports and uses eventType() from chat-events; no direct .type read added; no stated rationale."},
+{"rid":"r184","verdict":"VIOLATED","aware":false,"reason":"Casts event to { type?: string } and reads event.type directly in new helper."}
+]

@@ -1,0 +1,46 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index a76d535..480e4cf 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -20,23 +20,37 @@ export const Text = defineCustomElement({
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
+ 
++    const isLink = () => props.as === 'link';
++    const isDisabledLink = () => isLink() && !!props.disabled;
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: isDisabledLink() ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
++    // dropping href is what really makes the anchor inert: no navigation on click or Enter, and not tabbable.
++    // an anchor without href loses its implicit link role, so restore it explicitly for assistive tech
++    const getDisabledLinkProps = () =>
++      isDisabledLink()
++        ? { href: undefined, tabindex: undefined, role: 'link', 'aria-disabled': 'true', class: ns.is('disabled') }
++        : {};
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a {...attrs} part={compParts[3]}>
++        <a {...attrs} {...getDisabledLinkProps()} part={compParts[3]}>
+           {children}
+         </a>
+       ) : (
+         children
+       );
+     const getReverse = (text: string, isRoot: boolean = false, cls?: any) => {
+-      const El = isLink() && isRoot ? 'a' : 'span',
++      const isRootLink = isLink() && isRoot,
++        El = isRootLink ? 'a' : 'span',
+         dir = styleMap.direction;
+       return (
+-        <El class={['ellipsis', cls]} dir={dirReverse[dir]} part={compParts[0]}>
++        <El
++          {...(isRootLink ? getDisabledLinkProps() : {})}
++          class={['ellipsis', cls]}
++          dir={dirReverse[dir]}
++          part={compParts[0]}
++        >
+           <span dir={dir} part={compParts[1]}>
+             {text}
+           </span>

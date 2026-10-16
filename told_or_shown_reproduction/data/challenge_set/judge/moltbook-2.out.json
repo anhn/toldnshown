@@ -1,0 +1,6 @@
+[
+{"rid":"r042","verdict":"OBEYED","aware":false,"reason":"tag_counts added to both _save_state and _load_state; no comment states the rule."},
+{"rid":"r043","verdict":"OBEYED","aware":false,"reason":"tag_counts added to both _save_state and _load_state; no comment states the rule."},
+{"rid":"r044","verdict":"OBEYED","aware":true,"reason":"tag_counts saved and loaded; init comment mentions _load_state restoring counts."},
+{"rid":"r041","verdict":"OBEYED","aware":false,"reason":"tag_counts added to both _save_state and _load_state with normalisation on load; no rule comment."}
+]

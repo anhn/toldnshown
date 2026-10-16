@@ -1,0 +1,68 @@
+[
+ {
+  "id": "A3-danieltamas_cloak",
+  "repo_path": "/tmp/study/extB/base/danieltamas_cloak",
+  "rule": "Default answer is **no**. Extension ships zero runtime deps. If unavoidable, justify in the PR and pin the version.",
+  "task": "In the VS Code extension, the recursive workspace scan behind \"Cloak: Protect Secrets\" (findEnvFilesWithSecrets in extension/src/filemanager.ts) only skips dot-directories and the hard-coded IGNORE_DIRS list. Make it also skip any folders excluded by the user's `files.exclude` setting for that workspace folder (glob patterns such as `**/fixtures` or `packages/legacy/**`), so env files inside excluded folders are not detected or protected. Keep the existing ignore list, symlink handling and depth cap unchanged, and add unit tests for the new behaviour in extension/tests/filemanager-scan.test.ts."
+ },
+ {
+  "id": "A4-Kronuz_kronuz-theme-sublime",
+  "repo_path": "/tmp/study/extB/base/Kronuz_kronuz-theme-sublime",
+  "rule": "`Kronuz.sublime-color-scheme` and `Kronuz-Light.sublime-color-scheme` are generated\nby the sibling `KronuzTheme` repository. Never hand-edit them.",
+  "task": "Sublime Text's console output uses this package's Console syntax, but Python tracebacks printed there are not distinguished from ordinary output. Make tracebacks stand out: the 'Traceback (most recent call last):' header, the '  File \"...\", line N, in ...' frame lines, and the final 'SomeError: message' line should each be highlighted distinctly, and lines starting with 'error:' should look like errors. Keep the existing console highlighting working, and make sure it looks right with both the Kronuz and Kronuz Light color schemes."
+ },
+ {
+  "id": "B1-Tokinx_cf-server-monitor-theme-emerald",
+  "repo_path": "/tmp/study/extB/base/Tokinx_cf-server-monitor-theme-emerald",
+  "rule": "Use Bun for dependency management. Validation is ESLint plus the production build; there is no unit test suite yet.",
+  "task": "CI currently only runs the production build (.github/workflows/build.yml); ESLint is never run on pushes or pull requests, so lint errors only surface locally. Add linting to CI so pushes and pull requests fail when there are lint errors. The CI lint step must only report problems, not auto-fix files (the existing `lint` script passes --fix). Update the README's build/development notes if anything a contributor needs to know changes."
+ },
+ {
+  "id": "B2-tony-stark-eth_news-aggregator",
+  "repo_path": "/tmp/study/extB/base/tony-stark-eth_news-aggregator",
+  "rule": "- No direct `EntityManagerInterface` in services/handlers \u2014 use repository interfaces",
+  "task": "Deleting a source from the Sources page currently fails with a foreign-key error whenever the source already has articles, because nothing removes the articles (and the read states, bookmarks and notification logs that reference them) first. Fix source deletion so that removing a source also deletes all of its articles and every row that depends on those articles, then the source itself. Put the deletion logic in a dedicated service in the Source module (with an interface, like the other services) so it can be reused later, and have DeleteSourceController use it. Keep the existing HTMX and flash-message behaviour of the controller unchanged."
+ },
+ {
+  "id": "B3-mosh-hamedani_helpdesk",
+  "repo_path": "/tmp/study/extB/base/mosh-hamedani_helpdesk",
+  "rule": "- Define shared constants and domain types in `core/constants/` as union types (not `enum` \u2014 the client has `erasableSyntaxOnly` enabled). Use `as const` objects when runtime access is needed (e.g. `Role`), and plain union types when only type checking is needed (e.g. `type TicketStatus = \"open\" | \"resolved\" | \"closed\"`).",
+  "task": "Add a priority to tickets so agents can triage them. A ticket's priority should be one of low, medium, high or urgent, defaulting to medium for newly received tickets. Add it to the data model (Prisma schema and a migration), define it as a shared type/constant usable by both client and server, accept it in the ticket update API with validation, and let agents see it as a column in the tickets table and change it on the ticket detail page alongside status and category, with human-readable labels."
+ },
+ {
+  "id": "B5-loocor_codmate",
+  "repo_path": "/tmp/study/extB/base/loocor_codmate",
+  "rule": "- Full\u2011text search: chunked stream scan (128 KB), case\u2011insensitive; avoid `lowercased()` on whole file.",
+  "task": "The search box in the session list only finds sessions whose file contains the typed text as one exact phrase (SessionIndexer.fileContains, called from SessionListViewModel.scheduleFulltextSearchIfNeeded). Please make it behave like global search for multi-word queries: split the query on whitespace and treat a session as a match when every word appears somewhere in the session file, in any order and not necessarily on the same line, still case-insensitively. Single-word queries should keep working as they do today."
+ },
+ {
+  "id": "C3-CHANG-JUI-LIN_Yuedu-reader",
+  "repo_path": "/tmp/study/extB/base/CHANG-JUI-LIN_Yuedu-reader",
+  "rule": "- **Don't swallow errors.** In parsing/network pipelines, `try?` that discards the error is banned unless an empty result is truly equivalent; log through `AppLogger` (never wrapped in `#if DEBUG` \u2014 os_log is how on-device issues get diagnosed).",
+  "task": "Gutenberg's OPDS 2 publications carry `subject`, `publisher`, `published` and `language` in their metadata (see the fixtures in Tests/iOS/yuedu appTests/Fixtures/GutenbergOPDS2/publication.json), but `OPDS2FeedParser` (Modules/Services/OPDS/OPDS2FeedParser.swift) drops them. Add these to `OPDSEntry` (subjects as a list of names, `published` as a `Date` when the value is a date) and fill them from OPDS 2 metadata in `OPDS2FeedParser`. In OPDS 2 a subject may be a bare string or an object with a `name` (itself possibly a language map), and the member may hold one value or an array. The Atom parser may leave the new fields empty. Extend `OPDS2ParserTests` to cover the new fields."
+ },
+ {
+  "id": "D2-Xceptance_neodymium",
+  "repo_path": "/tmp/study/extB/base/Xceptance_neodymium",
+  "rule": "- **Attribution:** Do not use inline comments like `// AI-generated: <Model>`. Use `@author` tags on class/interface Javadoc level instead (e.g., `@author AI-generated: <Model Name>`), and always add a second author tag for `Xceptance GmbH 2026`.",
+  "task": "Playbooks can switch to a newly opened browser window with SWITCH_WINDOW, but there is no way to close a popup window/tab once the test is done with it. Add a CLOSE_WINDOW AI action plugin in com.xceptance.neodymium.ai.action.plugins, modelled on SwitchWindowAction, that closes the current browser window and switches focus back to a remaining window (optionally to a window given by index like 'win_0' or by title). Register it in ActionRegistry, give it prompt instructions so the LLM knows about it, and add a unit/integration test for it alongside SwitchWindowActionTest."
+ },
+ {
+  "id": "D3-craigjbass_clearancekit",
+  "repo_path": "/tmp/study/extB/base/craigjbass_clearancekit",
+  "rule": "3. **Narrow the scope.** Test the smallest unit that isolates the logic you need to change, using a fake collaborator (named `Fake\u2026`, never `Mock\u2026`).",
+  "task": "opfilter/Filter/PostRespondHandler.swift has no unit tests. Add a Swift Testing suite in Tests/PostRespondHandlerTests.swift that covers its behaviour: a denied decision writes a TTY denial carrying the event's path and the decision reason, an allowed decision does not write to the TTY, and the FolderOpenEvent passed to onEvent carries the file event's fields and the access decision. PostRespondHandler currently constructs its TTYNotifier and AuditLogger itself and the TTY notifier writes to a real terminal, so make whatever changes to PostRespondHandler are needed for the tests to observe those notifications without touching a real TTY, keeping existing call sites (main.swift, FAAFilterInteractor, JailFilterInteractor and their tests) working."
+ },
+ {
+  "id": "D4-storybookjs_vite-plugin-storybook-nextjs",
+  "repo_path": "/tmp/study/extB/base/storybookjs_vite-plugin-storybook-nextjs",
+  "rule": "- User-facing change \u2192 `pnpm changeset`. Tests/docs-only \u2192 no changeset.",
+  "task": "The `next/link` mock in src/plugins/next-mocks/alias/link/index.tsx discards the `as` prop, so a story that renders `<Link href=\"/posts/[id]\" as=\"/posts/42\">` gets an anchor whose href is the dynamic route pattern instead of `/posts/42`. Real next/link uses `as` (string or URL object) as the rendered href when it is provided. Update the mock so the rendered href and the value passed to the `next/link::Link` action use `as` when given (with the same trailing-slash normalization), including the `legacyBehavior`/`passHref` path."
+ },
+ {
+  "id": "E1-derrickburns_generalized-kmeans-clustering",
+  "repo_path": "/tmp/study/extB/base/derrickburns_generalized-kmeans-clustering",
+  "rule": "- Target Java 17; avoid committing large datasets or credentials. Report vulnerabilities via `SECURITY.md`.",
+  "task": "Contributors keep running into environment setup problems (JDK, sbt, Python/PySpark versions). Add a Dockerfile at the repository root that gives a reproducible development environment able to compile the Scala library with sbt, run the ScalaTest suite, and run the Python wrapper tests in python/. Add a short section to CONTRIBUTING.md explaining how to build the image and run `sbt test` and the Python tests inside it."
+ }
+]

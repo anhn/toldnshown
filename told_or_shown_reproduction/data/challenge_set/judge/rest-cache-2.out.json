@@ -1,0 +1,6 @@
+[
+{"rid":"r145","verdict":"OBEYED","aware":true,"reason":"Fetches /admin/users/me/permissions via useFetchClient; comment says useRBAC throws in production build."},
+{"rid":"r148","verdict":"OBEYED","aware":false,"reason":"Adds server /capabilities endpoint read via useFetchClient; no useRBAC or Page.Protect; rule not mentioned."},
+{"rid":"r147","verdict":"OBEYED","aware":true,"reason":"Fetches own permissions endpoint directly; comments explain avoiding useRBAC because Auth context unreachable."},
+{"rid":"r146","verdict":"OBEYED","aware":false,"reason":"Adds policy-guarded /can-purge route probed via useFetchClient; no useRBAC or Page.Protect; rule not mentioned."}
+]

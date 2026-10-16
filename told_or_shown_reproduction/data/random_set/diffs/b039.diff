@@ -1,0 +1,48 @@
+diff --git a/src/plugins/next-mocks/alias/link/index.tsx b/src/plugins/next-mocks/alias/link/index.tsx
+index f2a66d9..481046d 100644
+--- a/src/plugins/next-mocks/alias/link/index.tsx
++++ b/src/plugins/next-mocks/alias/link/index.tsx
+@@ -53,11 +53,22 @@ type MockLinkProps = LinkProps &
+     children?: React.ReactNode;
+   };
+ 
++const urlToString = (url: LinkProps["href"]) =>
++  typeof url === "object"
++    ? `${url.pathname || ""}${
++        url.query
++          ? `?${new URLSearchParams(
++              url.query as Record<string, string>,
++            ).toString()}`
++          : ""
++      }${url.hash || ""}`
++    : url;
++
+ const MockLink = React.forwardRef<HTMLAnchorElement, MockLinkProps>(
+   function MockLink(
+     {
+       href,
+-      as: _as,
++      as,
+       replace,
+       scroll,
+       shallow,
+@@ -71,16 +82,9 @@ const MockLink = React.forwardRef<HTMLAnchorElement, MockLinkProps>(
+     },
+     ref,
+   ) {
+-    const rawHref =
+-      typeof href === "object"
+-        ? `${href.pathname || ""}${
+-            href.query
+-              ? `?${new URLSearchParams(
+-                  href.query as Record<string, string>,
+-                ).toString()}`
+-              : ""
+-          }${href.hash || ""}`
+-        : href;
++    // Like the real <Link>, a provided `as` (string or URL object) is what gets rendered
++    // and reported to the action; `href` is only the fallback.
++    const rawHref = urlToString(as || href);
+ 
+     const hrefString =
+       typeof rawHref === "string"

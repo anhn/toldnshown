@@ -1,0 +1,250 @@
+diff --git a/Tests/PostRespondHandlerTests.swift b/Tests/PostRespondHandlerTests.swift
+new file mode 100644
+index 0000000..1fb88ad
+--- /dev/null
++++ b/Tests/PostRespondHandlerTests.swift
+@@ -0,0 +1,198 @@
++//
++//  PostRespondHandlerTests.swift
++//  clearancekitTests
++//
++
++import Testing
++import Foundation
++import os
++
++@Suite("PostRespondHandler")
++struct PostRespondHandlerTests {
++
++    private struct RecordedDenial: Equatable {
++        let path: String
++        let reason: String
++        let ttyPath: String?
++    }
++
++    private final class FakeDenialNotifier: DenialNotifier, @unchecked Sendable {
++        private let lock = OSAllocatedUnfairLock<[RecordedDenial]>(initialState: [])
++        var recordedDenials: [RecordedDenial] { lock.withLock { $0 } }
++
++        func writeDenial(path: String, reason: String, ttyPath: String?) {
++            lock.withLock { $0.append(RecordedDenial(path: path, reason: reason, ttyPath: ttyPath)) }
++        }
++    }
++
++    private final class FolderOpenEventRecorder: @unchecked Sendable {
++        private let lock = OSAllocatedUnfairLock<[FolderOpenEvent]>(initialState: [])
++        var recordedEvents: [FolderOpenEvent] { lock.withLock { $0 } }
++
++        func record(_ event: FolderOpenEvent) {
++            lock.withLock { $0.append(event) }
++        }
++    }
++
++    private struct HandlerUnderTest {
++        let handler: PostRespondHandler
++        let queue: DispatchQueue
++        let denialNotifier: FakeDenialNotifier
++        let eventRecorder: FolderOpenEventRecorder
++
++        func postRespondAndWait(
++            fileEvent: FileAuthEvent,
++            decision: PolicyDecision,
++            ancestors: [AncestorInfo] = []
++        ) {
++            handler.postRespond(fileEvent: fileEvent, decision: decision, ancestors: ancestors, dwellNanoseconds: 0)
++            queue.sync {}
++        }
++    }
++
++    private func makeHandler() -> HandlerUnderTest {
++        let queue = DispatchQueue(label: "test.post-respond")
++        let denialNotifier = FakeDenialNotifier()
++        let eventRecorder = FolderOpenEventRecorder()
++        let handler = PostRespondHandler(postRespondQueue: queue, denialNotifier: denialNotifier)
++        handler.onEvent = { eventRecorder.record($0) }
++        return HandlerUnderTest(handler: handler, queue: queue, denialNotifier: denialNotifier, eventRecorder: eventRecorder)
++    }
++
++    private func makeFileEvent(
++        operation: FileOperation = .open,
++        path: String = "/Users/test/Documents/secret.txt",
++        secondaryPath: String? = nil,
++        ttyPath: String? = "/dev/ttys001"
++    ) -> FileAuthEvent {
++        FileAuthEvent(
++            correlationID: UUID(),
++            operation: operation,
++            accessKind: .write,
++            path: path,
++            secondaryPath: secondaryPath,
++            processIdentity: ProcessIdentity(pid: 4242, pidVersion: 7),
++            processID: 4242,
++            parentPID: 1,
++            parentPIDVersion: 0,
++            processPath: "/usr/bin/editor",
++            teamID: "TEAM123456",
++            signingID: "com.example.editor",
++            uid: 501,
++            gid: 20,
++            ttyPath: ttyPath,
++            deadline: 0,
++            respond: { _, _ in }
++        )
++    }
++
++    private let deniedDecision = PolicyDecision.denied(
++        ruleID: UUID(),
++        ruleName: "Protect Documents",
++        ruleSource: .user,
++        allowedCriteria: "TEAM999999:com.example.allowed"
++    )
++
++    // MARK: - TTY notification
++
++    @Test("denied decision writes a TTY denial with the event path and decision reason")
++    func deniedDecisionWritesTTYDenial() {
++        let subject = makeHandler()
++        let fileEvent = makeFileEvent()
++
++        subject.postRespondAndWait(fileEvent: fileEvent, decision: deniedDecision)
++
++        #expect(subject.denialNotifier.recordedDenials == [
++            RecordedDenial(path: fileEvent.path, reason: deniedDecision.reason, ttyPath: fileEvent.ttyPath)
++        ])
++    }
++
++    @Test("jail denied decision writes a TTY denial")
++    func jailDeniedDecisionWritesTTYDenial() {
++        let subject = makeHandler()
++        let fileEvent = makeFileEvent()
++        let decision = PolicyDecision.jailDenied(ruleID: UUID(), ruleName: "Sandbox", allowedPrefixes: ["/tmp"])
++
++        subject.postRespondAndWait(fileEvent: fileEvent, decision: decision)
++
++        #expect(subject.denialNotifier.recordedDenials == [
++            RecordedDenial(path: fileEvent.path, reason: decision.reason, ttyPath: fileEvent.ttyPath)
++        ])
++    }
++
++    @Test("allowed decision does not write a TTY denial")
++    func allowedDecisionDoesNotWriteTTYDenial() {
++        let subject = makeHandler()
++        let decision = PolicyDecision.allowed(
++            ruleID: UUID(),
++            ruleName: "Protect Documents",
++            ruleSource: .user,
++            matchedCriterion: "TEAM123456:com.example.editor"
++        )
++
++        subject.postRespondAndWait(fileEvent: makeFileEvent(), decision: decision)
++
++        #expect(subject.denialNotifier.recordedDenials.isEmpty)
++    }
++
++    @Test("no applicable rule does not write a TTY denial")
++    func noRuleAppliesDoesNotWriteTTYDenial() {
++        let subject = makeHandler()
++
++        subject.postRespondAndWait(fileEvent: makeFileEvent(), decision: .noRuleApplies)
++
++        #expect(subject.denialNotifier.recordedDenials.isEmpty)
++    }
++
++    // MARK: - FolderOpenEvent
++
++    @Test("onEvent receives the file event fields")
++    func onEventReceivesFileEventFields() throws {
++        let subject = makeHandler()
++        let fileEvent = makeFileEvent(operation: .rename, path: "/Users/test/a.txt", secondaryPath: "/Users/test/b.txt")
++        let ancestors = [AncestorInfo(path: "/bin/zsh", teamID: "", signingID: "com.apple.zsh", uid: 501, gid: 20)]
++
++        subject.postRespondAndWait(fileEvent: fileEvent, decision: .noRuleApplies, ancestors: ancestors)
++
++        let event = try #require(subject.eventRecorder.recordedEvents.first)
++        #expect(subject.eventRecorder.recordedEvents.count == 1)
++        #expect(event.eventID == fileEvent.correlationID)
++        #expect(event.operation == FileOperation.rename.rawValue)
++        #expect(event.path == fileEvent.path)
++        #expect(event.secondaryPath == fileEvent.secondaryPath)
++        #expect(event.processID == fileEvent.processID)
++        #expect(event.processPath == fileEvent.processPath)
++        #expect(event.teamID == fileEvent.teamID)
++        #expect(event.signingID == fileEvent.signingID)
++        #expect(event.uid == UInt32(fileEvent.uid))
++        #expect(event.ancestors == ancestors)
++    }
++
++    @Test("onEvent receives the denial decision")
++    func onEventReceivesDenialDecision() throws {
++        let subject = makeHandler()
++
++        subject.postRespondAndWait(fileEvent: makeFileEvent(), decision: deniedDecision)
++
++        let event = try #require(subject.eventRecorder.recordedEvents.first)
++        #expect(event.accessAllowed == false)
++        #expect(event.decisionReason == deniedDecision.reason)
++        #expect(event.matchedRuleID == deniedDecision.matchedRuleID)
++        #expect(event.jailedRuleID == nil)
++    }
++
++    @Test("onEvent receives the jail decision rule identifiers")
++    func onEventReceivesJailDecisionRuleIdentifiers() throws {
++        let subject = makeHandler()
++        let jailRuleID = UUID()
++        let decision = PolicyDecision.jailAllowed(ruleID: jailRuleID, ruleName: "Sandbox", matchedPrefix: "/tmp")
++
++        subject.postRespondAndWait(fileEvent: makeFileEvent(), decision: decision)
++
++        let event = try #require(subject.eventRecorder.recordedEvents.first)
++        #expect(event.accessAllowed == true)
++        #expect(event.decisionReason == decision.reason)
++        #expect(event.matchedRuleID == jailRuleID)
++        #expect(event.jailedRuleID == jailRuleID)
++    }
++}
+diff --git a/opfilter/Filter/DenialNotifier.swift b/opfilter/Filter/DenialNotifier.swift
+new file mode 100644
+index 0000000..a40de37
+--- /dev/null
++++ b/opfilter/Filter/DenialNotifier.swift
+@@ -0,0 +1,10 @@
++//
++//  DenialNotifier.swift
++//  opfilter
++//
++
++protocol DenialNotifier: Sendable {
++    func writeDenial(path: String, reason: String, ttyPath: String?)
++}
++
++extension TTYNotifier: DenialNotifier {}
+diff --git a/opfilter/Filter/PostRespondHandler.swift b/opfilter/Filter/PostRespondHandler.swift
+index 0331b68..21f2693 100644
+--- a/opfilter/Filter/PostRespondHandler.swift
++++ b/opfilter/Filter/PostRespondHandler.swift
+@@ -10,10 +10,14 @@ final class PostRespondHandler: @unchecked Sendable {
+ 
+     private let postRespondQueue: DispatchQueue
+     private let auditLogger = AuditLogger()
+-    private let ttyNotifier = TTYNotifier()
++    private let denialNotifier: DenialNotifier
+ 
+-    init(postRespondQueue: DispatchQueue = DispatchQueue(label: "uk.craigbass.clearancekit.post-respond", qos: .background)) {
++    init(
++        postRespondQueue: DispatchQueue = DispatchQueue(label: "uk.craigbass.clearancekit.post-respond", qos: .background),
++        denialNotifier: DenialNotifier = TTYNotifier()
++    ) {
+         self.postRespondQueue = postRespondQueue
++        self.denialNotifier = denialNotifier
+     }
+ 
+     func postRespond(fileEvent: FileAuthEvent, decision: PolicyDecision, ancestors: [AncestorInfo], dwellNanoseconds: UInt64) {
+@@ -23,7 +27,7 @@ final class PostRespondHandler: @unchecked Sendable {
+             auditLogger.log(decision, for: fileEvent, ancestors: ancestors, dwellNanoseconds: dwellNanoseconds, operationID: fileEvent.correlationID)
+ 
+             if !allowed {
+-                ttyNotifier.writeDenial(path: fileEvent.path, reason: decision.reason, ttyPath: fileEvent.ttyPath)
++                denialNotifier.writeDenial(path: fileEvent.path, reason: decision.reason, ttyPath: fileEvent.ttyPath)
+             }
+ 
+             let folderOpenEvent = FolderOpenEvent(

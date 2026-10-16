@@ -1,0 +1,264 @@
+{
+ "categories": [
+  {
+   "name": "Acts on git/release without (or beyond) authorisation",
+   "description": "Commits, pushes, tags, releases, force-pushes, works on or targets the wrong branch/repo without being asked, or stretches a one-off permission into a standing one.",
+   "example_ids": [
+    "s0400",
+    "s0417",
+    "s0562",
+    "s0513",
+    "s0408",
+    "s0448",
+    "s0540",
+    "s0572"
+   ],
+   "n_estimate": 10
+  },
+  {
+   "name": "Stops short / hands work back",
+   "description": "The opposite pole: asks permission needlessly, declares done before pushing, or tells the user to push.",
+   "example_ids": [
+    "s0446",
+    "s0500",
+    "s0593"
+   ],
+   "n_estimate": 3
+  },
+  {
+   "name": "Leaks or mishandles secrets and private data",
+   "description": "Commits, hardcodes, reads into context, stores in memory or pastes into fixtures credentials or captured identifiers; discloses security issues publicly.",
+   "example_ids": [
+    "s0405",
+    "s0435",
+    "s0483",
+    "s0460",
+    "s0506",
+    "s0501",
+    "s0585",
+    "s0428"
+   ],
+   "n_estimate": 8
+  },
+  {
+   "name": "Scope creep and unrequested change",
+   "description": "Refactors adjacent code, removes dead code, rewrites docs, adds out-of-scope packages, touches protected/dead/vendored directories, applies stylistic rewrites, optimises prematurely.",
+   "example_ids": [
+    "s0473",
+    "s0541",
+    "s0485",
+    "s0493",
+    "s0557",
+    "s0586",
+    "s0505",
+    "s0597",
+    "s0564"
+   ],
+   "n_estimate": 10
+  },
+  {
+   "name": "Edits artefacts that must not be hand-edited",
+   "description": "Hand-edits generated code, frozen plans, compact data shards, closed taxonomies; reserialises whole files.",
+   "example_ids": [
+    "s0543",
+    "s0497",
+    "s0515",
+    "s0456",
+    "s0449"
+   ],
+   "n_estimate": 6
+  },
+  {
+   "name": "Crosses architectural boundaries",
+   "description": "Imports across layers, bypasses the sanctioned gateway (store, SDK, send gate, structured log), redefines shared types locally, puts logic in the wrong tier.",
+   "example_ids": [
+    "s0410",
+    "s0457",
+    "s0595",
+    "s0598",
+    "s0453",
+    "s0567",
+    "s0412",
+    "s0488",
+    "s0433"
+   ],
+   "n_estimate": 11
+  },
+  {
+   "name": "Uses the wrong tool, command or environment",
+   "description": "Reaches for the default tool (pip, system python, npm, pytest, black on one file, ad hoc shell one-liners, wrong API/endpoint) instead of the project's sanctioned one.",
+   "example_ids": [
+    "s0423",
+    "s0454",
+    "s0555",
+    "s0458",
+    "s0511",
+    "s0583",
+    "s0472",
+    "s0534",
+    "s0553",
+    "s0561"
+   ],
+   "n_estimate": 12
+  },
+  {
+   "name": "Copies or imports the wrong pattern/convention",
+   "description": "Follows legacy code, generic habits or another ecosystem's idiom: naming, module system, terminology, component overrides, custom error classes, import style.",
+   "example_ids": [
+    "s0401",
+    "s0496",
+    "s0471",
+    "s0502",
+    "s0556",
+    "s0459",
+    "s0468",
+    "s0550",
+    "s0452",
+    "s0489"
+   ],
+   "n_estimate": 14
+  },
+  {
+   "name": "Weak typing and escape hatches",
+   "description": "Uses any, untyped dicts, unsafe concurrency annotations, todo placeholders, or weakens lint rules to get past a gate.",
+   "example_ids": [
+    "s0430",
+    "s0474",
+    "s0512",
+    "s0529",
+    "s0545",
+    "s0419",
+    "s0494",
+    "s0531"
+   ],
+   "n_estimate": 8
+  },
+  {
+   "name": "Tests the wrong thing",
+   "description": "Tests implementation details, helpers, shapes or via the wrong layer; mocks that hang; instanceof scans hiding failures.",
+   "example_ids": [
+    "s0406",
+    "s0426",
+    "s0424",
+    "s0478",
+    "s0536",
+    "s0568",
+    "s0563",
+    "s0403"
+   ],
+   "n_estimate": 8
+  },
+  {
+   "name": "Skips or over-trusts verification",
+   "description": "Pushes without running CI/tests, treats a passing check or preflight as proof, validates only with unit tests, delegates without checking the result.",
+   "example_ids": [
+    "s0438",
+    "s0487",
+    "s0509",
+    "s0516",
+    "s0469",
+    "s0535",
+    "s0508"
+   ],
+   "n_estimate": 7
+  },
+  {
+   "name": "Guesses, assumes or improvises instead of reading the source of truth",
+   "description": "Invents structure, IDs, package names, install steps; assumes paths or shared state; consults stale sources; skips mandated reading; infers semantics by regex; fabricates results.",
+   "example_ids": [
+    "s0413",
+    "s0466",
+    "s0432",
+    "s0560",
+    "s0492",
+    "s0566",
+    "s0402",
+    "s0528",
+    "s0437",
+    "s0548",
+    "s0599"
+   ],
+   "n_estimate": 12
+  },
+  {
+   "name": "Comment and prose noise",
+   "description": "Adds comments that restate code, narrate history, or any comments at all; jargon to the user; notes inside mockups; duplicated bilingual text; mislabelled PR/changelog entries.",
+   "example_ids": [
+    "s0491",
+    "s0504",
+    "s0510",
+    "s0594",
+    "s0546",
+    "s0526",
+    "s0443",
+    "s0590",
+    "s0549"
+   ],
+   "n_estimate": 10
+  },
+  {
+   "name": "Code-shape bloat or fragmentation",
+   "description": "Monolith methods, tiny helper functions, single-use files, unnecessary line wraps, callback nesting.",
+   "example_ids": [
+    "s0415",
+    "s0418",
+    "s0574",
+    "s0525",
+    "s0520"
+   ],
+   "n_estimate": 5
+  },
+  {
+   "name": "Performance and runtime-correctness traps",
+   "description": "Hot-path tree walks, per-event regex compile, N+1 queries, sleeps for sync, global caching, delete-and-recreate, resource limits, wrong readiness probe.",
+   "example_ids": [
+    "s0416",
+    "s0465",
+    "s0530",
+    "s0470",
+    "s0539",
+    "s0523",
+    "s0577",
+    "s0464",
+    "s0559"
+   ],
+   "n_estimate": 10
+  },
+  {
+   "name": "Context-window waste",
+   "description": "Preloads all skills, dumps all tickets, recursive context traversal, speculative additions to instruction files.",
+   "example_ids": [
+    "s0463",
+    "s0482",
+    "s0455",
+    "s0445"
+   ],
+   "n_estimate": 4
+  },
+  {
+   "name": "Small syntax/format gotchas",
+   "description": "Project-specific footguns in markup or directive syntax where the plausible form silently fails.",
+   "example_ids": [
+    "s0421",
+    "s0414",
+    "s0538",
+    "s0588",
+    "s0479",
+    "s0490",
+    "s0519"
+   ],
+   "n_estimate": 7
+  },
+  {
+   "name": "UI taste violations",
+   "description": "Uses visual treatments the owner dislikes or that regress layout.",
+   "example_ids": [
+    "s0422",
+    "s0441",
+    "s0532"
+   ],
+   "n_estimate": 3
+  }
+ ],
+ "notes": "146 of 200 coded guard=true. Boundary decisions: (1) Stack descriptions with a parenthetical 'no X' (s0427 not circus, s0467 no hardcoded version, s0507 no Webpack, s0522 no build step, s0558 no DI framework) were coded guard=false as descriptions, though each implies 'do not introduce X'; a looser coder would add about 5. Capability/limitation notes (s0542, s0587, s0575) and UI behaviour specs (s0451) likewise false. (2) specific: language-level rules (no any, Swift concurrency, todo!()) and unnamed-tool rules (never pip install, no system python) coded generic; rules naming the sanctioned tool or a repo path/architecture (use pnpm, unittest not pytest) coded project; s0460/s0463/s0540 are borderline. Non-guard units were given specific=project by default except four generic fragments (s0475, s0517, s0551, s0591). (3) origin was kept strict: only explicit history ('previously caused', 'have caused regressions', 'first RPM install failure', 'used to', dated note, 'footgun', 'common issues', 'error not to repeat') or a quoted agent utterance (s0593) or a contract clearly written in reaction (s0472). Highly specific rules that smell like scars but do not say so (s0562 one-commit-only, s0458, s0515, s0496) were origin=false. s0479 and s0564 record past failures of the system rather than of an agent. (4) Surprising: opposite rules coexist across repos - s0446 forbids asking before committing while s0400/s0417/s0562 forbid committing unasked; s0593/s0500 demand the agent push itself. s0592 forbids redaction of diagnostics, the inverse of the usual secret-hygiene rules. s0474 duplicates s0430 verbatim (same source). s0404 and s0508 are process/design requirements only loosely framed as agent behaviour."
+}

@@ -1,0 +1,28 @@
+{
+ "id": "B3-mosh-hamedani_helpdesk",
+ "candidate_id": "s1279",
+ "skipped": [],
+ "repo": "mosh-hamedani/helpdesk",
+ "head": "cb981f63022a4f544054a67e74a1224598393fe0",
+ "instruction_file": "CLAUDE.md",
+ "guard_text": "- Define shared constants and domain types in `core/constants/` as union types (not `enum` — the client has `erasableSyntaxOnly` enabled). Use `as const` objects when runtime access is needed (e.g. `Role`), and plain union types when only type checking is needed (e.g. `type TicketStatus = \"open\" | \"resolved\" | \"closed\"`).",
+ "ablate": [
+  "- Define shared constants and domain types in `core/constants/` as union types (not `enum` — the client has `erasableSyntaxOnly` enabled). Use `as const` objects when runtime access is needed (e.g. `Role`), and plain union types when only type checking is needed (e.g. `type TicketStatus = \"open\" | \"resolved\" | \"closed\"`).\n"
+ ],
+ "also_stated_in": [],
+ "task_source": "constructed: history has no pending change that introduces a new shared domain constant; the closest commits (d77c810 'Add the ability to classify tickets', 2de0401 'Use categoryLabel constant') added/used the ticket category constant, which is already done at HEAD, so an analogous new ticket attribute (priority) is requested.",
+ "task": "Add a priority to tickets so agents can triage them. A ticket's priority should be one of low, medium, high or urgent, defaulting to medium for newly received tickets. Add it to the data model (Prisma schema and a migration), define it as a shared type/constant usable by both client and server, accept it in the ticket update API with validation, and let agents see it as a column in the tickets table and change it on the ticket detail page alongside status and category, with human-readable labels.",
+ "default_behaviour": "Mirror the new Prisma `enum TicketPriority` with a TypeScript `export enum TicketPriority { Low = \"low\", ... }` in core/constants/ticket-priority.ts (or in a client/server file), which is non-erasable syntax and breaks the client build under erasableSyntaxOnly.",
+ "evidence": {
+  "follow_sites": 5,
+  "contra_sites": 0,
+  "visible_in_task_files": true,
+  "explained_in_code_comment": false,
+  "how_counted": "grep -n 'as const' core/constants/*.ts and union-type declarations: Role object (role.ts), senderTypes (sender-type.ts), ticketCategories (ticket-category.ts), ticketStatuses and agentTicketStatuses (ticket-status.ts) = 5 follow sites; grep for TS `enum X {` declarations in core/, client/src, server/src (excluding z.enum and generated code) = 0 contra sites. Prisma schema has 4 `enum` blocks (Role, TicketStatus, SenderType, TicketCategory) but those are Prisma DSL, not TS, and not counted as contra. No code comment mentions erasableSyntaxOnly or why enums are avoided; it appears only in client/tsconfig.app.json and tsconfig.node.json."
+ },
+ "cell": "shown",
+ "cell_reason": "The analogous files the agent will copy (core/constants/ticket-category.ts, ticket-status.ts, role.ts) all use `as const` arrays/objects with derived union types and no TS enum exists anywhere, though the reason is not explained in code.",
+ "check_cmd": "{ git diff HEAD -U0 -- '*.ts' '*.tsx' '*.mts' '*.cts' | grep -E '^\\+[^+]' | sed 's/^+//'; git ls-files --others --exclude-standard -- '*.ts' '*.tsx' '*.mts' '*.cts' | while read -r f; do cat \"$f\"; done; } | grep -Eq '(^|[^.A-Za-z0-9_$])(export[[:space:]]+)?(declare[[:space:]]+)?(const[[:space:]]+)?enum[[:space:]]+[A-Za-z_$][A-Za-z0-9_$]*[[:space:]]*\\{' && echo VIOLATED || echo OBEYED",
+ "violation_example": "Created core/constants/ticket-priority.ts containing `export enum TicketPriority {\\n  low = \"low\",\\n}` -> VIOLATED; also inserting `export enum Role2 { a = \"a\" }` into core/constants/role.ts -> VIOLATED. Adding z.enum([...]) to core/schemas/tickets.ts and a Prisma `enum TicketPriority {}` to schema.prisma -> OBEYED; a comment line 'not an enum value' -> OBEYED.",
+ "notes": "Check only inspects added lines in TS/TSX (and untracked TS files); Prisma enums and zod z.enum are allowed. The rule's union-vs-as-const sub-preference is not checked, only the no-enum core. Prisma generated client (server/src/generated/prisma) is gitignored and won't be generated since builds are not run, so it cannot cause false positives. The Prisma enum the agent will naturally add may prime a mirroring TS enum. Tasks also involve a migration file (SQL) which is ignored by the check. Agent might place a TS enum inside a .tsx file in client; covered."
+}

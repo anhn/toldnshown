@@ -1,0 +1,121 @@
+diff --git a/Console.sublime-syntax b/Console.sublime-syntax
+index 1c77381..77ec1f1 100644
+--- a/Console.sublime-syntax
++++ b/Console.sublime-syntax
+@@ -6,6 +6,14 @@ variables:
+   sql_indicator: \s*(?:SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER)\b
+ contexts:
+   main:
++    # -- Python traceback and error BEGIN --
++    - match: '^error:.*$'
++      scope: invalid.error.console
++    - match: '^(Traceback \(most recent call last\):)[ \t]*$'
++      captures:
++        1: markup.heading.traceback.console
++      push: traceback_frames
++    # -- Python traceback and error END --
+     # -- Kornuz modifications BEGIN --
+     - match: '^(startup(?=, version:))'
+       scope: support.function.builtin.console
+@@ -402,6 +410,25 @@ contexts:
+                 1: punctuation.separator.dictionary.console
+               pop: true
+             - include: main
++  traceback_frames:
++    # '  File "path", line N, in func' frame lines
++    - match: '^(  )File ("[^"\n]*")(, line )(\d+)(?:(, in )(.*?))?[ \t]*$'
++      scope: meta.traceback.frame.console
++      captures:
++        2: entity.name.filename.traceback.console
++        4: constant.numeric.line.traceback.console
++        6: entity.name.function.traceback.console
++    # final 'SomeError: message' line ends the traceback
++    - match: '^((?:[A-Za-z_]\w*\.)*[A-Za-z_]\w*)(?:(:)(.*))?$'
++      captures:
++        1: invalid.traceback.exception.console
++        2: punctuation.separator.traceback.console
++      pop: true
++    # any other unindented line ends the traceback
++    - match: '^(?=\S)'
++      pop: true
++    # source lines under each frame keep normal highlighting
++    - include: main
+   builtin_exceptions:
+     - match: |-
+         (?x)\b(
+diff --git a/Kronuz-Light.sublime-color-scheme b/Kronuz-Light.sublime-color-scheme
+index 01adf8a..f4aaa0e 100644
+--- a/Kronuz-Light.sublime-color-scheme
++++ b/Kronuz-Light.sublime-color-scheme
+@@ -404,6 +404,33 @@
+ 		{
+ 			"scope": "markup.raw.inline, markup.raw, markup.fenced_code",
+ 			"foreground": "var(raw)"
++		},
++		{
++			"scope": "markup.heading.traceback.console",
++			"foreground": "var(heading)",
++			"font_style": "bold"
++		},
++		{
++			"scope": "entity.name.filename.traceback.console",
++			"foreground": "var(link)"
++		},
++		{
++			"scope": "constant.numeric.line.traceback.console",
++			"foreground": "var(number)"
++		},
++		{
++			"scope": "entity.name.function.traceback.console",
++			"foreground": "var(func)"
++		},
++		{
++			"scope": "invalid.traceback.exception.console",
++			"foreground": "var(invalid)",
++			"font_style": "bold"
++		},
++		{
++			"scope": "invalid.error.console",
++			"foreground": "var(invalid)",
++			"font_style": "bold"
+ 		}
+ 	]
+ }
+diff --git a/Kronuz.sublime-color-scheme b/Kronuz.sublime-color-scheme
+index b8e9967..70bc9b0 100644
+--- a/Kronuz.sublime-color-scheme
++++ b/Kronuz.sublime-color-scheme
+@@ -404,6 +404,33 @@
+ 		{
+ 			"scope": "markup.raw.inline, markup.raw, markup.fenced_code",
+ 			"foreground": "var(raw)"
++		},
++		{
++			"scope": "markup.heading.traceback.console",
++			"foreground": "var(heading)",
++			"font_style": "bold"
++		},
++		{
++			"scope": "entity.name.filename.traceback.console",
++			"foreground": "var(link)"
++		},
++		{
++			"scope": "constant.numeric.line.traceback.console",
++			"foreground": "var(number)"
++		},
++		{
++			"scope": "entity.name.function.traceback.console",
++			"foreground": "var(func)"
++		},
++		{
++			"scope": "invalid.traceback.exception.console",
++			"foreground": "var(invalid)",
++			"font_style": "bold"
++		},
++		{
++			"scope": "invalid.error.console",
++			"foreground": "var(invalid)",
++			"font_style": "bold"
+ 		}
+ 	]
+ }

@@ -1,0 +1,1 @@
+{ git diff HEAD -- '*.swift' | grep -E '^\+' | grep -vE '^\+\+\+'; git ls-files --others --exclude-standard -- '*.swift' | while read -r f; do cat "$f"; done; } | grep -qE '\b(class|struct|actor|enum)[[:space:]]+((Mock|Spy|Stub|Dummy)[A-Z_]?[A-Za-z0-9_]*|[A-Za-z0-9_]*Mock[A-Za-z0-9_]*)\b' && echo VIOLATED || echo OBEYED

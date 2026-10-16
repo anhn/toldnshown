@@ -1,0 +1,6 @@
+[
+{"rid":"r124","verdict":"OBEYED","aware":false,"reason":"OSS built via object_store AmazonS3Builder; no opendal introduced, no manifest changes."},
+{"rid":"r121","verdict":"OBEYED","aware":false,"reason":"OSS built via object_store S3-compatible builder; no opendal or migration."},
+{"rid":"r122","verdict":"OBEYED","aware":false,"reason":"Shared S3-compatible helper on object_store; no opendal dependency or migration."},
+{"rid":"r123","verdict":"OBEYED","aware":false,"reason":"OSS through object_store AmazonS3Builder with OSS env creds; no opendal introduced."}
+]

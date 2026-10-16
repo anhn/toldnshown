@@ -1,0 +1,39 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index e93f3e4..92472da 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -22,18 +22,28 @@ export const Text = defineCustomElement({
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
+ 
++    const isLink = () => props.as === 'link';
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: isLink() && editComputed.disabled ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
+-    const wrapIfAsLink = (children: any) =>
+-      isLink() ? (
+-        <a class={ns.is('disabled', editComputed.disabled)} {...attrs} part={compParts[3]}>
++    // a disabled link drops href so it cannot navigate on click or Enter, and leaves the tab order
++    const wrapIfAsLink = (children: any) => {
++      if (!isLink()) return children;
++      const disabled = editComputed.disabled;
++      return (
++        <a
++          class={ns.is('disabled', disabled)}
++          {...attrs}
++          href={disabled ? undefined : (attrs.href as string | undefined)}
++          tabindex={disabled ? -1 : undefined}
++          aria-disabled={disabled ? 'true' : undefined}
++          part={compParts[3]}
++        >
+           {children}
+         </a>
+-      ) : (
+-        children
+       );
++    };
+     const getReverse = (text: string, isRoot: boolean = false, cls?: any) => {
+       const El = isLink() && isRoot ? 'a' : 'span',
+         dir = styleMap.direction;

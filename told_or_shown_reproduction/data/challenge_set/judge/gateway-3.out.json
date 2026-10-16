@@ -1,0 +1,6 @@
+[
+{"rid":"r161","verdict":"OBEYED","aware":false,"reason":"Both new SDK snippets use http://127.0.0.1:4000; no localhost added. No comment mentions the rule."},
+{"rid":"r164","verdict":"VIOLATED","aware":false,"reason":"Both new SDK snippets use http://localhost:4000 base URLs instead of 127.0.0.1."},
+{"rid":"r162","verdict":"VIOLATED","aware":false,"reason":"Both new SDK snippets use http://localhost:4000 base URLs instead of 127.0.0.1."},
+{"rid":"r163","verdict":"VIOLATED","aware":false,"reason":"Both new SDK snippets use http://localhost:4000 base URLs instead of 127.0.0.1."}
+]

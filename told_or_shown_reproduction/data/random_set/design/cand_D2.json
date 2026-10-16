@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s2123",
+  "repo": "Xceptance/neodymium",
+  "file": "AGENTS.md",
+  "text": "- **Attribution:** Do not use inline comments like `// AI-generated: <Model>`. Use `@author` tags on class/interface Javadoc level instead (e.g., `@author AI-generated: <Model Name>`), and always add a second author tag for `Xceptance GmbH 2026`.",
+  "heading": "Agent Instructions > Coding Standards"
+ },
+ {
+  "id": "s1723",
+  "repo": "wri/project-zeno",
+  "file": "CLAUDE.md",
+  "text": "- Put ticket references (e.g. `PZB-1234`) in the PR description, not the title",
+  "heading": "Working in this repository > PR titles and commit history"
+ },
+ {
+  "id": "s1578",
+  "repo": "enricobattocchi/myhondaplus-homeassistant",
+  "file": "AGENTS.md",
+  "text": "- **Release-notes format.** Every release uses the same shape: header `## X.Y.Z (YYYY-MM-DD)`, then only the sections that apply, in order: `### Breaking`, `### Added`, `### Fixed`, `### Changed`, `### Dependencies` (the last for pin changes, e.g. \"Requires pymyhondaplus >= X.Y.Z\"). Bullets are one line each, no em or en dashes, no mea-culpa or \"should have shipped earlier\" framing, no paragraph-length context. `pymyhondaplus` keeps these entries in `CHANGELOG.md` and the GitHub release body is that section copied verbatim; HA and desktop have no changelog, so write the GitHub release body directly in the same format.",
+  "heading": "AGENTS.md > 5. Cross-repo workflows > Release & change mechanics"
+ },
+ {
+  "id": "s1661",
+  "repo": "sei40kr/jupyter.nvim",
+  "file": "CLAUDE.md",
+  "text": "- Format: `<type>(<scope>): <subject>`\n  - **type**: one of `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.\n  - **scope** (optional): the area touched, e.g. `core`, `cell`, `display`, `completion`, `rplugin`, `flake`.\n  - **subject**: imperative, present tense, lower-case, no trailing period.",
+  "heading": "jupyter.nvim > Development Guidelines > Commit Messages"
+ }
+]

@@ -1,0 +1,6 @@
+[
+{"rid":"r140","verdict":"OBEYED","aware":false,"reason":"New fields and methods added with no doc comments or comment blocks."},
+{"rid":"r139","verdict":"VIOLATED","aware":false,"reason":"Added `///` doc comments on the two new TailscalePeer fields."},
+{"rid":"r138","verdict":"OBEYED","aware":false,"reason":"New fields and methods added with no doc comments or comment blocks."},
+{"rid":"r137","verdict":"OBEYED","aware":false,"reason":"New fields and methods added with no doc comments; only #[allow(dead_code)] attributes."}
+]

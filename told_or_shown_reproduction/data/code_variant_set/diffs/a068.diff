@@ -1,0 +1,52 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index a76d535..85620d8 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -3,6 +3,7 @@ import { createDefineElement, createImportStyle, error, getHostStyle } from 'uti
+ import { textEmits, textProps } from './type';
+ import { getCachedComputedStyle } from '@lun-web/utils';
+ import { ElementWithExpose, getCompParts } from 'common';
++import { useSetupEdit } from '@lun-web/core';
+ import { useAria, useCE, useNamespace, useSlot } from 'hooks';
+ 
+ const name = 'text';
+@@ -20,13 +21,23 @@ export const Text = defineCustomElement({
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
+ 
++    // `noInherit`: a disabled link is only the link's own `disabled`, not a disabled ancestor's
++    const [editComputed] = useSetupEdit({ noInherit: true });
++    const isLink = () => props.as === 'link';
++    const isInertLink = () => isLink() && !editComputed.interactive;
++    // without href there is no navigation or Enter activation; tabindex=-1 overrides any consumer tabindex
++    const inertLinkAttrs = () =>
++      isInertLink()
++        ? { href: undefined, role: 'link', tabindex: -1, 'aria-disabled': 'true', class: ns.is('disabled', true) }
++        : {};
++
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: isInertLink() ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a {...attrs} part={compParts[3]}>
++        <a {...attrs} {...inertLinkAttrs()} part={compParts[3]}>
+           {children}
+         </a>
+       ) : (
+@@ -36,7 +47,12 @@ export const Text = defineCustomElement({
+       const El = isLink() && isRoot ? 'a' : 'span',
+         dir = styleMap.direction;
+       return (
+-        <El class={['ellipsis', cls]} dir={dirReverse[dir]} part={compParts[0]}>
++        <El
++          class={['ellipsis', cls]}
++          dir={dirReverse[dir]}
++          part={compParts[0]}
++          {...(isRoot ? inertLinkAttrs() : {})}
++        >
+           <span dir={dir} part={compParts[1]}>
+             {text}
+           </span>

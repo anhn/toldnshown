@@ -1,0 +1,50 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index ae80ebe..b28643f 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -2,6 +2,7 @@ import { defineCustomElement } from 'custom';
+ import { createDefineElement, createImportStyle, error, getHostStyle } from 'utils';
+ import { textEmits, textProps } from './type';
+ import { getCachedComputedStyle } from '@lun-web/utils';
++import { useSetupEdit } from '@lun-web/core';
+ import { ElementWithExpose, getCompParts } from 'common';
+ import { useAria, useCE, useNamespace, useSlot } from 'hooks';
+ 
+@@ -19,14 +20,22 @@ export const Text = defineCustomElement({
+     const ns = useNamespace(name);
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
++    // noInherit: `disabled` here is the text's own prop, not a disabled ancestor form
++    const [editComputed] = useSetupEdit({ noInherit: true });
+ 
++    const isLink = () => props.as === 'link';
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: isLink() && editComputed.disabled ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
++    // a disabled anchor drops its href so it cannot navigate, be activated with Enter, or be tabbed to
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a class={ns.is('disabled', props.disabled)} {...attrs} part={compParts[3]}>
++        <a
++          class={ns.is('disabled', editComputed.disabled)}
++          {...(editComputed.disabled ? { ...attrs, href: undefined, tabindex: -1 } : attrs)}
++          part={compParts[3]}
++        >
+           {children}
+         </a>
+       ) : (
+@@ -36,7 +45,11 @@ export const Text = defineCustomElement({
+       const El = isLink() && isRoot ? 'a' : 'span',
+         dir = styleMap.direction;
+       return (
+-        <El class={['ellipsis', cls, ns.is('disabled', props.disabled)]} dir={dirReverse[dir]} part={compParts[0]}>
++        <El
++          class={['ellipsis', cls, ns.is('disabled', editComputed.disabled)]}
++          dir={dirReverse[dir]}
++          part={compParts[0]}
++        >
+           <span dir={dir} part={compParts[1]}>
+             {text}
+           </span>

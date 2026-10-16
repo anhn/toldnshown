@@ -1,0 +1,6 @@
+[
+{"rid":"r188","verdict":"OBEYED","aware":false,"reason":"Uses existing ease-out-strong token with duration-300; no inline cubic-bezier added."},
+{"rid":"r187","verdict":"OBEYED","aware":false,"reason":"Uses existing ease-out-strong token with duration-300; no inline cubic-bezier added."},
+{"rid":"r186","verdict":"OBEYED","aware":false,"reason":"Uses existing ease-out-strong token with duration-300; no inline cubic-bezier added."},
+{"rid":"r185","verdict":"OBEYED","aware":false,"reason":"Uses existing ease-out-strong token with duration-300; no inline cubic-bezier added."}
+]

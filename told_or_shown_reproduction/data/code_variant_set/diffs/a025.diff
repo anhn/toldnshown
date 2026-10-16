@@ -1,0 +1,76 @@
+diff --git a/README.md b/README.md
+index a8c00cf..5d90848 100644
+--- a/README.md
++++ b/README.md
+@@ -216,6 +216,71 @@ codex
+ 
+ 
+ 
++## SDK setup
++
++Scripts can call the gateway directly with the official SDKs. Point each
++client at the front door's base URL and pass the token as the API key; the
++gateway accepts it as `x-api-key` or `Authorization: Bearer`.
++
++### Anthropic SDK (Messages API)
++
++```bash
++npm install @anthropic-ai/sdk
++```
++
++`anthropic.mjs`:
++
++```js
++import Anthropic from "@anthropic-ai/sdk";
++
++const client = new Anthropic({
++  baseURL: "http://127.0.0.1:4000/anthropic",
++  apiKey: "local-dev-token",
++});
++
++const msg = await client.messages.create({
++  model: "main",
++  max_tokens: 64,
++  messages: [{ role: "user", content: "say ok" }],
++});
++
++console.log(msg.content.map((b) => (b.type === "text" ? b.text : "")).join(""));
++```
++
++```bash
++node anthropic.mjs
++```
++
++### OpenAI SDK (Responses API)
++
++```bash
++npm install openai
++```
++
++`openai.mjs`:
++
++```js
++import OpenAI from "openai";
++
++const client = new OpenAI({
++  baseURL: "http://127.0.0.1:4000/openai/v1",
++  apiKey: "local-dev-token",
++});
++
++const response = await client.responses.create({
++  model: "main",
++  input: "say ok",
++});
++
++console.log(response.output_text);
++```
++
++```bash
++node openai.mjs
++```
++
++
++
+ ## Endpoints
+ 
+ ```text

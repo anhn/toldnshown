@@ -1,0 +1,225 @@
+diff --git a/Modules/Services/OPDS/OPDS2FeedParser.swift b/Modules/Services/OPDS/OPDS2FeedParser.swift
+index d3d659a..95937da 100644
+--- a/Modules/Services/OPDS/OPDS2FeedParser.swift
++++ b/Modules/Services/OPDS/OPDS2FeedParser.swift
+@@ -161,6 +161,11 @@ private struct Mapper {
+         if let description = metadata.description, !description.isEmpty {
+             entry.summary = Self.plain(description, limit: 8_000)
+         }
++        entry.subjects = metadata.subject.map { Self.plain($0.name, limit: 512) }.filter { !$0.isEmpty }
++        let publishers = metadata.publisher.map { Self.plain($0.name, limit: 256) }.filter { !$0.isEmpty }
++        entry.publisher = publishers.isEmpty ? nil : publishers.joined(separator: ", ")
++        entry.published = metadata.published.flatMap(Self.date(from:))
++        entry.languages = metadata.language.map { Self.plain($0, limit: 64) }.filter { !$0.isEmpty }
+         guard entry.isBook || entry.isNavigation else { return nil }
+         if entry.alternateURL == nil, entry.isBook { entry.alternateURL = feedAlternateURL }
+         entry.id = metadata.identifier ?? entry.navigationURL?.absoluteString
+@@ -210,6 +215,22 @@ private struct Mapper {
+     }
+ 
+     private static func plain(_ value: String, limit: Int) -> String { OPDSClient.plainMetadata(value, limit: limit) }
++
++    /// `published` is an ISO 8601 date (`2026-10-06`, read as midnight UTC) or
++    /// date-time (`2026-10-06T12:00:00Z`, optionally with fractional seconds).
++    /// Anything else, such as a bare year, is not a date and yields nil.
++    static func date(from value: String) -> Date? {
++        let text = value.trimmingCharacters(in: .whitespacesAndNewlines)
++        let styles: [Date.ISO8601FormatStyle] = [
++            Date.ISO8601FormatStyle(),
++            Date.ISO8601FormatStyle(includingFractionalSeconds: true),
++            Date.ISO8601FormatStyle().year().month().day(),
++        ]
++        for style in styles {
++            if let date = try? style.parse(text) { return date }
++        }
++        return nil
++    }
+ }
+ 
+ // MARK: - Document model
+@@ -247,8 +268,13 @@ extension OPDS2FeedParser {
+         var description: String?
+         var language: [String] = []
+         var author: [Contributor] = []
++        var publisher: [Contributor] = []
++        var subject: [Subject] = []
++        var published: String?
+ 
+-        private enum CodingKeys: String, CodingKey { case identifier, title, description, language, author }
++        private enum CodingKeys: String, CodingKey {
++            case identifier, title, description, language, author, publisher, subject, published
++        }
+ 
+         init(from decoder: Decoder) throws {
+             let values = try decoder.container(keyedBy: CodingKeys.self)
+@@ -257,6 +283,26 @@ extension OPDS2FeedParser {
+             description = try values.decodeIfPresent(String.self, forKey: .description)
+             language = try values.decodeIfPresent(OneOrMany<String>.self, forKey: .language)?.values ?? []
+             author = try values.decodeIfPresent(OneOrMany<Contributor>.self, forKey: .author)?.values ?? []
++            publisher = try values.decodeIfPresent(OneOrMany<Contributor>.self, forKey: .publisher)?.values ?? []
++            subject = try values.decodeIfPresent(OneOrMany<Subject>.self, forKey: .subject)?.values ?? []
++            published = try values.decodeIfPresent(String.self, forKey: .published)
++        }
++    }
++
++    /// A subject is a bare name or an object with a `name` (a string or a
++    /// language map) and optional `sortAs`, `scheme`, `code` and `links`.
++    struct Subject: Decodable {
++        var name: String
++
++        private enum CodingKeys: String, CodingKey { case name }
++
++        init(from decoder: Decoder) throws {
++            do {
++                name = try decoder.singleValueContainer().decode(String.self)
++            } catch DecodingError.typeMismatch {
++                let values = try decoder.container(keyedBy: CodingKeys.self)
++                name = try values.decode(LocalizedString.self, forKey: .name).value
++            }
+         }
+     }
+ 
+diff --git a/Modules/Services/OPDS/OPDSClient.swift b/Modules/Services/OPDS/OPDSClient.swift
+index 2b0d8fe..ecee58a 100644
+--- a/Modules/Services/OPDS/OPDSClient.swift
++++ b/Modules/Services/OPDS/OPDSClient.swift
+@@ -52,6 +52,14 @@ struct OPDSEntry: Identifiable, Hashable {
+     var alternateURL: URL?
+     var authorNames: [String] = []
+     var relatedLinks: [OPDSRelatedLink] = []
++    /// Subject names, in document order. Filled by the OPDS 2 parser only.
++    var subjects: [String] = []
++    /// Publisher names joined with ", ". Filled by the OPDS 2 parser only.
++    var publisher: String?
++    /// Publication date; nil when absent or not a date. Filled by the OPDS 2 parser only.
++    var published: Date?
++    /// Language codes (BCP 47) as the catalog gives them. Filled by the OPDS 2 parser only.
++    var languages: [String] = []
+ 
+     var isBook: Bool { !acquisitions.isEmpty }
+     var isNavigation: Bool { acquisitions.isEmpty && navigationURL != nil }
+diff --git a/Tests/iOS/yuedu appTests/OPDS2ParserTests.swift b/Tests/iOS/yuedu appTests/OPDS2ParserTests.swift
+index ad6ebc5..f15eadd 100644
+--- a/Tests/iOS/yuedu appTests/OPDS2ParserTests.swift	
++++ b/Tests/iOS/yuedu appTests/OPDS2ParserTests.swift	
+@@ -58,7 +58,10 @@ struct OPDS2ParserTests {
+             "author": {"name": "Austen, Jane", "sortAs": "Austen, Jane",
+                        "links": [{"href": "/opds/authors/68", "type": "application/opds+json"}]},
+             "description": "<p>A novel of <b>manners</b>.</p>",
+-            "subject": [{"name": "Courtship -- Fiction"}],
++            "subject": [{"name": "Courtship -- Fiction", "scheme": "https://www.gutenberg.org/ebooks/subject/", "code": "1"},
++                        {"name": "Fine Arts: ND", "sortAs": "ND", "scheme": "http://purl.org/dc/terms/LCC", "code": "ND"}],
++            "publisher": "London: T. Egerton, 1813.",
++            "published": "1813-01-28",
+             "modified": "2026-10-01T00:00:00Z"
+           },
+           "links": [
+@@ -78,7 +81,9 @@ struct OPDS2ParserTests {
+             "identifier": "https://www.gutenberg.org/ebooks/25328",
+             "title": "老子",
+             "language": ["zh", "en"],
+-            "author": ["Laozi", {"name": {"en": "Unknown", "zh": "佚名"}}]
++            "author": ["Laozi", {"name": {"en": "Unknown", "zh": "佚名"}}],
++            "subject": ["Taoism", {"name": {"en": "Philosophy, Chinese"}}],
++            "publisher": ["Commercial Press", {"name": "Shanghai Books"}]
+           },
+           "links": [{"rel": ["http://opds-spec.org/acquisition/open-access"], "href": "/ebooks/25328.epub.images", "type": "application/epub+zip"}]
+         }
+@@ -191,6 +196,10 @@ struct OPDS2ParserTests {
+         #expect(book.acquisitions.count == 3)
+         #expect(book.bestAcquisition?.url.lastPathComponent == "1342.epub3.images")
+         #expect(book.bestAcquisition?.rel == "http://opds-spec.org/acquisition/open-access")
++        #expect(book.subjects == ["Courtship -- Fiction", "Fine Arts: ND"])
++        #expect(book.publisher == "London: T. Egerton, 1813.")
++        #expect(book.languages == ["en"])
++        #expect(book.published.map(utcDay) == DateComponents(year: 1813, month: 1, day: 28, hour: 0, minute: 0))
+ 
+         let second = feed.entries[1]
+         #expect(second.title == "老子")
+@@ -198,6 +207,86 @@ struct OPDS2ParserTests {
+         #expect(second.authorNames.first == "Laozi")
+         #expect(second.bestAcquisition?.url.absoluteString == "https://opds-test.pglaf.org/ebooks/25328.epub.images")
+         #expect(second.coverURL == nil)
++        // Bare-string and object subjects mix; an object's name may be a language map.
++        #expect(second.subjects == ["Taoism", "Philosophy, Chinese"])
++        #expect(second.publisher == "Commercial Press, Shanghai Books")
++        #expect(second.languages == ["zh", "en"])
++        #expect(second.published == nil)
++    }
++
++    @Test("subject, publisher, published and language: single values, objects and non-dates")
++    func publicationMetadataFields() throws {
++        func book(_ metadata: String) throws -> OPDSEntry {
++            let json = """
++            {"metadata": {"title": "B", \(metadata)},
++             "links": [{"rel": "http://opds-spec.org/acquisition", "href": "b.epub", "type": "application/epub+zip"}]}
++            """
++            return try #require(try parse(json).entries.first)
++        }
++
++        let single = try book(#""subject": "Fiction", "publisher": {"name": "Jacobs & Co."}, "language": "ja", "published": "2026-10-01T12:30:00Z""#)
++        #expect(single.subjects == ["Fiction"])
++        #expect(single.publisher == "Jacobs & Co.")
++        #expect(single.languages == ["ja"])
++        #expect(single.published == Date(timeIntervalSince1970: 1_790_857_800))
++
++        let object = try book(#""subject": {"name": "Watercolorists -- Japan -- Biography", "code": "43006"}, "published": "2026-10-01T12:30:00.250Z""#)
++        #expect(object.subjects == ["Watercolorists -- Japan -- Biography"])
++        #expect(object.published == Date(timeIntervalSince1970: 1_790_857_800.25))
++
++        // A bare year or free text is not a date.
++        #expect(try book(#""published": "1910""#).published == nil)
++        #expect(try book(#""published": "circa 1910""#).published == nil)
++
++        let none = try book(#""identifier": "urn:none""#)
++        #expect(none.subjects.isEmpty)
++        #expect(none.publisher == nil)
++        #expect(none.published == nil)
++        #expect(none.languages.isEmpty)
++    }
++
++    @Test("the recorded Gutenberg publication keeps its subjects, publisher, date and language")
++    func gutenbergPublicationFixtureFields() throws {
++        let json = """
++        {"metadata": {"identifier": "https://www.gutenberg.org/ebooks/79734", "title": "A Japanese artist in London", "language": "en",
++          "published": "2026-10-06",
++          "subject": [{"name": "Makino, Yoshio, 1874-1956", "scheme": "https://www.gutenberg.org/ebooks/subject/", "code": "43005",
++                       "links": [{"href": "https://opds-test.pglaf.org/opds/subjects?id=43005", "type": "application/opds+json"}]},
++                      {"name": "Fine Arts: ND", "sortAs": "ND", "scheme": "http://purl.org/dc/terms/LCC", "code": "ND"}],
++          "publisher": "Philadelphia: George W. Jacobs & Co., 1910."},
++         "links": [{"rel": "http://opds-spec.org/acquisition/open-access", "href": "https://www.gutenberg.org/cache/epub/79734/pg79734-images-3.epub", "type": "application/epub+zip"}]}
++        """
++        let book = try #require(try parse(json, type: "application/opds-publication+json").entries.first)
++        #expect(book.subjects == ["Makino, Yoshio, 1874-1956", "Fine Arts: ND"])
++        #expect(book.publisher == "Philadelphia: George W. Jacobs & Co., 1910.")
++        #expect(book.languages == ["en"])
++        #expect(book.published.map(utcDay) == DateComponents(year: 2026, month: 10, day: 6, hour: 0, minute: 0))
++    }
++
++    @Test("the Atom parser leaves the OPDS 2 metadata fields empty")
++    func atomLeavesNewFieldsEmpty() throws {
++        let atom = """
++        <?xml version="1.0" encoding="UTF-8"?>
++        <feed xmlns="http://www.w3.org/2005/Atom">
++          <title>Atom</title>
++          <entry>
++            <id>urn:a</id><title>A</title>
++            <link rel="http://opds-spec.org/acquisition" href="https://example.org/a.epub" type="application/epub+zip"/>
++          </entry>
++        </feed>
++        """
++        let feed = try OPDSClient.parseFeed(data: Data(atom.utf8), feedURL: base)
++        let entry = try #require(feed.entries.first)
++        #expect(entry.subjects.isEmpty)
++        #expect(entry.publisher == nil)
++        #expect(entry.published == nil)
++        #expect(entry.languages.isEmpty)
++    }
++
++    private func utcDay(_ date: Date) -> DateComponents {
++        var calendar = Calendar(identifier: .gregorian)
++        calendar.timeZone = TimeZone(identifier: "UTC")!
++        return calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+     }
+ 
+     @Test("a publication document becomes a one-entry feed")

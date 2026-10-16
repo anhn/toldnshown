@@ -1,0 +1,32 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index e93f3e4..597d2b5 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -26,9 +26,12 @@ export const Text = defineCustomElement({
+       role: props.as!,
+     }));
+     const isLink = () => props.as === 'link';
++    // a disabled link drops href so it cannot navigate, is not tabbable and Enter does nothing
++    const linkAttrs = () =>
++      editComputed.disabled ? { ...attrs, href: undefined, tabindex: -1, 'aria-disabled': true } : attrs;
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a class={ns.is('disabled', editComputed.disabled)} {...attrs} part={compParts[3]}>
++        <a class={ns.is('disabled', editComputed.disabled)} {...linkAttrs()} part={compParts[3]}>
+           {children}
+         </a>
+       ) : (
+@@ -38,7 +41,12 @@ export const Text = defineCustomElement({
+       const El = isLink() && isRoot ? 'a' : 'span',
+         dir = styleMap.direction;
+       return (
+-        <El class={['ellipsis', cls, ns.is('disabled', editComputed.disabled)]} dir={dirReverse[dir]} part={compParts[0]}>
++        <El
++          class={['ellipsis', cls, ns.is('disabled', editComputed.disabled)]}
++          dir={dirReverse[dir]}
++          aria-disabled={El === 'a' && editComputed.disabled ? true : undefined}
++          part={compParts[0]}
++        >
+           <span dir={dir} part={compParts[1]}>
+             {text}
+           </span>

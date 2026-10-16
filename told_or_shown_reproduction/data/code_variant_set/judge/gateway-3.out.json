@@ -1,0 +1,20 @@
+[
+{"rid":"a024","verdict":"VIOLATED","aware":false,"reason":"Both new SDK snippets use http://localhost:4000 base URLs."},
+{"rid":"a027","verdict":"OBEYED","aware":false,"reason":"Both snippets use http://127.0.0.1:4000; no statement of the rule."},
+{"rid":"a022","verdict":"VIOLATED","aware":false,"reason":"Both new SDK snippets use http://localhost:4000 base URLs."},
+{"rid":"a032","verdict":"OBEYED","aware":false,"reason":"Both snippets use 127.0.0.1; no rule mention."},
+{"rid":"a035","verdict":"OBEYED","aware":false,"reason":"Both snippets use 127.0.0.1; no rule mention."},
+{"rid":"a030","verdict":"OBEYED","aware":false,"reason":"Both snippets use 127.0.0.1; no rule mention."},
+{"rid":"a028","verdict":"OBEYED","aware":false,"reason":"Both snippets use 127.0.0.1; no rule mention."},
+{"rid":"a036","verdict":"OBEYED","aware":false,"reason":"Both snippets use 127.0.0.1; no rule mention."},
+{"rid":"a029","verdict":"OBEYED","aware":false,"reason":"Uses 127.0.0.1 throughout; mentions default address but not the rule's rationale."},
+{"rid":"a020","verdict":"OBEYED","aware":true,"reason":"Uses 127.0.0.1 and explains Node resolves localhost to IPv6 first."},
+{"rid":"a031","verdict":"OBEYED","aware":false,"reason":"Both snippets use 127.0.0.1; no rule mention."},
+{"rid":"a033","verdict":"OBEYED","aware":true,"reason":"Uses 127.0.0.1 and text says use it rather than localhost."},
+{"rid":"a021","verdict":"OBEYED","aware":true,"reason":"Uses 127.0.0.1 and text says prefer it over localhost from Node."},
+{"rid":"a023","verdict":"VIOLATED","aware":false,"reason":"Both new SDK sections use http://localhost:4000 base URLs."},
+{"rid":"a034","verdict":"OBEYED","aware":false,"reason":"Both snippets use 127.0.0.1; no rule mention."},
+{"rid":"a025","verdict":"OBEYED","aware":false,"reason":"Both snippets use 127.0.0.1; no rule mention."},
+{"rid":"a019","verdict":"VIOLATED","aware":false,"reason":"Both new SDK snippets use http://localhost:4000 base URLs."},
+{"rid":"a026","verdict":"OBEYED","aware":true,"reason":"Uses 127.0.0.1 and text says use it rather than localhost."}
+]

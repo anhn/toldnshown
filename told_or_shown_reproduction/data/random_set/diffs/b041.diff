@@ -1,0 +1,100 @@
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index 303ea9b..cd18344 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -62,6 +62,43 @@ sbt test
+ sbt scalastyle
+ \`\`\`
+ 
++### Docker Environment
++
++If your local JDK, sbt, or Python setup is giving you trouble, use the provided
++`Dockerfile`. It contains JDK 17, sbt, and Python 3.11 with PySpark 3.5.1, matching CI.
++The repository is mounted into the container rather than copied in.
++
++Build the image from the repository root:
++
++```bash
++docker build -t gkmeans-dev .
++```
++
++Run the ScalaTest suite:
++
++```bash
++docker run --rm -v "$PWD":/workspace \
++  -v gkmeans-sbt:/root/.sbt -v gkmeans-cache:/root/.cache \
++  gkmeans-dev sbt test
++```
++
++Run the Python wrapper tests. The wrapper calls into the Scala library, so build the
++Scala 2.12 jar first and pass it to PySpark:
++
++```bash
++docker run --rm -v "$PWD":/workspace \
++  -v gkmeans-sbt:/root/.sbt -v gkmeans-cache:/root/.cache \
++  gkmeans-dev bash -c '
++    sbt ++2.12.18 package &&
++    JAR=$(ls /workspace/target/scala-2.12/*.jar | head -n1) &&
++    cd python &&
++    PYSPARK_SUBMIT_ARGS="--jars $JAR pyspark-shell" pytest --cov=massivedatascience tests/
++  '
++```
++
++The named volumes keep sbt and dependency caches between runs. Files written to the
++mounted repository (such as `target/`) are owned by root when created on a Linux host.
++
+ ## Making Changes
+ 
+ ### Branch Naming
+diff --git a/Dockerfile b/Dockerfile
+new file mode 100644
+index 0000000..80b8cba
+--- /dev/null
++++ b/Dockerfile
+@@ -0,0 +1,46 @@
++# Reproducible development environment for generalized-kmeans-clustering.
++#
++# Provides the toolchain CI uses: JDK 17, sbt (version from project/build.properties),
++# and Python 3.11 with PySpark 3.5.1 and the dev requirements from python/.
++# The repository is not baked into the image; mount it at /workspace when running.
++#
++#   docker build -t gkmeans-dev .
++#   docker run --rm -v "$PWD":/workspace gkmeans-dev sbt test
++
++FROM python:3.11-bookworm
++
++# Keep in sync with project/build.properties (sbt.version).
++ARG SBT_VERSION=1.11.0
++# Matches the Spark version used by CI's Python job.
++ARG PYSPARK_VERSION=3.5.1
++
++ENV DEBIAN_FRONTEND=noninteractive \
++    PIP_NO_CACHE_DIR=1 \
++    PIP_DISABLE_PIP_VERSION_CHECK=1 \
++    PATH="/opt/sbt/bin:${PATH}"
++
++# JDK 17 (the project targets Java 17; newer JDKs are unsupported by Spark/Hadoop).
++RUN apt-get update \
++    && apt-get install -y --no-install-recommends \
++        openjdk-17-jdk-headless \
++        curl \
++        ca-certificates \
++    && ln -s "/usr/lib/jvm/java-17-openjdk-$(dpkg --print-architecture)" /opt/java17 \
++    && rm -rf /var/lib/apt/lists/*
++
++ENV JAVA_HOME=/opt/java17
++
++# sbt launcher from the official release tarball.
++RUN curl -fsSL "https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.tgz" \
++    | tar -xz -C /opt
++
++# Python tooling: PySpark pinned first, then the dev requirements (which accept it).
++COPY python/requirements.txt python/requirements-dev.txt /tmp/requirements/
++RUN pip install --upgrade pip \
++    && pip install "pyspark==${PYSPARK_VERSION}" \
++    && pip install -r /tmp/requirements/requirements-dev.txt \
++    && rm -rf /tmp/requirements
++
++WORKDIR /workspace
++
++CMD ["bash"]

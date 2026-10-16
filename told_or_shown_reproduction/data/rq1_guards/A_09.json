@@ -1,0 +1,1402 @@
+[
+{
+"id": "s1800",
+"guard": true,
+"cat": "A4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1801",
+"guard": true,
+"cat": "G2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1802",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1803",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1804",
+"guard": true,
+"cat": "A1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1805",
+"guard": true,
+"cat": "C1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1806",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1807",
+"guard": true,
+"cat": "A2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1808",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1809",
+"guard": true,
+"cat": "G2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1810",
+"guard": true,
+"cat": "C3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1811",
+"guard": true,
+"cat": "E1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1812",
+"guard": true,
+"cat": "D2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1813",
+"guard": true,
+"cat": "D2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1814",
+"guard": true,
+"cat": "A4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1815",
+"guard": true,
+"cat": "B5",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1816",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1817",
+"guard": true,
+"cat": "E1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1818",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1819",
+"guard": true,
+"cat": "B1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1820",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1821",
+"guard": true,
+"cat": "B1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1822",
+"guard": true,
+"cat": "A4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1823",
+"guard": true,
+"cat": "A2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1824",
+"guard": true,
+"cat": "C2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1825",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1826",
+"guard": true,
+"cat": "A1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1827",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1828",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1829",
+"guard": true,
+"cat": "C3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1830",
+"guard": true,
+"cat": "D2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1831",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1832",
+"guard": true,
+"cat": "B3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1833",
+"guard": true,
+"cat": "D1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1834",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1835",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1836",
+"guard": true,
+"cat": "E1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1837",
+"guard": true,
+"cat": "A2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1838",
+"guard": true,
+"cat": "B3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1839",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1840",
+"guard": true,
+"cat": "B3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1841",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1842",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1843",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1844",
+"guard": true,
+"cat": "C2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1845",
+"guard": true,
+"cat": "D2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1846",
+"guard": true,
+"cat": "D4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1847",
+"guard": true,
+"cat": "B3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1848",
+"guard": true,
+"cat": "C2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1849",
+"guard": true,
+"cat": "D3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1850",
+"guard": true,
+"cat": "C2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1851",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1852",
+"guard": true,
+"cat": "D3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1853",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1854",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1855",
+"guard": true,
+"cat": "C2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1856",
+"guard": true,
+"cat": "G2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1857",
+"guard": true,
+"cat": "A1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1858",
+"guard": true,
+"cat": "D4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1859",
+"guard": true,
+"cat": "D2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1860",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1861",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1862",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1863",
+"guard": true,
+"cat": "B3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1864",
+"guard": true,
+"cat": "C3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1865",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1866",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1867",
+"guard": true,
+"cat": "C2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1868",
+"guard": true,
+"cat": "E1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1869",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1870",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1871",
+"guard": true,
+"cat": "A2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1872",
+"guard": true,
+"cat": "C2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1873",
+"guard": true,
+"cat": "B3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1874",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1875",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1876",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1877",
+"guard": true,
+"cat": "B1",
+"specific": "project",
+"origin": true
+},
+{
+"id": "s1878",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1879",
+"guard": true,
+"cat": "A3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1880",
+"guard": true,
+"cat": "B4",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1881",
+"guard": true,
+"cat": "C1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1882",
+"guard": true,
+"cat": "A1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1883",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1884",
+"guard": true,
+"cat": "C2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1885",
+"guard": true,
+"cat": "A2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1886",
+"guard": true,
+"cat": "D1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1887",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1888",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1889",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1890",
+"guard": true,
+"cat": "A4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1891",
+"guard": true,
+"cat": "B4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1892",
+"guard": true,
+"cat": "B3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1893",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1894",
+"guard": true,
+"cat": "B1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1895",
+"guard": true,
+"cat": "D3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1896",
+"guard": true,
+"cat": "D3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1897",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1898",
+"guard": true,
+"cat": "C2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1899",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1900",
+"guard": true,
+"cat": "A4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1901",
+"guard": true,
+"cat": "B3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1902",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1903",
+"guard": true,
+"cat": "C1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1904",
+"guard": true,
+"cat": "B3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1905",
+"guard": true,
+"cat": "F2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1906",
+"guard": true,
+"cat": "C2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1907",
+"guard": true,
+"cat": "C1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1908",
+"guard": true,
+"cat": "D4",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1909",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1910",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1911",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1912",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1913",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1914",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1915",
+"guard": true,
+"cat": "D4",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1916",
+"guard": true,
+"cat": "B1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1917",
+"guard": true,
+"cat": "E1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1918",
+"guard": true,
+"cat": "F1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1919",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1920",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1921",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1922",
+"guard": true,
+"cat": "D4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1923",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1924",
+"guard": true,
+"cat": "A2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1925",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1926",
+"guard": true,
+"cat": "B3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1927",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": true
+},
+{
+"id": "s1928",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1929",
+"guard": true,
+"cat": "B3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1930",
+"guard": true,
+"cat": "C2",
+"specific": "project",
+"origin": true
+},
+{
+"id": "s1931",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1932",
+"guard": true,
+"cat": "D2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1933",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1934",
+"guard": true,
+"cat": "A2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1935",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1936",
+"guard": true,
+"cat": "B4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1937",
+"guard": true,
+"cat": "B3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1938",
+"guard": true,
+"cat": "B1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1939",
+"guard": true,
+"cat": "C2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1940",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1941",
+"guard": true,
+"cat": "E1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1942",
+"guard": true,
+"cat": "E1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1943",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1944",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1945",
+"guard": true,
+"cat": "B3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1946",
+"guard": true,
+"cat": "D2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1947",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1948",
+"guard": true,
+"cat": "G2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1949",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1950",
+"guard": true,
+"cat": "B1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1951",
+"guard": true,
+"cat": "B1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1952",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1953",
+"guard": true,
+"cat": "C3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1954",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1955",
+"guard": true,
+"cat": "D2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1956",
+"guard": true,
+"cat": "B2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1957",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1958",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1959",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1960",
+"guard": true,
+"cat": "D2",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1961",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1962",
+"guard": true,
+"cat": "B4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1963",
+"guard": true,
+"cat": "A4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1964",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1965",
+"guard": true,
+"cat": "B3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1966",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1967",
+"guard": true,
+"cat": "A4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1968",
+"guard": true,
+"cat": "E1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1969",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1970",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1971",
+"guard": true,
+"cat": "E1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1972",
+"guard": true,
+"cat": "A1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1973",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1974",
+"guard": true,
+"cat": "E1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1975",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1976",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1977",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1978",
+"guard": true,
+"cat": "D3",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1979",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1980",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1981",
+"guard": true,
+"cat": "B4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1982",
+"guard": true,
+"cat": "C1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1983",
+"guard": true,
+"cat": "D4",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1984",
+"guard": true,
+"cat": "A1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1985",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1986",
+"guard": true,
+"cat": "A1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1987",
+"guard": true,
+"cat": "B4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1988",
+"guard": true,
+"cat": "B3",
+"specific": "project",
+"origin": true
+},
+{
+"id": "s1989",
+"guard": true,
+"cat": "B5",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1990",
+"guard": true,
+"cat": "D1",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1991",
+"guard": true,
+"cat": "D3",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1992",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1993",
+"guard": true,
+"cat": "D1",
+"specific": "generic",
+"origin": false
+},
+{
+"id": "s1994",
+"guard": true,
+"cat": "B4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1995",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1996",
+"guard": true,
+"cat": "A4",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1997",
+"guard": true,
+"cat": "A2",
+"specific": "project",
+"origin": false
+},
+{
+"id": "s1998",
+"guard": false,
+"cat": "",
+"specific": "",
+"origin": false
+},
+{
+"id": "s1999",
+"guard": true,
+"cat": "B2",
+"specific": "project",
+"origin": false
+}
+]

@@ -1,0 +1,44 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index e93f3e4..95cffce 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -22,13 +22,23 @@ export const Text = defineCustomElement({
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
+ 
++    const isLink = () => props.as === 'link';
++    // removing href is what makes a disabled link inert: it can no longer navigate on click or Enter, nor be tabbed to
++    const getDisabledLinkAttrs = () =>
++      isLink() && editComputed.disabled ? { href: undefined, tabindex: -1, 'aria-disabled': 'true' } : undefined;
++
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: getDisabledLinkAttrs() ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a class={ns.is('disabled', editComputed.disabled)} {...attrs} part={compParts[3]}>
++        <a
++          class={ns.is('disabled', editComputed.disabled)}
++          {...attrs}
++          {...getDisabledLinkAttrs()}
++          part={compParts[3]}
++        >
+           {children}
+         </a>
+       ) : (
+@@ -38,7 +48,12 @@ export const Text = defineCustomElement({
+       const El = isLink() && isRoot ? 'a' : 'span',
+         dir = styleMap.direction;
+       return (
+-        <El class={['ellipsis', cls, ns.is('disabled', editComputed.disabled)]} dir={dirReverse[dir]} part={compParts[0]}>
++        <El
++          class={['ellipsis', cls, ns.is('disabled', editComputed.disabled)]}
++          dir={dirReverse[dir]}
++          part={compParts[0]}
++          {...(El === 'a' ? getDisabledLinkAttrs() : undefined)}
++        >
+           <span dir={dir} part={compParts[1]}>
+             {text}
+           </span>

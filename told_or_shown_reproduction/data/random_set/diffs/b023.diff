@@ -1,0 +1,47 @@
+diff --git a/services/SessionIndexer.swift b/services/SessionIndexer.swift
+index 31f6c2a..9116ace 100644
+--- a/services/SessionIndexer.swift
++++ b/services/SessionIndexer.swift
+@@ -1232,30 +1232,28 @@ actor SessionIndexer {
+   }
+ 
+   // MARK: - Fulltext scanning
++  /// Returns true when every whitespace-separated word in `term` appears somewhere in the file
++  /// (case-insensitive, any order, not necessarily on the same line).
+   func fileContains(url: URL, term: String) async -> Bool {
++    let words = term.split(whereSeparator: { $0.isWhitespace }).map(String.init)
++    guard !words.isEmpty else { return false }
+     guard let handle = try? FileHandle(forReadingFrom: url) else { return false }
+     defer { try? handle.close() }
+-    let needle = term
++    var remaining = words
+     let chunkSize = 128 * 1024
++    // keep enough tail bytes to catch a word spanning two chunks
++    let overlap = max(0, (words.map { $0.utf8.count }.max() ?? 0) - 1)
+     var carry = Data()
+     while let chunk = try? handle.read(upToCount: chunkSize), !chunk.isEmpty {
+       var combined = carry
+       combined.append(chunk)
+-      if let s = String(data: combined, encoding: .utf8),
+-        s.range(of: needle, options: .caseInsensitive) != nil
+-      {
+-        return true
+-      }
+-      // keep tail to catch matches across boundaries
+-      let keep = min(needle.utf8.count - 1, combined.count)
+-      carry = combined.suffix(keep)
++      // lenient decoding: a multi-byte character split at a chunk edge must not hide the whole chunk
++      let text = String(decoding: combined, as: UTF8.self)
++      remaining.removeAll { text.range(of: $0, options: .caseInsensitive) != nil }
++      if remaining.isEmpty { return true }
++      carry = combined.suffix(min(overlap, combined.count))
+       if Task.isCancelled { return false }
+     }
+-    if !carry.isEmpty, let s = String(data: carry, encoding: .utf8),
+-      s.range(of: needle, options: .caseInsensitive) != nil
+-    {
+-      return true
+-    }
+     return false
+   }
+ 

@@ -1,0 +1,50 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index e93f3e4..4d4ba09 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -22,23 +22,41 @@ export const Text = defineCustomElement({
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
+ 
++    const isLink = () => props.as === 'link';
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: isLink() && editComputed.disabled ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
++    // an <a> without href is neither focusable nor navigable, which is the most reliable way to make it inert;
++    // role is kept explicitly because a href-less <a> otherwise loses its link semantics
++    const getDisabledLinkProps = () =>
++      editComputed.disabled
++        ? {
++            href: undefined,
++            tabindex: undefined,
++            role: 'link',
++            'aria-disabled': 'true',
++          }
++        : undefined;
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a class={ns.is('disabled', editComputed.disabled)} {...attrs} part={compParts[3]}>
++        <a class={ns.is('disabled', editComputed.disabled)} {...attrs} {...getDisabledLinkProps()} part={compParts[3]}>
+           {children}
+         </a>
+       ) : (
+         children
+       );
+     const getReverse = (text: string, isRoot: boolean = false, cls?: any) => {
+-      const El = isLink() && isRoot ? 'a' : 'span',
++      const asLink = isLink() && isRoot,
++        El = asLink ? 'a' : 'span',
+         dir = styleMap.direction;
+       return (
+-        <El class={['ellipsis', cls, ns.is('disabled', editComputed.disabled)]} dir={dirReverse[dir]} part={compParts[0]}>
++        <El
++          class={['ellipsis', cls, ns.is('disabled', editComputed.disabled)]}
++          {...(asLink ? getDisabledLinkProps() : undefined)}
++          dir={dirReverse[dir]}
++          part={compParts[0]}
++        >
+           <span dir={dir} part={compParts[1]}>
+             {text}
+           </span>

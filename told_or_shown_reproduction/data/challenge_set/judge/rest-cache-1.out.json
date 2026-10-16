@@ -1,0 +1,6 @@
+[
+{"rid":"r142","verdict":"OBEYED","aware":true,"reason":"Keeps dynamic import('quick-lru') via async loader and `export =`; no static import/require; rationale comment preserved."},
+{"rid":"r144","verdict":"OBEYED","aware":true,"reason":"Constructor starts async initialize using dynamic import; CJS `export =` kept; ESM-only rationale comment retained."},
+{"rid":"r141","verdict":"OBEYED","aware":true,"reason":"Dynamic import kept in async loader, create() retained, `export =` unchanged; comments state ESM-only rationale."},
+{"rid":"r143","verdict":"OBEYED","aware":true,"reason":"Lazy memoized load() with dynamic import; create() kept; CJS entry unchanged; rationale comment moved to load()."}
+]

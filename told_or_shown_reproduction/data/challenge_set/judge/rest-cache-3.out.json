@@ -1,0 +1,6 @@
+[
+{"rid":"r150","verdict":"OBEYED","aware":true,"reason":"Spec added only in shared/tests/ with skip on memory; comment mentions the memory copy of the file."},
+{"rid":"r151","verdict":"OBEYED","aware":true,"reason":"Spec added in shared/tests/ plus CONTRIBUTING note; comment says file is copied into both playgrounds."},
+{"rid":"r149","verdict":"OBEYED","aware":true,"reason":"Spec added only in shared/tests/; comment notes spec is copied into both playgrounds."},
+{"rid":"r152","verdict":"OBEYED","aware":true,"reason":"Spec added only in shared/tests/; comment notes copy into both playgrounds by postinstall."}
+]

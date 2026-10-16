@@ -1,0 +1,306 @@
+diff --git a/src/Article/Repository/ArticleRepository.php b/src/Article/Repository/ArticleRepository.php
+index 9c5d771..fa21456 100644
+--- a/src/Article/Repository/ArticleRepository.php
++++ b/src/Article/Repository/ArticleRepository.php
+@@ -5,6 +5,7 @@ declare(strict_types=1);
+ namespace App\Article\Repository;
+ 
+ use App\Article\Entity\Article;
++use App\Source\Entity\Source;
+ use App\User\Entity\User;
+ use App\User\Entity\UserArticleBookmark;
+ use App\User\Entity\UserArticleRead;
+@@ -27,6 +28,20 @@ final class ArticleRepository extends ServiceEntityRepository implements Article
+         return $this->find($id);
+     }
+ 
++    /**
++     * Bulk-deletes every article of the source. Dependent rows (read states,
++     * bookmarks, notification logs) must be removed beforehand.
++     */
++    public function deleteBySource(Source $source): void
++    {
++        $this->getEntityManager()->createQueryBuilder()
++            ->delete(Article::class, 'a')
++            ->where('a.source = :source')
++            ->setParameter('source', $source)
++            ->getQuery()
++            ->execute();
++    }
++
+     public function findByUrl(string $url): ?Article
+     {
+         return $this->findOneBy([
+diff --git a/src/Article/Repository/ArticleRepositoryInterface.php b/src/Article/Repository/ArticleRepositoryInterface.php
+index c0ff018..f5dfc8d 100644
+--- a/src/Article/Repository/ArticleRepositoryInterface.php
++++ b/src/Article/Repository/ArticleRepositoryInterface.php
+@@ -5,6 +5,7 @@ declare(strict_types=1);
+ namespace App\Article\Repository;
+ 
+ use App\Article\Entity\Article;
++use App\Source\Entity\Source;
+ use App\User\Entity\User;
+ 
+ interface ArticleRepositoryInterface
+@@ -56,6 +57,8 @@ interface ArticleRepositoryInterface
+      */
+     public function findWithoutTranslations(int $limit): array;
+ 
++    public function deleteBySource(Source $source): void;
++
+     public function save(Article $article, bool $flush = false): void;
+ 
+     public function flush(): void;
+diff --git a/src/Notification/Repository/NotificationLogRepository.php b/src/Notification/Repository/NotificationLogRepository.php
+index d3a88a4..dbb2112 100644
+--- a/src/Notification/Repository/NotificationLogRepository.php
++++ b/src/Notification/Repository/NotificationLogRepository.php
+@@ -4,8 +4,10 @@ declare(strict_types=1);
+ 
+ namespace App\Notification\Repository;
+ 
++use App\Article\Entity\Article;
+ use App\Notification\Entity\NotificationLog;
+ use App\Notification\ValueObject\DeliveryStatus;
++use App\Source\Entity\Source;
+ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+ use Doctrine\Persistence\ManagerRegistry;
+ 
+@@ -64,6 +66,16 @@ final class NotificationLogRepository extends ServiceEntityRepository implements
+         }
+     }
+ 
++    public function deleteByArticleSource(Source $source): void
++    {
++        $this->getEntityManager()->createQueryBuilder()
++            ->delete(NotificationLog::class, 'l')
++            ->where('l.article IN (SELECT a.id FROM ' . Article::class . ' a WHERE a.source = :source)')
++            ->setParameter('source', $source)
++            ->getQuery()
++            ->execute();
++    }
++
+     public function flush(): void
+     {
+         $this->getEntityManager()->flush();
+diff --git a/src/Notification/Repository/NotificationLogRepositoryInterface.php b/src/Notification/Repository/NotificationLogRepositoryInterface.php
+index 4905928..ee0d71b 100644
+--- a/src/Notification/Repository/NotificationLogRepositoryInterface.php
++++ b/src/Notification/Repository/NotificationLogRepositoryInterface.php
+@@ -6,6 +6,7 @@ namespace App\Notification\Repository;
+ 
+ use App\Notification\Entity\NotificationLog;
+ use App\Notification\ValueObject\DeliveryStatus;
++use App\Source\Entity\Source;
+ 
+ interface NotificationLogRepositoryInterface
+ {
+@@ -18,6 +19,11 @@ interface NotificationLogRepositoryInterface
+ 
+     public function save(NotificationLog $log, bool $flush = false): void;
+ 
++    /**
++     * Bulk-deletes notification logs of all articles belonging to the source.
++     */
++    public function deleteByArticleSource(Source $source): void;
++
+     public function flush(): void;
+ 
+     /**
+diff --git a/src/Source/Controller/DeleteSourceController.php b/src/Source/Controller/DeleteSourceController.php
+index d9305c9..4b1e3b1 100644
+--- a/src/Source/Controller/DeleteSourceController.php
++++ b/src/Source/Controller/DeleteSourceController.php
+@@ -6,6 +6,7 @@ namespace App\Source\Controller;
+ 
+ use App\Source\Entity\Source;
+ use App\Source\Repository\SourceRepositoryInterface;
++use App\Source\Service\SourceDeletionServiceInterface;
+ use App\User\Entity\User;
+ use Symfony\Bundle\FrameworkBundle\Controller\ControllerHelper;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+@@ -19,6 +20,7 @@ final class DeleteSourceController
+     public function __construct(
+         private readonly ControllerHelper $controller,
+         private readonly SourceRepositoryInterface $sourceRepository,
++        private readonly SourceDeletionServiceInterface $sourceDeletionService,
+         private readonly UrlGeneratorInterface $urlGenerator,
+     ) {
+     }
+@@ -56,7 +58,7 @@ final class DeleteSourceController
+             return new RedirectResponse($this->urlGenerator->generate('app_sources'));
+         }
+ 
+-        $this->sourceRepository->remove($source, flush: true);
++        $this->sourceDeletionService->delete($source);
+ 
+         if ($isHtmx) {
+             return new Response('');
+diff --git a/src/Source/Service/SourceDeletionService.php b/src/Source/Service/SourceDeletionService.php
+new file mode 100644
+index 0000000..326f1d7
+--- /dev/null
++++ b/src/Source/Service/SourceDeletionService.php
+@@ -0,0 +1,35 @@
++<?php
++
++declare(strict_types=1);
++
++namespace App\Source\Service;
++
++use App\Article\Repository\ArticleRepositoryInterface;
++use App\Notification\Repository\NotificationLogRepositoryInterface;
++use App\Source\Entity\Source;
++use App\Source\Repository\SourceRepositoryInterface;
++use App\User\Repository\UserArticleBookmarkRepositoryInterface;
++use App\User\Repository\UserArticleReadRepositoryInterface;
++
++final readonly class SourceDeletionService implements SourceDeletionServiceInterface
++{
++    public function __construct(
++        private SourceRepositoryInterface $sourceRepository,
++        private ArticleRepositoryInterface $articleRepository,
++        private UserArticleReadRepositoryInterface $userArticleReadRepository,
++        private UserArticleBookmarkRepositoryInterface $userArticleBookmarkRepository,
++        private NotificationLogRepositoryInterface $notificationLogRepository,
++    ) {
++    }
++
++    public function delete(Source $source): void
++    {
++        // Dependent rows go first, so every foreign key is satisfied at each step.
++        $this->userArticleReadRepository->deleteByArticleSource($source);
++        $this->userArticleBookmarkRepository->deleteByArticleSource($source);
++        $this->notificationLogRepository->deleteByArticleSource($source);
++        $this->articleRepository->deleteBySource($source);
++
++        $this->sourceRepository->remove($source, flush: true);
++    }
++}
+diff --git a/src/Source/Service/SourceDeletionServiceInterface.php b/src/Source/Service/SourceDeletionServiceInterface.php
+new file mode 100644
+index 0000000..a0e4dc3
+--- /dev/null
++++ b/src/Source/Service/SourceDeletionServiceInterface.php
+@@ -0,0 +1,15 @@
++<?php
++
++declare(strict_types=1);
++
++namespace App\Source\Service;
++
++use App\Source\Entity\Source;
++
++interface SourceDeletionServiceInterface
++{
++    /**
++     * Deletes the source together with all of its articles and every row that depends on them.
++     */
++    public function delete(Source $source): void;
++}
+diff --git a/src/User/Repository/UserArticleBookmarkRepository.php b/src/User/Repository/UserArticleBookmarkRepository.php
+index 56c1b89..df830f3 100644
+--- a/src/User/Repository/UserArticleBookmarkRepository.php
++++ b/src/User/Repository/UserArticleBookmarkRepository.php
+@@ -5,6 +5,7 @@ declare(strict_types=1);
+ namespace App\User\Repository;
+ 
+ use App\Article\Entity\Article;
++use App\Source\Entity\Source;
+ use App\User\Entity\User;
+ use App\User\Entity\UserArticleBookmark;
+ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+@@ -50,6 +51,16 @@ final class UserArticleBookmarkRepository extends ServiceEntityRepository implem
+         }
+     }
+ 
++    public function deleteByArticleSource(Source $source): void
++    {
++        $this->getEntityManager()->createQueryBuilder()
++            ->delete(UserArticleBookmark::class, 'b')
++            ->where('b.article IN (SELECT a.id FROM ' . Article::class . ' a WHERE a.source = :source)')
++            ->setParameter('source', $source)
++            ->getQuery()
++            ->execute();
++    }
++
+     public function remove(UserArticleBookmark $bookmark, bool $flush = false): void
+     {
+         $this->getEntityManager()->remove($bookmark);
+diff --git a/src/User/Repository/UserArticleBookmarkRepositoryInterface.php b/src/User/Repository/UserArticleBookmarkRepositoryInterface.php
+index 6acaf2a..8cb6e22 100644
+--- a/src/User/Repository/UserArticleBookmarkRepositoryInterface.php
++++ b/src/User/Repository/UserArticleBookmarkRepositoryInterface.php
+@@ -5,6 +5,7 @@ declare(strict_types=1);
+ namespace App\User\Repository;
+ 
+ use App\Article\Entity\Article;
++use App\Source\Entity\Source;
+ use App\User\Entity\User;
+ use App\User\Entity\UserArticleBookmark;
+ 
+@@ -21,6 +22,11 @@ interface UserArticleBookmarkRepositoryInterface
+ 
+     public function remove(UserArticleBookmark $bookmark, bool $flush = false): void;
+ 
++    /**
++     * Bulk-deletes bookmarks of all articles belonging to the source.
++     */
++    public function deleteByArticleSource(Source $source): void;
++
+     /**
+      * @param list<int> $articleIds
+      *
+diff --git a/src/User/Repository/UserArticleReadRepository.php b/src/User/Repository/UserArticleReadRepository.php
+index 0954f27..762a5d5 100644
+--- a/src/User/Repository/UserArticleReadRepository.php
++++ b/src/User/Repository/UserArticleReadRepository.php
+@@ -5,6 +5,7 @@ declare(strict_types=1);
+ namespace App\User\Repository;
+ 
+ use App\Article\Entity\Article;
++use App\Source\Entity\Source;
+ use App\User\Entity\User;
+ use App\User\Entity\UserArticleRead;
+ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+@@ -104,6 +105,16 @@ final class UserArticleReadRepository extends ServiceEntityRepository implements
+         ];
+     }
+ 
++    public function deleteByArticleSource(Source $source): void
++    {
++        $this->getEntityManager()->createQueryBuilder()
++            ->delete(UserArticleRead::class, 'r')
++            ->where('r.article IN (SELECT a.id FROM ' . Article::class . ' a WHERE a.source = :source)')
++            ->setParameter('source', $source)
++            ->getQuery()
++            ->execute();
++    }
++
+     public function flush(): void
+     {
+         $this->getEntityManager()->flush();
+diff --git a/src/User/Repository/UserArticleReadRepositoryInterface.php b/src/User/Repository/UserArticleReadRepositoryInterface.php
+index edce53b..d44cae6 100644
+--- a/src/User/Repository/UserArticleReadRepositoryInterface.php
++++ b/src/User/Repository/UserArticleReadRepositoryInterface.php
+@@ -5,6 +5,7 @@ declare(strict_types=1);
+ namespace App\User\Repository;
+ 
+ use App\Article\Entity\Article;
++use App\Source\Entity\Source;
+ use App\User\Entity\User;
+ use App\User\Entity\UserArticleRead;
+ 
+@@ -28,5 +29,10 @@ interface UserArticleReadRepositoryInterface
+      */
+     public function countUnreadByCategory(User $user): array;
+ 
++    /**
++     * Bulk-deletes read states of all articles belonging to the source.
++     */
++    public function deleteByArticleSource(Source $source): void;
++
+     public function flush(): void;
+ }

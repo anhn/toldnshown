@@ -1,0 +1,13 @@
+{
+ "note": "Claude Code subagents used for data collection and analysis (excludes the orchestrating session and unused attempts). Input tokens include cached context re-sent on each call (about 97%). Agent-hours are summed over agents; agents ran in parallel.",
+ "steps": [
+  {"step": "RQ1 coding of 2,400 rule items", "agents": 59, "calls": 504, "input_tokens_M": 42.17, "output_tokens_M": 0.228, "agent_hours": 1.1},
+  {"step": "design of rules, tasks and checks", "agents": 39, "calls": 800, "input_tokens_M": 64.47, "output_tokens_M": 0.366, "agent_hours": 1.5},
+  {"step": "blind code-evidence rating", "agents": 11, "calls": 129, "input_tokens_M": 12.30, "output_tokens_M": 0.071, "agent_hours": 0.2},
+  {"step": "agent runs, challenge set", "agents": 188, "calls": 3796, "input_tokens_M": 307.18, "output_tokens_M": 0.589, "agent_hours": 2.2},
+  {"step": "agent runs, code-variant set", "agents": 96, "calls": 2173, "input_tokens_M": 184.42, "output_tokens_M": 0.307, "agent_hours": 1.1},
+  {"step": "agent runs, random set", "agents": 44, "calls": 1283, "input_tokens_M": 105.49, "output_tokens_M": 0.186, "agent_hours": 0.8},
+  {"step": "blind judging of diffs", "agents": 135, "calls": 875, "input_tokens_M": 69.28, "output_tokens_M": 0.205, "agent_hours": 0.9}
+ ],
+ "total": {"agents": 572, "calls": 9560, "input_tokens_M": 785.3, "output_tokens_M": 1.95, "agent_hours": 7.8}
+}

@@ -1,0 +1,108 @@
+diff --git a/models/SessionListViewModel.swift b/models/SessionListViewModel.swift
+index b898c11..2ed6787 100644
+--- a/models/SessionListViewModel.swift
++++ b/models/SessionListViewModel.swift
+@@ -2783,8 +2783,9 @@ final class SessionListViewModel: ObservableObject {
+   private func scheduleFulltextSearchIfNeeded() {
+     scheduleFiltersUpdate()  // update metadata-only matches quickly
+     fulltextTask?.cancel()
+-    let term = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+-    guard !term.isEmpty else {
++    // Each whitespace-separated word must appear somewhere in the session file.
++    let terms = searchText.split(whereSeparator: \.isWhitespace).map(String.init)
++    guard !terms.isEmpty else {
+       fulltextMatches.removeAll()
+       return
+     }
+@@ -2793,7 +2794,7 @@ final class SessionListViewModel: ObservableObject {
+       var matched = Set<String>()
+       for s in allSessions {
+         if Task.isCancelled { return }
+-        if await indexer.fileContains(url: s.fileURL, term: term) {
++        if await indexer.fileContainsAll(url: s.fileURL, terms: terms) {
+           matched.insert(s.id)
+         }
+       }
+diff --git a/services/SessionIndexer.swift b/services/SessionIndexer.swift
+index 31f6c2a..f39535f 100644
+--- a/services/SessionIndexer.swift
++++ b/services/SessionIndexer.swift
+@@ -1232,33 +1232,61 @@ actor SessionIndexer {
+   }
+ 
+   // MARK: - Fulltext scanning
+-  func fileContains(url: URL, term: String) async -> Bool {
++  /// True when every term appears somewhere in the file (case-insensitive, any order,
++  /// not necessarily on the same line). A single term behaves like a plain substring search.
++  func fileContainsAll(url: URL, terms: [String]) async -> Bool {
++    let needles = terms.filter { !$0.isEmpty }
++    guard !needles.isEmpty else { return false }
+     guard let handle = try? FileHandle(forReadingFrom: url) else { return false }
+     defer { try? handle.close() }
+-    let needle = term
+     let chunkSize = 128 * 1024
+-    var carry = Data()
++    // Bytes kept from the previous chunk so a term split across a boundary is still found.
++    // The extra 3 bytes allow moving the carry start forward to a UTF-8 character boundary.
++    let carryBytes = (needles.map { $0.utf8.count }.max() ?? 1) + 3
++    var pending = needles
++    var carry: [UInt8] = []
+     while let chunk = try? handle.read(upToCount: chunkSize), !chunk.isEmpty {
+-      var combined = carry
+-      combined.append(chunk)
+-      if let s = String(data: combined, encoding: .utf8),
+-        s.range(of: needle, options: .caseInsensitive) != nil
+-      {
+-        return true
++      let combined = carry + chunk
++      // Decode only complete UTF-8 sequences; an incomplete trailing one waits for the next chunk.
++      let end = Self.utf8CompleteEnd(combined)
++      if let s = String(bytes: combined[..<end], encoding: .utf8) {
++        pending.removeAll { s.range(of: $0, options: .caseInsensitive) != nil }
++        if pending.isEmpty { return true }
+       }
+-      // keep tail to catch matches across boundaries
+-      let keep = min(needle.utf8.count - 1, combined.count)
+-      carry = combined.suffix(keep)
+       if Task.isCancelled { return false }
+-    }
+-    if !carry.isEmpty, let s = String(data: carry, encoding: .utf8),
+-      s.range(of: needle, options: .caseInsensitive) != nil
+-    {
+-      return true
++      var start = max(0, combined.count - carryBytes)
++      while start < combined.count && combined[start] & 0xC0 == 0x80 { start += 1 }
++      carry = Array(combined[start...])
+     }
+     return false
+   }
+ 
++  /// Index up to which `bytes` holds only complete UTF-8 sequences.
++  private static func utf8CompleteEnd(_ bytes: [UInt8]) -> Int {
++    var i = bytes.count
++    var scanned = 0
++    while i > 0 && scanned < 4 {
++      i -= 1
++      scanned += 1
++      let b = bytes[i]
++      if b & 0xC0 == 0x80 { continue }  // continuation byte, keep looking for the lead byte
++      let length: Int
++      if b < 0x80 {
++        length = 1
++      } else if b & 0xE0 == 0xC0 {
++        length = 2
++      } else if b & 0xF0 == 0xE0 {
++        length = 3
++      } else if b & 0xF8 == 0xF0 {
++        length = 4
++      } else {
++        return bytes.count
++      }
++      return (bytes.count - i) < length ? i : bytes.count
++    }
++    return bytes.count
++  }
++
+   // MARK: - Tail timestamp helper
+   nonisolated private func readTailTimestamp(url: URL) -> Date? {
+     guard let handle = try? FileHandle(forReadingFrom: url) else { return nil }

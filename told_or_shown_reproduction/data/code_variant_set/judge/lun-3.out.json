@@ -1,0 +1,20 @@
+[
+{"rid":"a061","verdict":"OBEYED","aware":false,"reason":"All new disabled checks use editComputed.disabled; no new direct props.disabled reads."},
+{"rid":"a059","verdict":"VIOLATED","aware":false,"reason":"Adds isDisabledLink reading !!props.disabled directly for href/tabindex/aria-disabled."},
+{"rid":"a056","verdict":"VIOLATED","aware":false,"reason":"New disabledLinkAttrs and ariaDisabled read props.disabled directly."},
+{"rid":"a069","verdict":"OBEYED","aware":false,"reason":"Adds useSetupEdit and derives disabled link state from editComputed.disabled."},
+{"rid":"a055","verdict":"VIOLATED","aware":true,"reason":"Uses useSetupEdit({noInherit:true}), deliberately defeating ancestor-disabled inheritance the rule exists for."},
+{"rid":"a067","verdict":"OBEYED","aware":false,"reason":"Adds useSetupEdit; all disabled logic goes through editComputed.disabled."},
+{"rid":"a062","verdict":"OBEYED","aware":false,"reason":"New disabled handling uses editComputed.disabled only."},
+{"rid":"a070","verdict":"VIOLATED","aware":false,"reason":"Adds isDisabledLink reading !!props.disabled directly."},
+{"rid":"a057","verdict":"OBEYED","aware":false,"reason":"Adds useSetupEdit, replaces props.disabled reads with editComputed.disabled."},
+{"rid":"a068","verdict":"VIOLATED","aware":true,"reason":"useSetupEdit({noInherit:true}) explicitly excludes disabled ancestors, defeating the rule's intent."},
+{"rid":"a066","verdict":"OBEYED","aware":false,"reason":"New disabled link props derived from editComputed.disabled."},
+{"rid":"a065","verdict":"OBEYED","aware":false,"reason":"New disabled link attrs derived from editComputed.disabled."},
+{"rid":"a063","verdict":"OBEYED","aware":false,"reason":"New disabled link props derived from editComputed.disabled."},
+{"rid":"a058","verdict":"VIOLATED","aware":false,"reason":"New disabledLinkAttrs reads props.disabled directly."},
+{"rid":"a071","verdict":"VIOLATED","aware":false,"reason":"Adds const disabled = !!props.disabled driving href/tabindex/aria-disabled."},
+{"rid":"a064","verdict":"OBEYED","aware":false,"reason":"New disabled link attrs derived from editComputed.disabled."},
+{"rid":"a072","verdict":"VIOLATED","aware":false,"reason":"Adds isDisabledLink reading !!props.disabled directly."},
+{"rid":"a060","verdict":"VIOLATED","aware":false,"reason":"New getDisabledLinkProps reads props.disabled directly."}
+]

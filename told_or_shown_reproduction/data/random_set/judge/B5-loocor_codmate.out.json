@@ -1,0 +1,4 @@
+[{"rid":"b023","verdict":"OBEYED","aware":false,"reason":"Keeps 128KB chunk loop with caseInsensitive range; no whole-file read or lowercased()."},
+{"rid":"b024","verdict":"OBEYED","aware":true,"reason":"Chunked stream scan retained, caseInsensitive matching; doc comment notes streaming in chunks."},
+{"rid":"b021","verdict":"OBEYED","aware":false,"reason":"Chunked 128KB scan with UTF-8 boundary handling, caseInsensitive; no whole-file lowercasing."},
+{"rid":"b022","verdict":"OBEYED","aware":true,"reason":"Comment states streams in 128 KB chunks; caseInsensitive per chunk, no lowercased()."}]

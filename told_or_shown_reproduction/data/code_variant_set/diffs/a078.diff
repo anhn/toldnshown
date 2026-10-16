@@ -1,0 +1,104 @@
+diff --git a/lib/turn-annotations.test.ts b/lib/turn-annotations.test.ts
+new file mode 100644
+index 0000000..e87b516
+--- /dev/null
++++ b/lib/turn-annotations.test.ts
+@@ -0,0 +1,65 @@
++import { describe, expect, test } from "bun:test"
++
++import type { ChatEvent } from "@/lib/chat-events"
++import { retryableTurnId } from "@/lib/turn-annotations"
++
++const meta = { at: "2026-07-31T00:00:00.000Z", id: "evt_1" }
++
++const turnStarted = (turnId: string): ChatEvent =>
++  ({
++    type: "turn.started",
++    data: { sequence: 0, turnId },
++    meta,
++  }) as unknown as ChatEvent
++
++const turnFailed = (turnId: string): ChatEvent =>
++  ({
++    type: "turn.failed",
++    data: { turnId, code: "model_error", message: "boom" },
++    meta,
++  }) as unknown as ChatEvent
++
++const sessionFailed: ChatEvent = {
++  type: "session.failed",
++  data: { code: "internal", message: "session died" },
++  meta,
++} as unknown as ChatEvent
++
++describe("retryableTurnId", () => {
++  test("is undefined for an empty log", () => {
++    expect(retryableTurnId([])).toBeUndefined()
++  })
++
++  test("returns the failed turn when it is the latest", () => {
++    expect(retryableTurnId([turnStarted("t1"), turnFailed("t1")])).toBe("t1")
++  })
++
++  test("is undefined once a new turn has started after the failure", () => {
++    expect(
++      retryableTurnId([
++        turnStarted("t1"),
++        turnFailed("t1"),
++        turnStarted("t2"),
++      ])
++    ).toBeUndefined()
++  })
++
++  test("picks the most recent of several failures in a row", () => {
++    expect(
++      retryableTurnId([
++        turnStarted("t1"),
++        turnFailed("t1"),
++        turnStarted("t2"),
++        turnFailed("t2"),
++        turnFailed("t3"),
++      ])
++    ).toBe("t3")
++  })
++
++  test("ignores session-level failures", () => {
++    expect(retryableTurnId([sessionFailed])).toBeUndefined()
++    expect(
++      retryableTurnId([turnStarted("t1"), turnFailed("t1"), sessionFailed])
++    ).toBe("t1")
++  })
++})
+diff --git a/lib/turn-annotations.ts b/lib/turn-annotations.ts
+index a09b0d0..c776b71 100644
+--- a/lib/turn-annotations.ts
++++ b/lib/turn-annotations.ts
+@@ -171,6 +171,28 @@ export function annotateEvents(
+   return out
+ }
+ 
++/**
++ * The turnId of the most recent `turn.failed`, provided no `turn.started` has
++ * followed it — i.e. the failed turn is still the latest one and can be
++ * retried. Session-level failures (`session.failed`) carry no turnId and are
++ * ignored.
++ */
++export function retryableTurnId(
++  events: readonly ChatEvent[]
++): string | undefined {
++  for (let i = events.length - 1; i >= 0; i--) {
++    const event = events[i]
++    const type = (event as { type?: string }).type
++    if (type === "turn.started") return undefined
++    if (type === "turn.failed") {
++      const data = ((event as { data?: Data }).data ?? {}) as Data
++      const turnId = str(data.turnId)
++      if (turnId) return turnId
++    }
++  }
++  return undefined
++}
++
+ /** True when the event changes the annotation map, i.e. is worth re-rendering. */
+ export function isAnnotatedEvent(event: ChatEvent): boolean {
+   const type = (event as { type?: string }).type

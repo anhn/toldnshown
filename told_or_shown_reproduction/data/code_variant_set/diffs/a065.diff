@@ -1,0 +1,24 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index e93f3e4..47aa6c7 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -22,13 +22,17 @@ export const Text = defineCustomElement({
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
+ 
++    const isLink = () => props.as === 'link';
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: isLink() && editComputed.disabled ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
++    // a disabled anchor must lose href to stop navigation and tabindex=-1 to leave the tab order
++    const linkAttrs = () =>
++      editComputed.disabled ? { ...attrs, href: undefined, tabindex: -1, 'aria-disabled': 'true' } : attrs;
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a class={ns.is('disabled', editComputed.disabled)} {...attrs} part={compParts[3]}>
++        <a class={ns.is('disabled', editComputed.disabled)} {...linkAttrs()} part={compParts[3]}>
+           {children}
+         </a>
+       ) : (

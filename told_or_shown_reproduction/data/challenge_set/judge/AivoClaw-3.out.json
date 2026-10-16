@@ -1,0 +1,6 @@
+[
+{"rid":"r176","verdict":"OBEYED","aware":false,"reason":"Doctor spawn env includes OPENCLAW_NO_RESPAWN: \"1\", mirroring gateway env; no comment mentions the rule."},
+{"rid":"r173","verdict":"OBEYED","aware":false,"reason":"Doctor spawn env sets OPENCLAW_NO_RESPAWN: \"1\"; no explicit statement of the rule or rationale."},
+{"rid":"r175","verdict":"OBEYED","aware":false,"reason":"execFile for doctor passes env with OPENCLAW_NO_RESPAWN: \"1\"; rule not mentioned in comments."},
+{"rid":"r174","verdict":"OBEYED","aware":false,"reason":"runCaptured execFile receives env containing OPENCLAW_NO_RESPAWN: \"1\"; no comment about the rule."}
+]

@@ -1,0 +1,1602 @@
+[
+ {
+  "id": "s0200",
+  "guard": true,
+  "behaviour": "adds new dependencies without prior discussion",
+  "stake": "unvetted dependency, policy breach",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0201",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0202",
+  "guard": true,
+  "behaviour": "ships or tags release skipping launch checklist",
+  "stake": "release rejected after tagging",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0203",
+  "guard": true,
+  "behaviour": "reuses stale foreground shell sessions",
+  "stake": "terminal operations blocked",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0204",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0205",
+  "guard": true,
+  "behaviour": "installs unneeded type-aware lint package",
+  "stake": "redundant dependency",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0206",
+  "guard": true,
+  "behaviour": "treats fetched content or hook output as instructions",
+  "stake": "permissions hijacked by injection",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0207",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0208",
+  "guard": true,
+  "behaviour": "uses native HTML widgets instead of project components",
+  "stake": "inconsistent UI",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0209",
+  "guard": true,
+  "behaviour": "runs whole-project or parallel analysis commands",
+  "stake": "slow wasted runs",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0210",
+  "guard": true,
+  "behaviour": "writes secrets into docs or sample configs",
+  "stake": "credential leak",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0211",
+  "guard": true,
+  "behaviour": "greps files instead of using graph queries",
+  "stake": "wasted context and time",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0212",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0213",
+  "guard": true,
+  "behaviour": "runs full test suite unprompted",
+  "stake": "wasted time",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0214",
+  "guard": true,
+  "behaviour": "derives selected chips only from current page options",
+  "stake": "URL-loaded selections vanish",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0215",
+  "guard": true,
+  "behaviour": "destructures map pairs when only values needed",
+  "stake": "lint failure",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0216",
+  "guard": true,
+  "behaviour": "claims unsupported browser mode behaves the same",
+  "stake": "false capability claim",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0217",
+  "guard": true,
+  "behaviour": "reads whole API reference or guesses API existence",
+  "stake": "wasted context, invented API",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0218",
+  "guard": true,
+  "behaviour": "opens downstream PR before upstream crate published",
+  "stake": "CI fails",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0219",
+  "guard": true,
+  "behaviour": "reintroduces removed framework and build commands",
+  "stake": "undoes migration",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0220",
+  "guard": true,
+  "behaviour": "adds unlisted public tools or credential values",
+  "stake": "secret or private exposure",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0221",
+  "guard": true,
+  "behaviour": "keeps compat shims and aliases just in case",
+  "stake": "codebase clutter",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0222",
+  "guard": true,
+  "behaviour": "stages all files with blanket git add",
+  "stake": "unrelated files committed",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0223",
+  "guard": true,
+  "behaviour": "treats trademark logo colour as theme field",
+  "stake": "brand colour misused",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0224",
+  "guard": true,
+  "behaviour": "invents nonexistent framework APIs",
+  "stake": "broken code",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0225",
+  "guard": true,
+  "behaviour": "uses invented aliases instead of canonical names",
+  "stake": "naming confusion",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0226",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0227",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0228",
+  "guard": true,
+  "behaviour": "puts tests inside implementation file",
+  "stake": "disorganised tests",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0229",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0230",
+  "guard": true,
+  "behaviour": "treats advisory setup check as runtime gate",
+  "stake": "wrong blocking, faked fields",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0231",
+  "guard": true,
+  "behaviour": "works directly on main branch",
+  "stake": "unreviewed changes on main",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0232",
+  "guard": true,
+  "behaviour": "writes em dashes in text",
+  "stake": "AI-sounding prose",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0233",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0234",
+  "guard": true,
+  "behaviour": "adds untrusted site URLs to outbound requests",
+  "stake": "SSRF exposure",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0235",
+  "guard": true,
+  "behaviour": "restates types by hand instead of deriving",
+  "stake": "type drift",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0236",
+  "guard": true,
+  "behaviour": "places sidenotes on separate lines",
+  "stake": "breaks formatting",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0237",
+  "guard": true,
+  "behaviour": "declares done once code works, skipping audit",
+  "stake": "unfinished work reported done",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0238",
+  "guard": true,
+  "behaviour": "changes behaviour outside authorized scope",
+  "stake": "regressions",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0239",
+  "guard": true,
+  "behaviour": "adds defensive checks and try/catch on trusted paths",
+  "stake": "root cause masked, clutter",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0240",
+  "guard": true,
+  "behaviour": "evaluates with separate implementation, skips recall gate",
+  "stake": "quality regression undetected",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0241",
+  "guard": true,
+  "behaviour": "uses ESLint or Prettier instead of Biome",
+  "stake": "toolchain conflict",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0242",
+  "guard": true,
+  "behaviour": "uses signals for pause/resume on unsupported platform",
+  "stake": "feature breaks",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0243",
+  "guard": true,
+  "behaviour": "commits or publishes internal docs",
+  "stake": "private docs exposed",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0244",
+  "guard": true,
+  "behaviour": "adds Kubernetes client dependency to pure translator",
+  "stake": "tests no longer hermetic",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0245",
+  "guard": true,
+  "behaviour": "leaves guidance stale or adds ceremonial doc edits",
+  "stake": "inaccurate guidance",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0246",
+  "guard": true,
+  "behaviour": "commits env files with real credentials",
+  "stake": "credential leak",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0247",
+  "guard": true,
+  "behaviour": "uses removed SSG engine or flag",
+  "stake": "build failure",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0248",
+  "guard": true,
+  "behaviour": "enables App Sandbox",
+  "stake": "accessibility API access breaks",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0249",
+  "guard": true,
+  "behaviour": "puts story files in separate folder",
+  "stake": "inconsistent file layout",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0250",
+  "guard": true,
+  "behaviour": "runs sequential task commands in parallel",
+  "stake": "ordering failure",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0251",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0252",
+  "guard": true,
+  "behaviour": "writes tests hitting network or filesystem",
+  "stake": "flaky tests",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0253",
+  "guard": true,
+  "behaviour": "uses built-in errors package",
+  "stake": "inconsistent error handling",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0254",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0255",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0256",
+  "guard": true,
+  "behaviour": "renames legacy auth groups to match roles",
+  "stake": "backward compatibility breaks",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0257",
+  "guard": true,
+  "behaviour": "declares local TypeVars or needless overloads",
+  "stake": "duplicated typing clutter",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0258",
+  "guard": true,
+  "behaviour": "adds payload format validation beyond scope",
+  "stake": "scope creep",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0259",
+  "guard": true,
+  "behaviour": "silently narrows scope leaving paths uncovered",
+  "stake": "hidden coverage gaps",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0260",
+  "guard": true,
+  "behaviour": "creates ad hoc top-level modules",
+  "stake": "structure sprawl",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0261",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0262",
+  "guard": true,
+  "behaviour": "treats mocked browser tests as real-device proof",
+  "stake": "false compatibility claim",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0263",
+  "guard": true,
+  "behaviour": "starts long-running dev servers unasked",
+  "stake": "session hangs",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0264",
+  "guard": true,
+  "behaviour": "reintroduces long-running sandbox containers",
+  "stake": "violates MVP boundary",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0265",
+  "guard": true,
+  "behaviour": "reports finished without checking rules against diff",
+  "stake": "rule violations shipped",
+  "specific": "generic",
+  "origin": true
+ },
+ {
+  "id": "s0266",
+  "guard": true,
+  "behaviour": "puts emojis in code",
+  "stake": "noisy unprofessional code",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0267",
+  "guard": true,
+  "behaviour": "writes real code in design answers",
+  "stake": "violates content format",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0268",
+  "guard": true,
+  "behaviour": "merges without user approval",
+  "stake": "unreviewed merge",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0269",
+  "guard": true,
+  "behaviour": "writes verbose AI-filler commit and PR text",
+  "stake": "AI-sounding noise",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0270",
+  "guard": true,
+  "behaviour": "duplicates large docs inside skill file",
+  "stake": "bloated skill file",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0271",
+  "guard": true,
+  "behaviour": "edits or weakens tests, fixtures, expected outputs",
+  "stake": "verification made meaningless",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0272",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0273",
+  "guard": true,
+  "behaviour": "writes capitalised or punctuated error strings",
+  "stake": "lint failure",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0274",
+  "guard": true,
+  "behaviour": "writes mock-based unit tests with retired library",
+  "stake": "deprecated test style",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0275",
+  "guard": true,
+  "behaviour": "makes external events editable",
+  "stake": "read-only data corrupted",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0276",
+  "guard": true,
+  "behaviour": "rebuilds by omitting skip-build flag",
+  "stake": "wasted build time",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0277",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0278",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0279",
+  "guard": true,
+  "behaviour": "misreads existing-artifact failure as logic bug",
+  "stake": "wasted debugging",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0280",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0281",
+  "guard": true,
+  "behaviour": "invents users, benchmarks, testimonials",
+  "stake": "false public claims",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0282",
+  "guard": true,
+  "behaviour": "edits map source without re-exporting JSON",
+  "stake": "changes do not appear",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0283",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0284",
+  "guard": true,
+  "behaviour": "parses JSONL with quadratic buffer removal",
+  "stake": "performance degradation",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0285",
+  "guard": true,
+  "behaviour": "adds model-specific tool-call workarounds",
+  "stake": "workaround clutter",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0286",
+  "guard": true,
+  "behaviour": "mistakes compact passing log for truncation",
+  "stake": "false alarm, wasted reruns",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0287",
+  "guard": true,
+  "behaviour": "edits an already-applied migration",
+  "stake": "schema drift",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0288",
+  "guard": true,
+  "behaviour": "\"fixes\" deliberate omission by restoring test-file demotion",
+  "stake": "security detection gap",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0289",
+  "guard": true,
+  "behaviour": "edits generated files by hand",
+  "stake": "changes overwritten on regeneration",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0290",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0291",
+  "guard": true,
+  "behaviour": "puts platform conversions in common code",
+  "stake": "platform boundary broken",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0292",
+  "guard": true,
+  "behaviour": "retries ideas already recorded as failed",
+  "stake": "wasted effort",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0293",
+  "guard": true,
+  "behaviour": "writes invalid skill description field",
+  "stake": "validation failure",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0294",
+  "guard": true,
+  "behaviour": "retries failed tool call identically",
+  "stake": "loops without progress",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0295",
+  "guard": true,
+  "behaviour": "scatters milestones across branches or stacks off main",
+  "stake": "branch mess",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0296",
+  "guard": true,
+  "behaviour": "leaves dead code and stale compat layers",
+  "stake": "codebase clutter",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0297",
+  "guard": true,
+  "behaviour": "writes vague commit messages",
+  "stake": "unreadable history",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0298",
+  "guard": true,
+  "behaviour": "submits multi-word song titles",
+  "stake": "violates product rule",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0299",
+  "guard": true,
+  "behaviour": "uses server-reported printer URI",
+  "stake": "unresolvable hostname",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0300",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0301",
+  "guard": true,
+  "behaviour": "uses any type",
+  "stake": "lost type safety",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0302",
+  "guard": true,
+  "behaviour": "hides bridge globals inside bundler closure",
+  "stake": "host integration breaks",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0303",
+  "guard": true,
+  "behaviour": "introduces server-side dependency or API key",
+  "stake": "breaks no-backend architecture",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0304",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0305",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0306",
+  "guard": true,
+  "behaviour": "imports class directly causing name collision",
+  "stake": "name shadowing bug",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0307",
+  "guard": true,
+  "behaviour": "processes pages in bulk",
+  "stake": "memory exhaustion",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0308",
+  "guard": true,
+  "behaviour": "writes non-imperative commit subjects with trailing period",
+  "stake": "inconsistent history",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0309",
+  "guard": true,
+  "behaviour": "writes tests depending on user's real app data",
+  "stake": "user data touched, unreproducible tests",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0310",
+  "guard": true,
+  "behaviour": "writes keyword-list image prompts",
+  "stake": "poor image output",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0311",
+  "guard": true,
+  "behaviour": "bumps pinned build packages to mismatched major",
+  "stake": "install fails",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0312",
+  "guard": true,
+  "behaviour": "repeats known mistakes, ignores lessons file",
+  "stake": "repeated failures",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0313",
+  "guard": true,
+  "behaviour": "cleans up or modifies things not asked",
+  "stake": "unwanted changes",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0314",
+  "guard": true,
+  "behaviour": "uses bare list annotation shadowed by method",
+  "stake": "type-check errors",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0315",
+  "guard": true,
+  "behaviour": "saves plan working files inside repo",
+  "stake": "repo clutter",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0316",
+  "guard": true,
+  "behaviour": "formats code by manual judgment",
+  "stake": "formatting drift",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0317",
+  "guard": true,
+  "behaviour": "trusts HTTP status instead of response body",
+  "stake": "errors read as success",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0318",
+  "guard": true,
+  "behaviour": "switches to another task without user intent",
+  "stake": "scope drift",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0319",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0320",
+  "guard": true,
+  "behaviour": "leaves unused code and duplicates logic",
+  "stake": "codebase clutter",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0321",
+  "guard": true,
+  "behaviour": "makes accidental normative spec changes",
+  "stake": "spec semantics altered",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0322",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0323",
+  "guard": true,
+  "behaviour": "hand-rolls or regex-strips text fragment links",
+  "stake": "broken citation links",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0324",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0325",
+  "guard": true,
+  "behaviour": "skips regression tests after code changes",
+  "stake": "undetected regressions",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0326",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0327",
+  "guard": true,
+  "behaviour": "uses broken documented deploy command",
+  "stake": "broken test deployment",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0328",
+  "guard": true,
+  "behaviour": "reads raw files instead of wiki index",
+  "stake": "wasted context",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0329",
+  "guard": true,
+  "behaviour": "leaves gap when image is missing",
+  "stake": "broken-looking UI",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0330",
+  "guard": true,
+  "behaviour": "puts test files at repo root",
+  "stake": "disorganised tests",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0331",
+  "guard": true,
+  "behaviour": "finishes without running tests, or runs slow ones",
+  "stake": "broken code delivered, wasted time",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0332",
+  "guard": true,
+  "behaviour": "silently returns null or false on error",
+  "stake": "hidden failures",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0333",
+  "guard": true,
+  "behaviour": "uses wrong term for admin area",
+  "stake": "terminology confusion",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0334",
+  "guard": true,
+  "behaviour": "starts new changes on top of uncommitted work",
+  "stake": "tangled changes",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0335",
+  "guard": true,
+  "behaviour": "uses legacy PowerShell or nests shells",
+  "stake": "command failures",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0336",
+  "guard": true,
+  "behaviour": "touches UI widgets off main thread",
+  "stake": "races and crashes",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0337",
+  "guard": true,
+  "behaviour": "runs repository-modifying VCS commands",
+  "stake": "unwanted VCS state changes",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0338",
+  "guard": true,
+  "behaviour": "adds transient notes to docs or leaves docs stale",
+  "stake": "doc clutter and drift",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0339",
+  "guard": true,
+  "behaviour": "changes date in post filename",
+  "stake": "published URLs break",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0340",
+  "guard": true,
+  "behaviour": "re-runs skill setup creating duplicate docs folder",
+  "stake": "duplicate config tree",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0341",
+  "guard": true,
+  "behaviour": "relies on earlier chat context instead of ledger",
+  "stake": "state lost on compaction",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0342",
+  "guard": true,
+  "behaviour": "adds dependency for trivial operation",
+  "stake": "dependency bloat",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0343",
+  "guard": true,
+  "behaviour": "credits agent that did not participate",
+  "stake": "false attribution",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0344",
+  "guard": true,
+  "behaviour": "commits planning artifacts in main repo",
+  "stake": "repo clutter",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0345",
+  "guard": true,
+  "behaviour": "creates top-level classes for local helpers",
+  "stake": "namespace clutter",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0346",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0347",
+  "guard": true,
+  "behaviour": "duplicates README content in agent file",
+  "stake": "doc drift",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0348",
+  "guard": true,
+  "behaviour": "dumps logs into PR descriptions",
+  "stake": "review burden",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0349",
+  "guard": true,
+  "behaviour": "creates branches or worktrees without approval",
+  "stake": "unwanted branches",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0350",
+  "guard": true,
+  "behaviour": "bypasses request wrapper, lets errors crash",
+  "stake": "process crash",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0351",
+  "guard": true,
+  "behaviour": "advances deal lacking compelling event",
+  "stake": "stalled deals",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0352",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0353",
+  "guard": true,
+  "behaviour": "adds Python package files to TypeScript repo",
+  "stake": "unintended architecture change",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0354",
+  "guard": true,
+  "behaviour": "omits license header on new files",
+  "stake": "licence non-compliance",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0355",
+  "guard": true,
+  "behaviour": "makes cron timezone dynamic",
+  "stake": "violates user requirement",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0356",
+  "guard": true,
+  "behaviour": "recommends confidently from stale knowledge",
+  "stake": "outdated advice",
+  "specific": "generic",
+  "origin": true
+ },
+ {
+  "id": "s0357",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0358",
+  "guard": true,
+  "behaviour": "treats fixture rendering as enough for auth/sync changes",
+  "stake": "unverified behaviour shipped",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0359",
+  "guard": true,
+  "behaviour": "edits functions another agent is editing",
+  "stake": "conflicting edits",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0360",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0361",
+  "guard": true,
+  "behaviour": "uses hidden flag as access control",
+  "stake": "data exposure",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0362",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0363",
+  "guard": true,
+  "behaviour": "defers unmet acceptance to follow-up to close task",
+  "stake": "false completion credit",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0364",
+  "guard": true,
+  "behaviour": "writes tests needing real API keys",
+  "stake": "flaky costly tests",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0365",
+  "guard": true,
+  "behaviour": "exposes sensitive items on production dashboard",
+  "stake": "data exposure",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0366",
+  "guard": true,
+  "behaviour": "uses launch form with nested quoting",
+  "stake": "quoting errors",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0367",
+  "guard": true,
+  "behaviour": "modifies raw data outside controlled workflows",
+  "stake": "source data corrupted",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0368",
+  "guard": true,
+  "behaviour": "adds new tooling, build systems, dependencies",
+  "stake": "scope creep",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0369",
+  "guard": true,
+  "behaviour": "hardcodes model names",
+  "stake": "inflexible configuration",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0370",
+  "guard": true,
+  "behaviour": "swallows errors into empty or default results",
+  "stake": "hidden failures",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0371",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0372",
+  "guard": true,
+  "behaviour": "writes empty catch blocks",
+  "stake": "hidden failures",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0373",
+  "guard": true,
+  "behaviour": "adds deletion of messages when sources removed",
+  "stake": "learnings lost",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0374",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0375",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0376",
+  "guard": true,
+  "behaviour": "stores derivable state or syncs via effects",
+  "stake": "state drifts out of sync",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0377",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0378",
+  "guard": true,
+  "behaviour": "shares domain type across module boundary",
+  "stake": "boundary test fails",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0379",
+  "guard": true,
+  "behaviour": "changes workflow without updating contributor docs",
+  "stake": "stale docs",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0380",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0381",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0382",
+  "guard": true,
+  "behaviour": "edits shipped spec files",
+  "stake": "history rewritten",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0383",
+  "guard": true,
+  "behaviour": "expects REPL print on console or multi-line helpers",
+  "stake": "misleading debugging",
+  "specific": "project",
+  "origin": true
+ },
+ {
+  "id": "s0384",
+  "guard": true,
+  "behaviour": "passes raw coordinates between layers",
+  "stake": "coordinate mix-ups",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0385",
+  "guard": true,
+  "behaviour": "edits files without reading them and callers",
+  "stake": "breaks callers",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0386",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0387",
+  "guard": true,
+  "behaviour": "passes encryption keys from frontend",
+  "stake": "key exposure",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0388",
+  "guard": true,
+  "behaviour": "edits or stages auto-generated changelog",
+  "stake": "overwritten, release conflicts",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0389",
+  "guard": true,
+  "behaviour": "commits with auto-inferred machine identity",
+  "stake": "personal identity leaked",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0390",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0391",
+  "guard": true,
+  "behaviour": "commits site build artifacts",
+  "stake": "repo clutter",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0392",
+  "guard": true,
+  "behaviour": "writes preferences the user did not state",
+  "stake": "wrong assumed preferences",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0393",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0394",
+  "guard": true,
+  "behaviour": "hand-edits generated block",
+  "stake": "overwritten on regeneration",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0395",
+  "guard": true,
+  "behaviour": "describes companion feature as native",
+  "stake": "misleading docs",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0396",
+  "guard": true,
+  "behaviour": "commits secrets, blocks async runtime, edits build output",
+  "stake": "leak, stalls, overwritten edits",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0397",
+  "guard": true,
+  "behaviour": "answers directly instead of invoking matching skill",
+  "stake": "lower quality results",
+  "specific": "generic",
+  "origin": false
+ },
+ {
+  "id": "s0398",
+  "guard": true,
+  "behaviour": "adds trademarked logos to package",
+  "stake": "trademark infringement",
+  "specific": "project",
+  "origin": false
+ },
+ {
+  "id": "s0399",
+  "guard": false,
+  "behaviour": "",
+  "stake": "",
+  "specific": "project",
+  "origin": false
+ }
+]

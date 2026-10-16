@@ -1,0 +1,6 @@
+[
+{"rid":"r126","verdict":"OBEYED","aware":true,"reason":"Reads channel from rust-toolchain.toml and passes it to dtolnay/rust-toolchain; no hard-coded version."},
+{"rid":"r127","verdict":"OBEYED","aware":true,"reason":"Toolchain version extracted from rust-toolchain.toml at runtime; no duplicated pin or stable channel."},
+{"rid":"r125","verdict":"OBEYED","aware":true,"reason":"Toolchain version extracted from rust-toolchain.toml at runtime; no duplicated pin or stable channel."},
+{"rid":"r128","verdict":"OBEYED","aware":false,"reason":"No toolchain install step; runner's rustup honours rust-toolchain.toml implicitly, no pin duplicated or overridden."}
+]

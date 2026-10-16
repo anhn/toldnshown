@@ -1,0 +1,6 @@
+[
+{"rid":"r091","verdict":"OBEYED","aware":false,"reason":"animated: PropBoolean() without default; default set via createDefineElement third argument; no explicit statement of rule."},
+{"rid":"r092","verdict":"OBEYED","aware":false,"reason":"Prop declared as PropBoolean() with tsdoc default; runtime default in createDefineElement third argument; rule not stated."},
+{"rid":"r090","verdict":"OBEYED","aware":false,"reason":"No default in prop options; { animated: true } passed to createDefineElement; rule not stated in diff."},
+{"rid":"r089","verdict":"OBEYED","aware":false,"reason":"PropBoolean() only, default supplied through createDefineElement third argument; no comment stating the rule."}
+]

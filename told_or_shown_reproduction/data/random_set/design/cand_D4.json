@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s1306",
+  "repo": "storybookjs/vite-plugin-storybook-nextjs",
+  "file": "AGENTS.md",
+  "text": "- User-facing change \u2192 `pnpm changeset`. Tests/docs-only \u2192 no changeset.",
+  "heading": "Agent Instructions > Quick start"
+ },
+ {
+  "id": "s2104",
+  "repo": "SuLG-ik/yandex-mapkit-kmp",
+  "file": "CLAUDE.md",
+  "text": "Within `1.x` the modules promise source compatibility, not binary compatibility \u2014 MapKit grows its\nstructures and enums, and the wrapper mirrors them as `data class`es and `enum class`es. README and\n`docs/getting-started/contributing.md` state this; keep them in sync when the policy changes.",
+  "heading": "CLAUDE.md > Commands"
+ },
+ {
+  "id": "s1310",
+  "repo": "phuryn/pm-skills",
+  "file": "AGENTS.md",
+  "text": "Please read [CLAUDE.md](CLAUDE.md) before making changes. This file exists only so non-Claude agents that look for `AGENTS.md` are pointed to the same instructions; do not duplicate guidance here.",
+  "heading": "AGENTS.md"
+ },
+ {
+  "id": "s1599",
+  "repo": "Graphify-Labs/graphify",
+  "file": "AGENTS.md",
+  "text": "- After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)",
+  "heading": "graphify"
+ }
+]

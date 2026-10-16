@@ -1,0 +1,34 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index a76d535..254f8e5 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -24,14 +24,24 @@ export const Text = defineCustomElement({
+       role: props.as!,
+     }));
+     const isLink = () => props.as === 'link';
+-    const wrapIfAsLink = (children: any) =>
+-      isLink() ? (
+-        <a {...attrs} part={compParts[3]}>
++    const wrapIfAsLink = (children: any) => {
++      if (!isLink()) return children;
++      const disabled = !!props.disabled;
++      // without href the anchor cannot navigate by click, Enter or middle click, and it drops out of the tab order;
++      // a consumer-supplied tabindex is overridden too, otherwise it would bring the anchor back into the tab order
++      return (
++        <a
++          {...attrs}
++          class={[attrs.class, ns.is('disabled', disabled)]}
++          href={disabled ? undefined : attrs.href}
++          tabindex={disabled ? -1 : attrs.tabindex}
++          aria-disabled={disabled ? 'true' : undefined}
++          part={compParts[3]}
++        >
+           {children}
+         </a>
+-      ) : (
+-        children
+       );
++    };
+     const getReverse = (text: string, isRoot: boolean = false, cls?: any) => {
+       const El = isLink() && isRoot ? 'a' : 'span',
+         dir = styleMap.direction;

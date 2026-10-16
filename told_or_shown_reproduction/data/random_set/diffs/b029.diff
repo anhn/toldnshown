@@ -1,0 +1,566 @@
+diff --git a/src/main/java/com/xceptance/neodymium/ai/action/ActionRegistry.java b/src/main/java/com/xceptance/neodymium/ai/action/ActionRegistry.java
+index 99dccd48..d6ae2515 100644
+--- a/src/main/java/com/xceptance/neodymium/ai/action/ActionRegistry.java
++++ b/src/main/java/com/xceptance/neodymium/ai/action/ActionRegistry.java
+@@ -33,6 +33,7 @@ import com.xceptance.neodymium.ai.action.plugins.CheckAction;
+ import com.xceptance.neodymium.ai.action.plugins.ClearAction;
+ import com.xceptance.neodymium.ai.action.plugins.ClearCookiesAction;
+ import com.xceptance.neodymium.ai.action.plugins.ClickAction;
++import com.xceptance.neodymium.ai.action.plugins.CloseWindowAction;
+ import com.xceptance.neodymium.ai.action.plugins.ForwardAction;
+ import com.xceptance.neodymium.ai.action.plugins.IncludeAction;
+ import com.xceptance.neodymium.ai.action.plugins.JavaMethodAction;
+@@ -131,6 +132,7 @@ public class ActionRegistry {
+         register(new RefreshAction());
+         register(new ClearCookiesAction());
+         register(new SwitchWindowAction());
++        register(new CloseWindowAction());
+         register(new SplitAction());
+     }
+ 
+diff --git a/src/main/java/com/xceptance/neodymium/ai/action/plugins/CloseWindowAction.java b/src/main/java/com/xceptance/neodymium/ai/action/plugins/CloseWindowAction.java
+new file mode 100644
+index 00000000..f01156d4
+--- /dev/null
++++ b/src/main/java/com/xceptance/neodymium/ai/action/plugins/CloseWindowAction.java
+@@ -0,0 +1,218 @@
++/*
++ * GNU Affero General Public License (AGPLv3)
++ *
++ * Copyright (c) 2026 Xceptance
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU Affero General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Affero General Public License for more details.
++ *
++ * You should have received a copy of the GNU Affero General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
++ */
++package com.xceptance.neodymium.ai.action.plugins;
++
++import java.util.ArrayList;
++import java.util.List;
++import java.util.function.Function;
++
++import org.openqa.selenium.WebDriver;
++import org.slf4j.Logger;
++import org.slf4j.LoggerFactory;
++
++import com.codeborne.selenide.WebDriverRunner;
++import com.xceptance.neodymium.ai.action.Action;
++import com.xceptance.neodymium.ai.action.ActionExecutor;
++import com.xceptance.neodymium.ai.action.AiActionPlugin;
++
++/**
++ * AI action plugin that closes the current browser window or tab and moves focus to a window that
++ * remains open. It is the counterpart of {@link SwitchWindowAction}, which moves focus into a popup;
++ * this action lets a playbook dismiss the popup once it is no longer needed.
++ * <p>
++ * The focus target is resolved <em>before</em> the current window is closed. If the requested target
++ * cannot be resolved, or if the current window is the last one open, the action fails and no window
++ * is closed. Without a target, focus moves to the first remaining window in the driver's handle order,
++ * which is usually the window the popup was opened from.
++ * <p>
++ * Supported target forms (same as {@code SWITCH_WINDOW}, except that the window being closed can never be
++ * the focus target):
++ * <ul>
++ * <li>{@code win_N} or {@code N}: the window at position N in the driver's handle order</li>
++ * <li>an exact window handle</li>
++ * <li>a window title, matched case-insensitively as an exact match or as a substring</li>
++ * </ul>
++ *
++ * @author AI-generated: Claude Haiku 5.5
++ * @author Xceptance GmbH 2026
++ */
++public class CloseWindowAction implements AiActionPlugin
++{
++    private static final Logger LOG = LoggerFactory.getLogger(CloseWindowAction.class);
++
++    /**
++     * Prefix that marks a window target as an index, for example {@code win_0}.
++     */
++    private static final String WINDOW_INDEX_PREFIX = "win_";
++
++    @Override
++    public final String getActionName()
++    {
++        return "CLOSE_WINDOW";
++    }
++
++    /**
++     * This action has no direct-instruction parser; the LLM or a playbook step always supplies it.
++     *
++     * @return always {@code null}
++     */
++    @Override
++    public final List<Action> parseDirectInstruction(final String instruction)
++    {
++        return null;
++    }
++
++    /**
++     * Closing a window is a deterministic browser operation, so the LLM is never needed.
++     *
++     * @return always {@code false}
++     */
++    @Override
++    public final boolean requiresLlm(final Action action)
++    {
++        return false;
++    }
++
++    @Override
++    public final String getPromptInstructions()
++    {
++        return "CLOSE_WINDOW: close the current browser window or tab and switch focus back to a window that remains open. "
++               + "Use it to dismiss a popup once the test no longer needs it. "
++               + "Optionally set the target to the window that should receive focus afterwards: a window index (e.g. 'win_0' for the first window) "
++               + "or a window title. If no target is provided, focus moves to the first remaining window. "
++               + "The last remaining window cannot be closed.";
++    }
++
++    /**
++     * Closes the current window and focuses a remaining window.
++     *
++     * @param action the action; the focus target is read from {@code target}, or from {@code value} if the target is blank
++     * @param testInstance the running test instance (unused)
++     * @param executor the action executor (unused)
++     * @throws ActionExecutor.ActionExecutionException if no remaining window matches the target, or if the current window is the last one open
++     */
++    @Override
++    public final void execute(final Action action, final Object testInstance, final ActionExecutor executor)
++    {
++        final WebDriver driver = WebDriverRunner.getWebDriver();
++        final String target = action.getTarget();
++        final String value = action.getValue();
++        final String windowParam = (target != null && !target.isBlank()) ? target : value;
++
++        final String currentHandle = driver.getWindowHandle();
++        final List<String> handles = new ArrayList<>(driver.getWindowHandles());
++
++        final String focusHandle;
++        try
++        {
++            // Title lookup switches windows, so focus is restored to the current window afterwards
++            focusHandle = resolveRemainingWindow(handles, currentHandle, windowParam, handle ->
++            {
++                driver.switchTo().window(handle);
++                return driver.getTitle();
++            });
++        }
++        finally
++        {
++            driver.switchTo().window(currentHandle);
++        }
++
++        LOG.debug("Closing current window {} and switching focus to {}", currentHandle, focusHandle);
++        driver.close();
++        driver.switchTo().window(focusHandle);
++    }
++
++    /**
++     * Resolves the window that should receive focus after the current window is closed. This method does not
++     * touch the browser; the title lookup is injected so the resolution can be tested without a driver.
++     * <p>
++     * The index form uses the full handle list, so {@code win_N} means the same window as in {@code SWITCH_WINDOW}.
++     * The result is never the current window, because that window is about to be closed.
++     *
++     * @param allHandles all open window handles in driver order, including the current window
++     * @param currentHandle the handle of the window that will be closed
++     * @param windowParam the requested target, or {@code null} or blank for the default
++     * @param titleLookup returns the page title of a given handle
++     * @return the handle of the window that should keep focus
++     * @throws ActionExecutor.ActionExecutionException if no window remains, or no remaining window matches the target
++     */
++    static final String resolveRemainingWindow(final List<String> allHandles, final String currentHandle, final String windowParam,
++                                               final Function<String, String> titleLookup)
++    {
++        final List<String> remaining = new ArrayList<>();
++        for (final String handle : allHandles)
++        {
++            if (!handle.equals(currentHandle))
++            {
++                remaining.add(handle);
++            }
++        }
++
++        if (remaining.isEmpty())
++        {
++            throw new ActionExecutor.ActionExecutionException("Cannot close the last remaining window; closing it would end the browser session.");
++        }
++
++        if (windowParam == null || windowParam.isBlank())
++        {
++            return remaining.get(0);
++        }
++
++        final String cleanParam = windowParam.trim();
++        final String indexText = cleanParam.startsWith(WINDOW_INDEX_PREFIX) ? cleanParam.substring(WINDOW_INDEX_PREFIX.length()) : cleanParam;
++        try
++        {
++            final int index = Integer.parseInt(indexText);
++            if (index < 0 || index >= allHandles.size())
++            {
++                throw new ActionExecutor.ActionExecutionException("Window index " + index + " is out of bounds. Open windows count: " + allHandles.size());
++            }
++            final String handle = allHandles.get(index);
++            if (handle.equals(currentHandle))
++            {
++                throw new ActionExecutor.ActionExecutionException("Window index " + index + " is the window being closed. Choose a different window to focus.");
++            }
++            return handle;
++        }
++        catch (final NumberFormatException e)
++        {
++            // Not an index, so try an exact handle and then a title below
++        }
++
++        if (allHandles.contains(windowParam))
++        {
++            if (windowParam.equals(currentHandle))
++            {
++                throw new ActionExecutor.ActionExecutionException("The target is the window being closed. Choose a different window to focus.");
++            }
++            return windowParam;
++        }
++
++        for (final String handle : remaining)
++        {
++            final String title = titleLookup.apply(handle);
++            if (title != null && (title.equalsIgnoreCase(windowParam) || title.contains(windowParam)))
++            {
++                return handle;
++            }
++        }
++
++        throw new ActionExecutor.ActionExecutionException("Could not find a remaining window matching name, title or handle: " + windowParam);
++    }
++}
+diff --git a/src/test/java/com/xceptance/neodymium/ai/action/CloseWindowActionTest.java b/src/test/java/com/xceptance/neodymium/ai/action/CloseWindowActionTest.java
+new file mode 100644
+index 00000000..93ba1efc
+--- /dev/null
++++ b/src/test/java/com/xceptance/neodymium/ai/action/CloseWindowActionTest.java
+@@ -0,0 +1,74 @@
++/*
++ * GNU Affero General Public License (AGPLv3)
++ *
++ * Copyright (c) 2026 Xceptance Software Technologies GmbH
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU Affero General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Affero General Public License for more details.
++ *
++ * You should have received a copy of the GNU Affero General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
++ */
++package com.xceptance.neodymium.ai.action;
++
++import static com.codeborne.selenide.Selenide.$;
++import static com.codeborne.selenide.Selenide.open;
++
++import com.codeborne.selenide.Condition;
++import com.xceptance.neodymium.ai.BaseAiTest;
++import com.xceptance.neodymium.common.browser.Browser;
++import com.xceptance.neodymium.junit5.NeodymiumTest;
++import com.xceptance.neodymium.util.Neodymium;
++
++/**
++ * Validates the behavior of the CloseWindowAction AI plugin. Popups are opened and focused with
++ * SWITCH_WINDOW, then closed with CLOSE_WINDOW, which must leave focus on a remaining window.
++ * Runs offline against the recorded playbook under {@code ai-playbooks}.
++ */
++@Browser("Chrome_1500x1000")
++public final class CloseWindowActionTest extends BaseAiTest
++{
++    @NeodymiumTest
++    public void testCloseWindow()
++    {
++        System.setProperty("neodymium.ai.offline", "true");
++        try
++        {
++            open(currentTestUrl);
++
++            // Open a popup and move focus into it
++            $("#open-window").click();
++            Neodymium.ai().execute("Switch to the new window");
++            $("#welcome").shouldHave(Condition.exactText("Welcome to the new window!"));
++
++            // Close the popup without a target; focus must return to the original window
++            Neodymium.ai().execute("Close the window");
++            $("#open-window").should(Condition.exist);
++
++            // Open again, close it by index; the original window is win_0
++            $("#open-window").click();
++            Neodymium.ai().execute("Switch to the new window");
++            $("#welcome").should(Condition.exist);
++            Neodymium.ai().execute("Close the window and switch to window win_0");
++            $("#open-window").should(Condition.exist);
++
++            // Open again, close it and focus the original window by title
++            $("#open-window").click();
++            Neodymium.ai().execute("Switch to the new window");
++            $("#welcome").should(Condition.exist);
++            Neodymium.ai().execute("Close the window and switch to window 'Original Window'");
++            $("#open-window").should(Condition.exist);
++        }
++        finally
++        {
++            System.clearProperty("neodymium.ai.offline");
++        }
++    }
++}
+diff --git a/src/test/java/com/xceptance/neodymium/ai/action/plugins/CloseWindowActionTest.java b/src/test/java/com/xceptance/neodymium/ai/action/plugins/CloseWindowActionTest.java
+new file mode 100644
+index 00000000..154a8fd9
+--- /dev/null
++++ b/src/test/java/com/xceptance/neodymium/ai/action/plugins/CloseWindowActionTest.java
+@@ -0,0 +1,192 @@
++/*
++ * GNU Affero General Public License (AGPLv3)
++ *
++ * Copyright (c) 2026 Xceptance Software Technologies GmbH
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU Affero General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Affero General Public License for more details.
++ *
++ * You should have received a copy of the GNU Affero General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
++ */
++package com.xceptance.neodymium.ai.action.plugins;
++
++import java.util.HashMap;
++import java.util.List;
++import java.util.Map;
++
++import org.junit.jupiter.api.Assertions;
++import org.junit.jupiter.api.Test;
++
++import com.xceptance.neodymium.ai.action.ActionExecutor;
++
++/**
++ * Unit tests for the {@link CloseWindowAction} plugin. These tests do not need a browser: the
++ * window resolution logic is exercised through {@link CloseWindowAction#resolveRemainingWindow}
++ * with plain handle lists and a title lookup map. The browser-level behavior is covered by the
++ * integration test {@code com.xceptance.neodymium.ai.action.CloseWindowActionTest}.
++ *
++ * @author AI-generated: Claude Haiku 5.5
++ * @author Xceptance GmbH 2026
++ */
++public final class CloseWindowActionTest
++{
++    private static final String WIN_A = "handle-a";
++    private static final String WIN_B = "handle-b";
++    private static final String WIN_C = "handle-c";
++
++    /**
++     * Verifies the action is registered under the documented name and needs no LLM and no direct parsing.
++     */
++    @Test
++    public void testActionNameAndFlags()
++    {
++        final CloseWindowAction plugin = new CloseWindowAction();
++
++        Assertions.assertEquals("CLOSE_WINDOW", plugin.getActionName());
++        Assertions.assertFalse(plugin.requiresLlm(null));
++        Assertions.assertNull(plugin.parseDirectInstruction("Close this window"));
++    }
++
++    /**
++     * Verifies the prompt instructions tell the LLM what the action does and how targets are written.
++     */
++    @Test
++    public void testPromptInstructionsDescribeAction()
++    {
++        final String instructions = new CloseWindowAction().getPromptInstructions();
++
++        Assertions.assertTrue(instructions.contains("CLOSE_WINDOW"));
++        Assertions.assertTrue(instructions.contains("win_0"));
++        Assertions.assertTrue(instructions.contains("title"));
++        Assertions.assertTrue(instructions.contains("last"));
++    }
++
++    /**
++     * Without a target, focus moves to the first remaining window, skipping the window being closed.
++     */
++    @Test
++    public void testNoTargetFallsBackToFirstRemainingWindow()
++    {
++        final String result = CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B, WIN_C), WIN_B, null, h -> "");
++        Assertions.assertEquals(WIN_A, result);
++    }
++
++    /**
++     * A blank target behaves like no target.
++     */
++    @Test
++    public void testBlankTargetFallsBackToFirstRemainingWindow()
++    {
++        final String result = CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B), WIN_A, "   ", h -> "");
++        Assertions.assertEquals(WIN_B, result);
++    }
++
++    /**
++     * The "win_N" form selects a window by its position in the handle list, as SWITCH_WINDOW does.
++     */
++    @Test
++    public void testWinPrefixIndexSelectsWindow()
++    {
++        final String result = CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B, WIN_C), WIN_C, "win_1", h -> "");
++        Assertions.assertEquals(WIN_B, result);
++    }
++
++    /**
++     * A plain numeric index is accepted as well.
++     */
++    @Test
++    public void testPlainIndexSelectsWindow()
++    {
++        final String result = CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B, WIN_C), WIN_B, "2", h -> "");
++        Assertions.assertEquals(WIN_C, result);
++    }
++
++    /**
++     * An index that points at the window being closed cannot be a focus target.
++     */
++    @Test
++    public void testIndexOfCurrentWindowIsRejected()
++    {
++        Assertions.assertThrows(ActionExecutor.ActionExecutionException.class,
++                                () -> CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B), WIN_B, "win_1", h -> ""));
++    }
++
++    /**
++     * An index outside the handle list is reported as out of bounds.
++     */
++    @Test
++    public void testOutOfBoundsIndexIsRejected()
++    {
++        final ActionExecutor.ActionExecutionException e = Assertions.assertThrows(ActionExecutor.ActionExecutionException.class,
++                                                                                  () -> CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B), WIN_A, "win_7", h -> ""));
++        Assertions.assertTrue(e.getMessage().contains("out of bounds"));
++    }
++
++    /**
++     * A title (case-insensitive exact or contained) selects the matching remaining window.
++     */
++    @Test
++    public void testTitleSelectsMatchingRemainingWindow()
++    {
++        final Map<String, String> titles = new HashMap<>();
++        titles.put(WIN_A, "Original Window");
++        titles.put(WIN_B, "Checkout");
++        titles.put(WIN_C, "PayPal Login Page");
++
++        Assertions.assertEquals(WIN_A, CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B, WIN_C), WIN_B, "original window", titles::get));
++        Assertions.assertEquals(WIN_C, CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B, WIN_C), WIN_B, "PayPal", titles::get));
++    }
++
++    /**
++     * The title of the window being closed is never a valid focus target.
++     */
++    @Test
++    public void testTitleOfCurrentWindowIsNotAMatch()
++    {
++        final Map<String, String> titles = new HashMap<>();
++        titles.put(WIN_A, "Original Window");
++        titles.put(WIN_B, "Popup");
++
++        Assertions.assertThrows(ActionExecutor.ActionExecutionException.class,
++                                () -> CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B), WIN_B, "Popup", titles::get));
++    }
++
++    /**
++     * An exact window handle is accepted as a target.
++     */
++    @Test
++    public void testExactHandleSelectsWindow()
++    {
++        final String result = CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B, WIN_C), WIN_A, WIN_C, h -> "");
++        Assertions.assertEquals(WIN_C, result);
++    }
++
++    /**
++     * A target that matches nothing is reported, so the caller can fail before closing the window.
++     */
++    @Test
++    public void testUnknownTargetIsRejected()
++    {
++        Assertions.assertThrows(ActionExecutor.ActionExecutionException.class,
++                                () -> CloseWindowAction.resolveRemainingWindow(List.of(WIN_A, WIN_B), WIN_B, "Nonexistent", h -> "Something else"));
++    }
++
++    /**
++     * Closing the only open window is refused, because it would end the browser session.
++     */
++    @Test
++    public void testLastWindowCannotBeClosed()
++    {
++        final ActionExecutor.ActionExecutionException e = Assertions.assertThrows(ActionExecutor.ActionExecutionException.class,
++                                                                                  () -> CloseWindowAction.resolveRemainingWindow(List.of(WIN_A), WIN_A, null, h -> ""));
++        Assertions.assertTrue(e.getMessage().contains("last"));
++    }
++}
+diff --git a/src/test/java/com/xceptance/neodymium/junit5/testclasses/ai/ActionRegistryTest.java b/src/test/java/com/xceptance/neodymium/junit5/testclasses/ai/ActionRegistryTest.java
+index 12c481df..53cc85e7 100644
+--- a/src/test/java/com/xceptance/neodymium/junit5/testclasses/ai/ActionRegistryTest.java
++++ b/src/test/java/com/xceptance/neodymium/junit5/testclasses/ai/ActionRegistryTest.java
+@@ -63,6 +63,7 @@ public class ActionRegistryTest {
+         
+         Assertions.assertNotNull(ActionRegistry.getPlugin(AssertAction.ACTION_NAME), "ASSERT plugin should be registered by default");
+         Assertions.assertNotNull(ActionRegistry.getPlugin("CLICK"), "CLICK plugin should be registered by default");
++        Assertions.assertNotNull(ActionRegistry.getPlugin("CLOSE_WINDOW"), "CLOSE_WINDOW plugin should be registered by default");
+     }
+ 
+     @Test
+diff --git a/src/test/resources/ai-test-pages/CloseWindowActionTest/newWindow.html b/src/test/resources/ai-test-pages/CloseWindowActionTest/newWindow.html
+new file mode 100644
+index 00000000..e9cbb536
+--- /dev/null
++++ b/src/test/resources/ai-test-pages/CloseWindowActionTest/newWindow.html
+@@ -0,0 +1,10 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <title>New Window Title</title>
++</head>
++<body>
++    <h1>New Window</h1>
++    <div id="welcome">Welcome to the new window!</div>
++</body>
++</html>
+diff --git a/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindow.html b/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindow.html
+new file mode 100644
+index 00000000..28f6a76d
+--- /dev/null
++++ b/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindow.html
+@@ -0,0 +1,10 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <title>Original Window</title>
++</head>
++<body>
++    <h1>Original Window</h1>
++    <button id="open-window" onclick="window.open('newWindow.html', '_blank')">Open New Window</button>
++</body>
++</html>

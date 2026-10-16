@@ -1,0 +1,104 @@
+diff --git a/lib/turn-annotations.test.ts b/lib/turn-annotations.test.ts
+new file mode 100644
+index 0000000..a5777c7
+--- /dev/null
++++ b/lib/turn-annotations.test.ts
+@@ -0,0 +1,60 @@
++import { describe, expect, test } from "bun:test"
++
++import type { ChatEvent } from "./chat-events"
++import { retryableTurnId } from "./turn-annotations"
++
++// Only the fields `retryableTurnId` reads are populated; the rest of each
++// event is eve's concern and not under test here.
++const started = (turnId: string) =>
++  ({ type: "turn.started", data: { turnId } }) as unknown as ChatEvent
++const failed = (turnId: string) =>
++  ({
++    type: "turn.failed",
++    data: { turnId, code: "boom", message: "boom" },
++  }) as unknown as ChatEvent
++const sessionFailed = () =>
++  ({
++    type: "session.failed",
++    data: { sessionId: "s", code: "gone", message: "gone" },
++  }) as unknown as ChatEvent
++
++describe("retryableTurnId", () => {
++  test("returns undefined for an empty log", () => {
++    expect(retryableTurnId([])).toBeUndefined()
++  })
++
++  test("returns the failed turn when no new turn has started after it", () => {
++    expect(retryableTurnId([started("turn_0"), failed("turn_0")])).toBe(
++      "turn_0"
++    )
++  })
++
++  test("returns undefined once a new turn has started after the failure", () => {
++    expect(
++      retryableTurnId([
++        started("turn_0"),
++        failed("turn_0"),
++        started("turn_1"),
++      ])
++    ).toBeUndefined()
++  })
++
++  test("returns the most recent of several failures in a row", () => {
++    expect(
++      retryableTurnId([
++        started("turn_0"),
++        failed("turn_0"),
++        started("turn_1"),
++        failed("turn_1"),
++        failed("turn_1"),
++      ])
++    ).toBe("turn_1")
++  })
++
++  test("ignores session-level failures", () => {
++    expect(retryableTurnId([sessionFailed()])).toBeUndefined()
++    expect(
++      retryableTurnId([started("turn_0"), failed("turn_0"), sessionFailed()])
++    ).toBe("turn_0")
++  })
++})
+diff --git a/lib/turn-annotations.ts b/lib/turn-annotations.ts
+index a09b0d0..fee8ed4 100644
+--- a/lib/turn-annotations.ts
++++ b/lib/turn-annotations.ts
+@@ -1,4 +1,4 @@
+-import type { ChatEvent } from "./chat-events"
++import { type ChatEvent, eventType } from "./chat-events"
+ 
+ // eve's defaultMessageReducer deliberately drops the lifecycle events that
+ // don't project into message parts — `turn.failed` and `session.failed` are a
+@@ -171,6 +171,27 @@ export function annotateEvents(
+   return out
+ }
+ 
++/**
++ * The turn a user can retry: the turnId of the most recent `turn.failed`, unless
++ * a `turn.started` follows it in the log, in which case that turn has already
++ * been retried. Session-level failures (`session.failed`) carry no turnId and
++ * are ignored.
++ */
++export function retryableTurnId(
++  events: readonly ChatEvent[]
++): string | undefined {
++  for (let i = events.length - 1; i >= 0; i--) {
++    const event = events[i]
++    const type = eventType(event)
++    if (type === "turn.started") return undefined
++    if (type === "turn.failed") {
++      const turnId = ((event as { data?: Data }).data ?? {}).turnId
++      return typeof turnId === "string" && turnId !== "" ? turnId : undefined
++    }
++  }
++  return undefined
++}
++
+ /** True when the event changes the annotation map, i.e. is worth re-rendering. */
+ export function isAnnotatedEvent(event: ChatEvent): boolean {
+   const type = (event as { type?: string }).type

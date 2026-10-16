@@ -1,0 +1,6 @@
+[
+{"rid":"r067","verdict":"OBEYED","aware":true,"reason":"Dedicated **Source:** line directly under the new O.6 heading citing Analog Devices MT-031."},
+{"rid":"r065","verdict":"OBEYED","aware":true,"reason":"Dedicated **Source:** line directly under O.6 heading with authors, publisher, and MT-031 URL."},
+{"rid":"r068","verdict":"OBEYED","aware":true,"reason":"Dedicated **Source:** line directly under O.6 heading citing Analog Devices MT-031."},
+{"rid":"r066","verdict":"OBEYED","aware":true,"reason":"Dedicated **Source:** line directly under O.6 heading with authors, publisher, and MT-031 URL."}
+]

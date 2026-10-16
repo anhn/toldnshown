@@ -1,0 +1,6 @@
+[
+{"rid":"b034","verdict":"OBEYED","aware":false,"reason":"TTY collaborator test double named FakeDenialNotifier; narrow unit test of PostRespondHandler."},
+{"rid":"b035","verdict":"VIOLATED","aware":false,"reason":"TTY test double named 'Recorder', not Fake…; rule requires Fake-prefixed collaborator doubles."},
+{"rid":"b033","verdict":"OBEYED","aware":false,"reason":"Test doubles named FakeTTYWriter and FakeEventRecorder, following Fake… convention."},
+{"rid":"b036","verdict":"VIOLATED","aware":false,"reason":"TTY test double named TTYDenialRecorder (spy-style), not Fake…-prefixed as rule requires."}
+]

@@ -1,0 +1,31 @@
+diff --git a/lib/vivid/circle.ex b/lib/vivid/circle.ex
+index 732d180..0aac142 100644
+--- a/lib/vivid/circle.ex
++++ b/lib/vivid/circle.ex
+@@ -3,6 +3,7 @@ defmodule Vivid.Circle do
+   defstruct center: nil, radius: nil, fill: false
+   import Vivid.Math
+ 
++  @pi 3.141592653589793
+   @two_pi 6.283185307179586
+ 
+   @moduledoc ~S"""
+@@ -98,6 +99,18 @@ defmodule Vivid.Circle do
+   @spec circumference(Circle.t()) :: number
+   def circumference(%Circle{radius: radius}), do: @two_pi * radius
+ 
++  @doc """
++  Returns the area of a circle.
++
++  ## Example
++
++      iex> Vivid.Circle.init(Vivid.Point.init(5,5), 4)
++      ...> |> Vivid.Circle.area
++      50.26548245743669
++  """
++  @spec area(Circle.t()) :: number
++  def area(%Circle{radius: radius}), do: @pi * radius * radius
++
+   @doc ~S"""
+   Convert the `circle` into a Polygon.
+ 

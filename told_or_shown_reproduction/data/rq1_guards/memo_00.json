@@ -1,0 +1,252 @@
+{
+ "categories": [
+  {
+   "name": "Touches files it should not edit",
+   "description": "Hand-edits generated output, raw data dirs, symlinks/stubs, its own instruction file, or intentionally odd code.",
+   "example_ids": [
+    "s0002",
+    "s0033",
+    "s0059",
+    "s0140",
+    "s0147",
+    "s0124",
+    "s0051"
+   ],
+   "n_estimate": 12
+  },
+  {
+   "name": "Unsafe or unrequested git / release actions",
+   "description": "Force-pushes, amends, skips hooks, runs git unprompted, wrong base branch, manual version bumps/publishing, wrong tags, leaves work unpushed.",
+   "example_ids": [
+    "s0004",
+    "s0016",
+    "s0084",
+    "s0102",
+    "s0121",
+    "s0184",
+    "s0090"
+   ],
+   "n_estimate": 10
+  },
+  {
+   "name": "Commit/PR message and attribution form",
+   "description": "Adds or omits AI attribution, trailers, issue references; misstates own contribution.",
+   "example_ids": [
+    "s0100",
+    "s0037",
+    "s0104",
+    "s0026",
+    "s0160"
+   ],
+   "n_estimate": 6
+  },
+  {
+   "name": "Scope creep and unrequested change",
+   "description": "Unrelated refactors, speculative features, proactive README rewrites, reverting others' changes, whitespace churn, creating stray files.",
+   "example_ids": [
+    "s0062",
+    "s0063",
+    "s0120",
+    "s0072",
+    "s0122",
+    "s0008",
+    "s0125"
+   ],
+   "n_estimate": 11
+  },
+  {
+   "name": "False or weak verification",
+   "description": "Claims success without evidence, treats 'process started'/'tests pass' as done, regenerates goldens, weakens checks, skips suites, commits red.",
+   "example_ids": [
+    "s0014",
+    "s0115",
+    "s0041",
+    "s0123",
+    "s0040",
+    "s0086",
+    "s0159"
+   ],
+   "n_estimate": 11
+  },
+  {
+   "name": "Epistemic shortcuts: guessing, relaying, flattering",
+   "description": "Guesses instead of admitting ignorance, repeats stale docs/defect records without checking, agrees automatically, misattributes results, hallucinated code.",
+   "example_ids": [
+    "s0006",
+    "s0069",
+    "s0154",
+    "s0078",
+    "s0175",
+    "s0126",
+    "s0192"
+   ],
+   "n_estimate": 9
+  },
+  {
+   "name": "Wrong tool, command, or framework for this repo",
+   "description": "Reaches for the habitual default (npm, black, Pester, raw tool, nonexistent subcommand, banned action) instead of the project's one.",
+   "example_ids": [
+    "s0189",
+    "s0144",
+    "s0020",
+    "s0168",
+    "s0199",
+    "s0018",
+    "s0113"
+   ],
+   "n_estimate": 13
+  },
+  {
+   "name": "Violates architecture / layering invariant",
+   "description": "Bypasses the sanctioned abstraction, puts logic or types in the wrong layer, breaks a project-specific design or parity contract.",
+   "example_ids": [
+    "s0048",
+    "s0116",
+    "s0061",
+    "s0052",
+    "s0174",
+    "s0110",
+    "s0042"
+   ],
+   "n_estimate": 18
+  },
+  {
+   "name": "Breaks public contract or compatibility",
+   "description": "Changes URLs, API behaviour, settings defaults, packaging or runtime assumptions that external users rely on.",
+   "example_ids": [
+    "s0068",
+    "s0022",
+    "s0143",
+    "s0169",
+    "s0197",
+    "s0198"
+   ],
+   "n_estimate": 8
+  },
+  {
+   "name": "Hides failures",
+   "description": "Swallows errors, skips silently, leaves success exit codes on failure, blanket lint suppression, band-aid fixes.",
+   "example_ids": [
+    "s0066",
+    "s0101",
+    "s0103",
+    "s0165",
+    "s0099",
+    "s0163"
+   ],
+   "n_estimate": 7
+  },
+  {
+   "name": "Secrets, security and privacy lapses",
+   "description": "Commits or bakes credentials, exposes sensitive data, injection-prone shelling out, CSP violations, unsafe code, out-of-scope security testing, snooping the user's browser.",
+   "example_ids": [
+    "s0024",
+    "s0045",
+    "s0091",
+    "s0057",
+    "s0146",
+    "s0114",
+    "s0076",
+    "s0195"
+   ],
+   "n_estimate": 11
+  },
+  {
+   "name": "Code style and naming habits",
+   "description": "Vague names, stutter, tabs, mechanical modifiers, class components, nested blocks, lint-rule violations, over-engineering (needless error handling, bolted-on code).",
+   "example_ids": [
+    "s0001",
+    "s0178",
+    "s0082",
+    "s0106",
+    "s0171",
+    "s0071",
+    "s0142"
+   ],
+   "n_estimate": 16
+  },
+  {
+   "name": "Comment and docstring noise",
+   "description": "Comments that restate the code, separators, duplicated type info, wrong comment language, emojis, jargon.",
+   "example_ids": [
+    "s0047",
+    "s0127",
+    "s0155",
+    "s0036",
+    "s0029",
+    "s0156",
+    "s0173"
+   ],
+   "n_estimate": 9
+  },
+  {
+   "name": "Documentation drift and duplication",
+   "description": "Changes behaviour without updating docs, updates only one copy, duplicates content across instruction/doc files, pollutes changelog.",
+   "example_ids": [
+    "s0074",
+    "s0108",
+    "s0129",
+    "s0130",
+    "s0190",
+    "s0194",
+    "s0023",
+    "s0170"
+   ],
+   "n_estimate": 13
+  },
+  {
+   "name": "Wasteful or stuck operating behaviour",
+   "description": "Retries hung tools, scans whole repo, repeated tool calls, needless re-indexing, expensive API/compute spend, blocking on open questions.",
+   "example_ids": [
+    "s0015",
+    "s0053",
+    "s0137",
+    "s0187",
+    "s0134",
+    "s0167",
+    "s0196",
+    "s0148"
+   ],
+   "n_estimate": 11
+  },
+  {
+   "name": "Bad tests",
+   "description": "Timing-based or live-account-dependent tests, missing tests for new behaviour, misplaced cleanup.",
+   "example_ids": [
+    "s0077",
+    "s0081",
+    "s0128",
+    "s0032"
+   ],
+   "n_estimate": 4
+  },
+  {
+   "name": "Runtime agent conduct (non-coding)",
+   "description": "Rules for an agent acting as product persona: when to stay silent, not sharing findings between models, respecting leases, user's explicit wishes, DM style.",
+   "example_ids": [
+    "s0087",
+    "s0118",
+    "s0097",
+    "s0158",
+    "s0030",
+    "s0112"
+   ],
+   "n_estimate": 7
+  },
+  {
+   "name": "Environment / concurrency traps",
+   "description": "Project-specific gotchas where a plausible action breaks something non-obviously: regenerating .env, parallelising unsafe state, stale closures, renderer misparse, wrong script copy.",
+   "example_ids": [
+    "s0141",
+    "s0067",
+    "s0109",
+    "s0065",
+    "s0161",
+    "s0093",
+    "s0149"
+   ],
+   "n_estimate": 9
+  }
+ ],
+ "notes": "161/200 coded guard=true. Decision rule used: guard=true when the text has a prohibition, an X-not-Y contrast aimed at what the agent should produce, a stop/ask, or a mandatory obligation whose omission is the guarded behaviour (s0005, s0037, s0049, s0128, s0148); guard=false for descriptions, status notes ('not yet implemented', 'there is no test suite'), troubleshooting fragments and permissions (s0038). Boundary cases: (1) descriptive facts containing 'not' that implicitly steer the agent - coded true when the avoided action is evident (s0010, s0020, s0025, s0043, s0067, s0149, s0185, s0196), false when purely architectural narration (s0017, s0075, s0096, s0138, s0186, s0193, s0180); these could reasonably flip. (2) 'no test suite / no linter' status notes (s0083, s0095, s0111, s0085) plausibly guard against inventing test commands but were kept false per the status-note instruction. (3) s0177 is a review checklist item (what to look for), coded true with origin because it recounts a past defect. (4) s0031 mentions 'never committed' for self-ignored scratch files; coded false as workflow description. (5) specific: rules naming a language/tool but pasteable into any repo of that stack (ruff not black, Bun not npm, functional React components, Go stutter) were coded generic; rules naming repo paths, own types or domain coded project. Non-guard units were all given specific='project' since they are repo descriptions. (6) origin was applied strictly: only s0065 ('learned the hard way'), s0069 (cost the owner time), s0126 (AI will hallucinate / repeated low-quality PRs), s0161 (bug was fixed, don't reintroduce), s0177 (past defect narrated), s0199 (Common Pitfalls). Several others describe a very precise failure signature (s0093, s0141, s0196, s0040) that looks experience-derived but does not say so - a latent-origin signal worth a separate code. Surprising: a sizeable share of rules are not about code at all but about honesty of reporting (false verification claims, relaying stale docs, misattribution) and about instruction-file self-maintenance (do not edit/duplicate/bloat the agent file). Some units address runtime persona agents (chat bot, game master, phone-call agent), not coding agents. Categories overlap: 'wrong tool' vs 'architecture invariant' and 'doc drift' vs 'touches files it should not' share members; n_estimates are approximate and sum above 161."
+}

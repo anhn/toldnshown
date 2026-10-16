@@ -1,0 +1,4 @@
+[{"rid":"b038","verdict":"OBEYED","aware":true,"reason":"User-facing mock fix accompanied by new .changeset patch file."},
+{"rid":"b040","verdict":"OBEYED","aware":true,"reason":"User-facing mock fix accompanied by new .changeset patch file."},
+{"rid":"b039","verdict":"VIOLATED","aware":false,"reason":"User-facing link mock behavior change with no .changeset file added."},
+{"rid":"b037","verdict":"VIOLATED","aware":false,"reason":"User-facing link mock behavior change with no .changeset file added."}]

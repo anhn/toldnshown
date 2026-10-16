@@ -1,0 +1,49 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index a76d535..470cb16 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -20,15 +20,31 @@ export const Text = defineCustomElement({
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
+ 
++    const isLink = () => props.as === 'link';
++    const isDisabledLink = () => isLink() && !!props.disabled;
++
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: isDisabledLink() ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
++    // a disabled link drops href so it can neither navigate nor be reached by Tab/Enter
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a {...attrs} part={compParts[3]}>
+-          {children}
+-        </a>
++        isDisabledLink() ? (
++          <a
++            {...attrs}
++            href={undefined}
++            tabindex={-1}
++            class={[attrs.class, ns.is('disabled', true)]}
++            part={compParts[3]}
++          >
++            {children}
++          </a>
++        ) : (
++          <a {...attrs} part={compParts[3]}>
++            {children}
++          </a>
++        )
+       ) : (
+         children
+       );
+@@ -65,7 +81,7 @@ export const Text = defineCustomElement({
+             // if we just use one span, though the ellipsis appear on the other side, the end symbol may be missed
+             getReverse(text.slice(offset)),
+           ]);
+-        return getReverse(renderText(), true);
++        return getReverse(renderText(), true, isDisabledLink() && ns.is('disabled', true));
+       } else if (ellipsis === 'center')
+         return wrapIfAsLink([
+           dir === 'ltr' ? (

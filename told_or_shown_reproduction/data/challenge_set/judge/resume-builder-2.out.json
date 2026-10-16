@@ -1,0 +1,6 @@
+[
+{"rid":"r030","verdict":"OBEYED","aware":false,"reason":"Action uses domain-named key isDrawerOpen; reducer reads action.isDrawerOpen; no payload key."},
+{"rid":"r031","verdict":"OBEYED","aware":false,"reason":"Action uses domain-named key isDrawerOpen; reducer reads action.isDrawerOpen; no payload key."},
+{"rid":"r029","verdict":"OBEYED","aware":false,"reason":"Action uses domain-named key isDrawerOpen; reducer reads action.isDrawerOpen; no payload key."},
+{"rid":"r032","verdict":"OBEYED","aware":false,"reason":"Action uses domain-named key isDrawerOpen; reducer reads action.isDrawerOpen; no payload key."}
+]

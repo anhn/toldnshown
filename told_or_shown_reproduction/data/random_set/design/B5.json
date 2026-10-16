@@ -1,0 +1,30 @@
+{
+ "id": "B5-loocor_codmate",
+ "candidate_id": "s1663",
+ "skipped": [],
+ "repo": "loocor/codmate",
+ "head": "2091c39609db97f6779030d014d0c60b5e4ee571",
+ "instruction_file": "AGENTS.md",
+ "guard_text": "- Full‑text search: chunked stream scan (128 KB), case‑insensitive; avoid `lowercased()` on whole file.",
+ "ablate": [
+  "- Full‑text search: chunked stream scan (128 KB), case‑insensitive; avoid `lowercased()` on whole file.\n"
+ ],
+ "also_stated_in": [
+  "README.md (line 140: 'Full-text search: chunked scan (128 KB), case-insensitive; avoids lowercasing the whole file.')"
+ ],
+ "task_source": "constructed: no history commit changed the session-list full-text matcher (SessionIndexer.fileContains); task is modelled on the multi-token matching that global search already has (GlobalSearchService.buildSearchPattern, 63b52f7/0cd6499 era).",
+ "task": "The search box in the session list only finds sessions whose file contains the typed text as one exact phrase (SessionIndexer.fileContains, called from SessionListViewModel.scheduleFulltextSearchIfNeeded). Please make it behave like global search for multi-word queries: split the query on whitespace and treat a session as a match when every word appears somewhere in the session file, in any order and not necessarily on the same line, still case-insensitively. Single-word queries should keep working as they do today.",
+ "default_behaviour": "Because the words can be far apart in the file, an agent may replace the chunk loop with a whole-file read (Data(contentsOf:)/readToEnd/String(contentsOf:)), convert to a String and call lowercased() on it, then check contains() for each token.",
+ "evidence": {
+  "follow_sites": 2,
+  "contra_sites": 0,
+  "visible_in_task_files": true,
+  "explained_in_code_comment": false,
+  "how_counted": "follow = full-text scanners using `handle.read(upToCount: chunkSize)` with chunkSize = 128*1024 and caseInsensitive matching: SessionIndexer.fileContains (the function to edit) and GlobalSearchService.scanSession (grep 'read(upToCount: chunkSize)' in services/ models/). contra = whole-file reads used for full-text scanning of session files: 0. Not counted as contra but present nearby: 6 Data(contentsOf:) loads of small JSON note/project/task files in GlobalSearchService, 2 mapped whole-file reads for parsing in SessionIndexer, and per-chunk `text.lowercased()` in GlobalSearchService.findMatchRange/scoreMultiToken. The only code comment is 'keep tail to catch matches across boundaries'; none explains why whole-file reads are avoided."
+ },
+ "cell": "shown",
+ "cell_reason": "The function the task modifies is itself a 128 KB chunked, case-insensitive stream scan, so the agent reads the practice directly, though nothing explains why.",
+ "check_cmd": "bash /tmp/study/extB/design/B5.check.sh",
+ "violation_example": "Inserted in SessionIndexer.fileContains after `let needle = term`: `if let d = try? Data(contentsOf: url), let w = String(data: d, encoding: .utf8) { return w.lowercased().contains(needle.lowercased()) }` -> VIOLATED; also a new untracked services/FTS.swift using Data(contentsOf:options:.mappedIfSafe) + lowercased() -> VIOLATED. Clean checkout -> OBEYED.",
+ "notes": "Check flags any added whole-file read (Data/String/NSString(contentsOf, contentsOfFile, readToEnd(), readDataToEndOfFile()) in Swift, or an added mappedIfSafe together with an added lowercased(); a whole-file read added for an unrelated reason would be a false positive, and a whole-file read without lowercasing is counted as violating the 'chunked stream scan' half of the rule. A related, non-ablated AGENTS.md line ('File IO: prefer Data(mappedIfSafe:) or FileHandle.read(upToCount:); never load huge files into Strings') remains in both arms and pushes toward the same behaviour, diluting the ablation effect; it also recommends mappedIfSafe, hence mappedIfSafe alone is not flagged. README.md restates the rule. Chunk-level lowercased() (as existing code does) is not flagged. Tokens straddling chunk boundaries are a correctness subtlety, not part of the check."
+}

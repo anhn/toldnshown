@@ -1,0 +1,71 @@
+diff --git a/models/SessionListViewModel.swift b/models/SessionListViewModel.swift
+index b898c11..cc5d577 100644
+--- a/models/SessionListViewModel.swift
++++ b/models/SessionListViewModel.swift
+@@ -2788,12 +2788,14 @@ final class SessionListViewModel: ObservableObject {
+       fulltextMatches.removeAll()
+       return
+     }
++    // Multi-word queries match when every word appears somewhere in the file (any order).
++    let terms = term.split(whereSeparator: { $0.isWhitespace }).map(String.init)
+     fulltextTask = Task { [allSessions] in
+       // naive full-scan
+       var matched = Set<String>()
+       for s in allSessions {
+         if Task.isCancelled { return }
+-        if await indexer.fileContains(url: s.fileURL, term: term) {
++        if await indexer.fileContainsAll(url: s.fileURL, terms: terms) {
+           matched.insert(s.id)
+         }
+       }
+diff --git a/services/SessionIndexer.swift b/services/SessionIndexer.swift
+index 31f6c2a..dc7ff63 100644
+--- a/services/SessionIndexer.swift
++++ b/services/SessionIndexer.swift
+@@ -1233,30 +1233,35 @@ actor SessionIndexer {
+ 
+   // MARK: - Fulltext scanning
+   func fileContains(url: URL, term: String) async -> Bool {
++    await fileContainsAll(url: url, terms: [term])
++  }
++
++  /// Returns true when every term appears somewhere in the file (case-insensitive),
++  /// in any order and not necessarily on the same line. Streams the file in chunks.
++  func fileContainsAll(url: URL, terms: [String]) async -> Bool {
++    var remaining = terms.filter { !$0.isEmpty }
++    guard !remaining.isEmpty else { return false }
+     guard let handle = try? FileHandle(forReadingFrom: url) else { return false }
+     defer { try? handle.close() }
+-    let needle = term
+     let chunkSize = 128 * 1024
+     var carry = Data()
+     while let chunk = try? handle.read(upToCount: chunkSize), !chunk.isEmpty {
+       var combined = carry
+       combined.append(chunk)
+-      if let s = String(data: combined, encoding: .utf8),
+-        s.range(of: needle, options: .caseInsensitive) != nil
+-      {
+-        return true
++      if let s = String(data: combined, encoding: .utf8) {
++        remaining.removeAll { s.range(of: $0, options: .caseInsensitive) != nil }
++        if remaining.isEmpty { return true }
+       }
+       // keep tail to catch matches across boundaries
+-      let keep = min(needle.utf8.count - 1, combined.count)
++      let longest = remaining.map { $0.utf8.count }.max() ?? 1
++      let keep = min(max(longest - 1, 0), combined.count)
+       carry = combined.suffix(keep)
+       if Task.isCancelled { return false }
+     }
+-    if !carry.isEmpty, let s = String(data: carry, encoding: .utf8),
+-      s.range(of: needle, options: .caseInsensitive) != nil
+-    {
+-      return true
++    if !carry.isEmpty, let s = String(data: carry, encoding: .utf8) {
++      remaining.removeAll { s.range(of: $0, options: .caseInsensitive) != nil }
+     }
+-    return false
++    return remaining.isEmpty
+   }
+ 
+   // MARK: - Tail timestamp helper

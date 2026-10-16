@@ -1,0 +1,42 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index ae80ebe..5feeeb1 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -24,19 +24,34 @@ export const Text = defineCustomElement({
+       role: props.as!,
+     }));
+     const isLink = () => props.as === 'link';
++    // dropping href is what actually makes the anchor inert: no navigation on click/Enter and out of the tab order.
++    // An <a> without href loses its implicit link role, so role is restored for aria-disabled to be announced
++    const getDisabledLinkProps = () =>
++      props.disabled ? { href: undefined, role: 'link', tabindex: -1, 'aria-disabled': 'true' } : {};
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a class={ns.is('disabled', props.disabled)} {...attrs} part={compParts[3]}>
++        <a
++          class={ns.is('disabled', props.disabled)}
++          {...attrs}
++          {...getDisabledLinkProps()}
++          part={compParts[3]}
++        >
+           {children}
+         </a>
+       ) : (
+         children
+       );
+     const getReverse = (text: string, isRoot: boolean = false, cls?: any) => {
+-      const El = isLink() && isRoot ? 'a' : 'span',
++      const isRootLink = isLink() && isRoot,
++        El = isRootLink ? 'a' : 'span',
+         dir = styleMap.direction;
+       return (
+-        <El class={['ellipsis', cls, ns.is('disabled', props.disabled)]} dir={dirReverse[dir]} part={compParts[0]}>
++        <El
++          class={['ellipsis', cls, ns.is('disabled', props.disabled)]}
++          {...(isRootLink ? getDisabledLinkProps() : {})}
++          dir={dirReverse[dir]}
++          part={compParts[0]}
++        >
+           <span dir={dir} part={compParts[1]}>
+             {text}
+           </span>

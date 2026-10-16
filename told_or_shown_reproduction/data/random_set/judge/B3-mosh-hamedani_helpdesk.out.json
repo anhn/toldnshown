@@ -1,0 +1,4 @@
+[{"rid":"b019","verdict":"OBEYED","aware":false,"reason":"Priority defined in core/constants as as-const array plus derived union type; no TS enum."},
+{"rid":"b017","verdict":"OBEYED","aware":false,"reason":"Priority defined in core/constants as as-const array plus derived union type; no TS enum."},
+{"rid":"b018","verdict":"OBEYED","aware":false,"reason":"as-const array, union type, label/variant records in core/constants; no TS enum."},
+{"rid":"b020","verdict":"OBEYED","aware":false,"reason":"as-const array, union type, label/variant records in core/constants; no TS enum."}]

@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s1466",
+  "repo": "craigjbass/clearancekit",
+  "file": "CLAUDE.md",
+  "text": "3. **Narrow the scope.** Test the smallest unit that isolates the logic you need to change, using a fake collaborator (named `Fake\u2026`, never `Mock\u2026`).",
+  "heading": "ClearanceKit \u2014 Developer Guide > Testing Strategy > Existing untested code \u2014 Feathers approach"
+ },
+ {
+  "id": "s1625",
+  "repo": "aXenDeveloper/vitnode",
+  "file": "AGENTS.md",
+  "text": "- `use-intl` is mocked once for every test in `packages/vitnode/src/tests/setup.ts`: `t(\"key\")` renders `namespace.key`. Don't mock it per file.",
+  "heading": "Testing > Mocking"
+ },
+ {
+  "id": "s1090",
+  "repo": "getAlby/lightning-browser-extension",
+  "file": "AGENTS.md",
+  "text": "The Playwright `yarn test:e2e` / `yarn test` scripts still exist in `package.json` but the e2e suite is broken and not maintained \u2014 do not rely on them. Add new tests as Jest unit tests (colocated `*.test.ts` next to source, or under `tests/unit/`).",
+  "heading": "AGENTS.md > Common Commands > Testing"
+ },
+ {
+  "id": "s0909",
+  "repo": "neo4j-labs/neo4j-cli",
+  "file": "AGENTS.md",
+  "text": "- Both aura AND docker (`internal/docker/`, `[docker-debug] > `/`< ` prefixes) `--debug` traces write to a package-global `debugW` seam, NOT `cmd.ErrOrStderr()` \u2014 `runEnv` has no `*cobra.Command`. Tests must capture via `SetDebugWriterForTest(t, &buf)` and assert against `buf`; cobra-captured stderr stays empty (caused a smoke-test CI fail).",
+  "heading": "AGENTS.md > Secrets / Redaction"
+ }
+]

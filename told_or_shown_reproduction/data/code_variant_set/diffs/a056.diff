@@ -1,0 +1,39 @@
+diff --git a/packages/components/src/components/text/Text.tsx b/packages/components/src/components/text/Text.tsx
+index ae80ebe..2ca1426 100644
+--- a/packages/components/src/components/text/Text.tsx
++++ b/packages/components/src/components/text/Text.tsx
+@@ -20,13 +20,18 @@ export const Text = defineCustomElement({
+     const CE = useCE(),
+       styleMap = getCachedComputedStyle(CE);
+ 
++    const isLink = () => props.as === 'link';
++    // a disabled link must drop its href, otherwise the anchor stays tabbable and navigates on click/Enter
++    const disabledLinkAttrs = () =>
++      isLink() && props.disabled ? { href: undefined, tabindex: -1, 'aria-disabled': 'true' } : {};
++
+     useAria(() => ({
+       role: props.as!,
++      ariaDisabled: isLink() && props.disabled ? 'true' : null,
+     }));
+-    const isLink = () => props.as === 'link';
+     const wrapIfAsLink = (children: any) =>
+       isLink() ? (
+-        <a class={ns.is('disabled', props.disabled)} {...attrs} part={compParts[3]}>
++        <a class={ns.is('disabled', props.disabled)} {...attrs} {...disabledLinkAttrs()} part={compParts[3]}>
+           {children}
+         </a>
+       ) : (
+@@ -36,7 +41,12 @@ export const Text = defineCustomElement({
+       const El = isLink() && isRoot ? 'a' : 'span',
+         dir = styleMap.direction;
+       return (
+-        <El class={['ellipsis', cls, ns.is('disabled', props.disabled)]} dir={dirReverse[dir]} part={compParts[0]}>
++        <El
++          class={['ellipsis', cls, ns.is('disabled', props.disabled)]}
++          dir={dirReverse[dir]}
++          {...(El === 'a' ? disabledLinkAttrs() : {})}
++          part={compParts[0]}
++        >
+           <span dir={dir} part={compParts[1]}>
+             {text}
+           </span>

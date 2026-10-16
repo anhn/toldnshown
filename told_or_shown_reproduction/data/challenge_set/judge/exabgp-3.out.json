@@ -1,0 +1,6 @@
+[
+{"rid":"r010","verdict":"OBEYED","aware":false,"reason":"unpack_capability annotates data: Buffer and wraps in memoryview; no bytes annotation; rule not stated anywhere."},
+{"rid":"r011","verdict":"OBEYED","aware":false,"reason":"unpack_capability annotates data: Buffer, imported from exabgp.util.types; rule not stated in comments."},
+{"rid":"r012","verdict":"OBEYED","aware":false,"reason":"unpack_capability takes data: Buffer and slices a memoryview; no comment mentions the rule."},
+{"rid":"r009","verdict":"OBEYED","aware":false,"reason":"unpack_capability takes data: Buffer; no bytes-typed unpack parameter; rule not stated in comments or docs."}
+]

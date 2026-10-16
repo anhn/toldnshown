@@ -1,0 +1,58 @@
+diff --git a/README.md b/README.md
+index 927e3bb..18dc4a6 100644
+--- a/README.md
++++ b/README.md
+@@ -216,6 +216,53 @@ codex
+ 
+ 
+ 
++## SDK setup
++
++Scripts can talk to the gateway directly with the official SDKs. The
++Anthropic SDK appends `/v1/messages` to its base URL, and the OpenAI SDK
++appends `/responses`, so point each at the front door shown below.
++
++Anthropic TypeScript SDK (Messages API):
++
++```js
++import Anthropic from "@anthropic-ai/sdk";
++
++const client = new Anthropic({
++  baseURL: "http://localhost:4000/anthropic",
++  apiKey: "local-dev-token",
++});
++
++const message = await client.messages.create({
++  model: "kimi",
++  max_tokens: 64,
++  messages: [{ role: "user", content: "say ok" }],
++});
++console.log(message.content[0].text);
++```
++
++OpenAI Node SDK (Responses API):
++
++```js
++import OpenAI from "openai";
++
++const client = new OpenAI({
++  baseURL: "http://localhost:4000/openai/v1",
++  apiKey: "local-dev-token",
++});
++
++const response = await client.responses.create({
++  model: "kimi",
++  input: "say ok",
++});
++console.log(response.output_text);
++```
++
++Both snippets are ES modules (top-level `await`), so save them as `.mjs` or
++set `"type": "module"` in `package.json`. `model` is any name from
++`models:` in `gateway.yaml`.
++
++
++
+ ## Endpoints
+ 
+ ```text

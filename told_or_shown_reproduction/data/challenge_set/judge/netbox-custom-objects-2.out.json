@@ -1,0 +1,6 @@
+[
+{"rid":"r113","verdict":"OBEYED","aware":true,"reason":"Single fallback import in tables.py carries COMPAT(netbox<4.8.0) comment; views.py reuses it."},
+{"rid":"r114","verdict":"OBEYED","aware":true,"reason":"Both try/except fallback imports tagged with COMPAT(netbox<4.8.0) comments."},
+{"rid":"r116","verdict":"VIOLATED","aware":false,"reason":"Fallback imports only have plain '# NetBox < 4.8' comment; no COMPAT marker."},
+{"rid":"r115","verdict":"OBEYED","aware":true,"reason":"Shim centralised in utilities.py with COMPAT(netbox<4.8) marker; version given as X.Y, not X.Y.Z."}
+]

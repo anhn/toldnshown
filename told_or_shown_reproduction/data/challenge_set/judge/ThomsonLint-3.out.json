@@ -1,0 +1,6 @@
+[
+{"rid":"r072","verdict":"VIOLATED","aware":false,"reason":"Reads with read_text(encoding=\"utf-8\") only; UnicodeDecodeError on Latin-1 ULP files is not even caught."},
+{"rid":"r069","verdict":"OBEYED","aware":true,"reason":"Reads bytes, tries UTF-8 then falls back to Latin-1; docstring cites gesam-Maß and Latin-1 ULP output."},
+{"rid":"r070","verdict":"OBEYED","aware":true,"reason":"Reads bytes, UTF-8 first with Latin-1 fallback; docstring states ULP output is Latin-1 encoded."},
+{"rid":"r071","verdict":"OBEYED","aware":true,"reason":"Reads bytes, UTF-8 then Latin-1 fallback; comments note ULP output is not necessarily UTF-8, legacy codepage."}
+]

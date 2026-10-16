@@ -1,0 +1,6 @@
+[
+{"rid":"r086","verdict":"OBEYED","aware":false,"reason":"No baseUrl added; paths target is non-relative src/* (likely broken without baseUrl) but rule itself not broken."},
+{"rid":"r085","verdict":"OBEYED","aware":false,"reason":"Adds paths with relative ./src/* target and no baseUrl in any tsconfig."},
+{"rid":"r087","verdict":"VIOLATED","aware":false,"reason":"Adds \"baseUrl\": \".\" to packages/theme/tsconfig.build.json with non-relative src/* path."},
+{"rid":"r088","verdict":"VIOLATED","aware":false,"reason":"Adds \"baseUrl\": \".\" to packages/theme/tsconfig.build.json with non-relative src/* path."}
+]

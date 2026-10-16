@@ -1,0 +1,30 @@
+[
+ {
+  "id": "s2271",
+  "repo": "derrickburns/generalized-kmeans-clustering",
+  "file": "AGENTS.md",
+  "text": "- Target Java 17; avoid committing large datasets or credentials. Report vulnerabilities via `SECURITY.md`.",
+  "heading": "Repository Guidelines > Security & Configuration Notes"
+ },
+ {
+  "id": "s1432",
+  "repo": "Stupidoodle/bumble-like-revealer",
+  "file": "CLAUDE.md",
+  "text": "- **Ethical line:** read your own data only. `__BE_PUBLIC_SAFE__` (build-time) strips the de-anonymizing trio (precise `distance`, `is_teleported`, `blocked_you`) from a public build. No auto-vote, no trilateration, no surfacing who-blocked-you.",
+  "heading": "CLAUDE.md \u2014 Bumble Like Revealer > Conventions"
+ },
+ {
+  "id": "s2203",
+  "repo": "bearBoy80/opsflare",
+  "file": "AGENTS.md",
+  "text": "Never commit API tokens, OAuth secrets, or local credentials. OAuth needs a\ndeployed `oauth-relay/` Worker URL plus a Cloudflare OAuth client that uses\nthat `/callback` address; put both in `.env` (see `.env.example`) and do not\nhard-code them.\nProduction secrets belong in `expo-secure-store`, not AsyncStorage, SQLite,\nfixtures, or logs. Do not commit generated output, `node_modules/`, `.env`,\nor `.worktrees/`.",
+  "heading": "Repository Guidelines > Security & Configuration"
+ },
+ {
+  "id": "s1298",
+  "repo": "grafana/interactive-tutorials",
+  "file": "AGENTS.md",
+  "text": "13. **`doIt: false` for secrets** -- never automate filling passwords, tokens, or API keys",
+  "heading": "Interactive Guides Repository > Critical Rules"
+ }
+]

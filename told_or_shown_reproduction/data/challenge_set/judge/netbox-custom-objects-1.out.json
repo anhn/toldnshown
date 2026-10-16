@@ -1,0 +1,6 @@
+[
+{"rid":"r111","verdict":"OBEYED","aware":false,"reason":"min_version raised to 4.5.4 and the COMPAT(netbox<4.5.4) fallback in graphql/filters.py removed; no explicit rule mention."},
+{"rid":"r110","verdict":"OBEYED","aware":false,"reason":"min_version raised to 4.5.4 and the COMPAT(netbox<4.5.4) fallback in graphql/filters.py removed; no explicit rule mention."},
+{"rid":"r112","verdict":"OBEYED","aware":false,"reason":"min_version raised to 4.5.4 and the COMPAT(netbox<4.5.4) fallback in graphql/filters.py removed; no explicit rule mention."},
+{"rid":"r109","verdict":"OBEYED","aware":false,"reason":"min_version raised to 4.5.4 and the COMPAT(netbox<4.5.4) fallback in graphql/filters.py removed; no explicit rule mention."}
+]

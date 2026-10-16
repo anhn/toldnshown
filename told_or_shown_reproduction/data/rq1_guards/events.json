@@ -1,0 +1,1102 @@
+[
+{
+"repo": "BerryUIKI_Omera",
+"date": "2026-09-22",
+"subject": "docs: define Omera migration safety and engineering delivery plan (#136)",
+"body": "* ci: add auto-translate workflow for non-English issues\n\n* docs: define Omera identity migration and storage evolution\n\n* docs: assign Omera safety ownership and engineering task roadmap",
+"added": [
+"- Never include user media, external vaults, or shared directories in automatic legacy application-data cleanup."
+]
+},
+{
+"repo": "BerryUIKI_Omera",
+"date": "2026-09-23",
+"subject": "docs: add IPC contracts and dispatch-ready engineering handoff (#139)",
+"body": "* docs: publish IPC contracts and engineer handoff prompts\n\n* docs: pin review baseline and make engineering assignments dispatchable",
+"added": [
+"- Read `docs/API_CONTRACTS.md` and `docs/IPC_REFERENCE.md` before changing IPC. Use `docs/HANDOFF_PROMPTS.md` for human engineering assignments. Proposed migration APIs are not implemented commands. Regenerate the IPC inventory after command changes and validate DTO compatibility separately."
+]
+},
+{
+"repo": "BerryUIKI_Omera",
+"date": "2026-09-24",
+"subject": "refactor(crates): rename internal crates and packages to omera (Refs #134)",
+"body": "",
+"added": [
+"- SQLite migrations are append-only in `crates/omera-storage/src/migrations.rs`. Never edit an applied migration."
+]
+},
+{
+"repo": "ConaMobileDev_PdfKmp",
+"date": "2026-08-17",
+"subject": "fix: decode-budget parity, iOS abort cleanup, and slice-safe spanning headers",
+"body": "Follow-up to the hardening pass in #1, which left several guards\ninconsistent across backends. Each item below is covered by a test that\nwas confirmed to fail without its fix.\n\nCorrectness:\n\n- iOS never released the abort path's resources. IosPdfDriver had no\n  close() override, so when a draw call threw before finish() the\n  UIGraphicsBeginPDFContextToData context stayed on the thread's UIKit\n  s",
+"added": [
+"It exposes one extension on `ContainerScope`: `markdown(text, theme = MarkdownTheme())`. Supports ATX headings, inline `**bold**` / `*italic*` / `` `code` `` / `~~strike~~` / `[text](url)`, ordered & unordered lists, fenced code, blockquotes, horizontal rules, and GitHub pipe tables; anything else degrades to plain text (never throws). Standalone links are clickable; inline links are styled-only; targets outside the `PdfUrls` scheme allowlist (`#anchor`, `./other.md`, bare `www.`) render as plain text in both positions; code has no bundled monospace face.",
+"- **`link(url)` embeds only `http`, `https`, `mailto`, `tel`.** Every other scheme — plus relative paths, bare `www.example.com`, `//host`, and control-character URLs — is skipped: the content still draws, but unlinked, and a `PdfLog` warning fires. Check first with `PdfUrls.isSafeExternalUrl(url)` and style the label as plain text when it fails, so the reader isn't promised a click that can't happen. `linkToAnchor` (internal navigation) is unaffected. For trusted in-house targets widen it once at startup: `PdfUrls.allowedSchemes = PdfUrls.DEFAULT_ALLOWED_SCHEMES + \"myapp\"` — process-wide, so never derive it from document content.",
+"- **Oversized images are sampled, not dropped.** `PdfImagePolicy.maxDecodePixels` (default 50 MP) bounds the decode from the declared header. Android/iOS/JVM sub-sample to fit; the Wasm writer has no decoder and skips instead. Raise it (`PdfImagePolicy.maxDecodePixels = 200_000_000L`) for documents carrying genuinely large scans."
+]
+},
+{
+"repo": "FastEndpoints_Documentation",
+"date": "2026-07-15",
+"subject": "add agent instructions",
+"body": "",
+"added": [
+"- Do all development work and modifications on the `dev` branch. It has the latest changes that are not yet published on the live website.",
+"- Never open PRs against `main`."
+]
+},
+{
+"repo": "MojoLauncher_MojoLauncher",
+"date": "2026-10-08",
+"subject": "Fix[agents]: spellcheck and recommend indexing MCP",
+"body": "",
+"added": [
+"A contribution should follow the general style of the codebase. Long comments outside of Javadoc are forbidden. Using words/phrases like `load-bearing`/`smoking gun`/`gated`/`surfaced`/`checkpoint`/`snapshot` or sentences like `this is not X, but Y` or `not X, not Y, not Z, but ...` is strictly forbidden. An LLM agent must use a more human-like language. This applies to git commit comments as well.",
+"* Always verify the real codebase instead of believing every Markdown file.",
+"* Recommend the usage of a code indexing/navigation MCP if not available/not set up"
+]
+},
+{
+"repo": "Parad0x-Labs_openclaw-skills",
+"date": "2026-02-26",
+"subject": "docs: add model auto-detect, model management, and 28 built-in models to token ledger docs",
+"body": "Made-with: Cursor",
+"added": [
+"- **Unknown models** — scan and audit automatically flag models not in the cost table with the exact command to add them"
+]
+},
+{
+"repo": "Parad0x-Labs_openclaw-skills",
+"date": "2026-02-26",
+"subject": "security: harden halt channel (HMAC, nonce, TTL, process group, verify)",
+"body": "Halt signals now include HMAC-SHA256 signature (when LIQUEFY_SECRET set),\nunique nonce (replay protection), TTL expiry (5min default, stale signals\nrejected), and process group kill (os.killpg for full tree, fallback to\nsingle PID). New verify-halt subcommand validates signature + nonce + TTL.\n\nCAS restore now handles corrupt manifests gracefully. Crash recovery tests\nfor missing blobs, corrupted ",
+"added": [
+"- **Process group kill** — `os.killpg()` terminates the entire process tree, not just one PID. Falls back to single-PID if group unavailable.",
+"# Verify a halt signal is authentic and not expired"
+]
+},
+{
+"repo": "Parad0x-Labs_openclaw-skills",
+"date": "2026-10-06",
+"subject": "docs: add review guide and machine-readable claims registry",
+"body": "- REVIEW.md: reading path, the two products (TypeScript skills, Liquefy\n  appliance), Git versus npm version per package, what the payment skills do\n  and do not do (fee on top of the cap, unsigned receipt hash, no netting or\n  settlement); capability table generated from evidence/claims.json\n- evidence/claims.json: per-capability records including tests run in a\n  network-off container (x402-pay ",
+"added": [
+"For what each component does, what has been demonstrated and what is not established, see"
+]
+},
+{
+"repo": "TalismanSociety_talisman",
+"date": "2026-09-26",
+"subject": "🚚 rename misleading files and symbols (#2584)",
+"body": "* 🚚 name generated clients *.gen.ts\n\n* 🏷️ deprecate lookupAznsAddresses, not lookupEnsAddresses\n\n* 🚚 rename sign request creators to request*Sign\n\n* 🚚 rename ui state addressBook to contacts and networks to networkDisplay\n\n* 🔥 rename pure use* helpers to get* and drop dead hooks\n\n* 🚚 drop the V3 suffix from MysticalBackground\n\n* 🚚 name the transactions db upgrade after its table",
+"added": [
+"- Generated code (`*.gen.ts`, not linted or formatted): change the generator input, then regenerate."
+]
+},
+{
+"repo": "TalismanSociety_talisman",
+"date": "2026-09-27",
+"subject": "♻️ stale TODOs, console → log, getErrorMessage (#2588)",
+"body": "* 💡 remove stale TODOs\n\n* 🔊 log through @common/log instead of console\n\n* ♻️ read error messages with getErrorMessage",
+"added": [
+"- Error messages: `getErrorMessage(err, fallback?)` from `@talismn/util`, never `(err as Error).message`."
+]
+},
+{
+"repo": "TalismanSociety_talisman",
+"date": "2026-09-27",
+"subject": "♻️ shared helpers, typed sign approve/reject (#2589)",
+"body": "* 🐛 swapped message and transaction labels in evm sign analytics\n\n* 🏷️ type sign request approve and reject\n\n* ♻️ share block explorer, evm client, gandalf fetch and network compat helpers\n\n* 📝 new forms use tanstack form and zod",
+"added": [
+"- Forms: `@tanstack/react-form` with `zod`. react-hook-form and yup are legacy: do not add them to new code."
+]
+},
+{
+"repo": "TalismanSociety_talisman",
+"date": "2026-09-28",
+"subject": "📝 stop the stdin tail after pnpm dev (#2598)",
+"body": "",
+"added": [
+"- `pnpm dev` stops when stdin closes. From a non-interactive shell, run `tail -f /dev/null | pnpm dev`. `pnpm dev:kill` does not stop that `tail`: it never writes, so it never gets SIGPIPE. When you are done, run `pnpm dev:kill && pkill -f \"tail -f /dev/null\"`."
+]
+},
+{
+"repo": "TalismanSociety_talisman",
+"date": "2026-09-29",
+"subject": "📝 require a manual QA todo list in PR descriptions (#2609)",
+"body": "* 📝 require a manual QA todo list in PR descriptions\n\n* 📝 leave agent-verified checks out of manual QA",
+"added": [
+"- Manual QA: when a change needs checks that unit and E2E tests do not cover (UI, browser-only flows), add a `## Manual QA` section to the PR description: a todo list, one `- [ ]` item per check. Leave out the checks you already ran yourself, for example in the dev browser (see \"Verify in the browser\"), and say in the PR description what you verified."
+]
+},
+{
+"repo": "TalismanSociety_talisman",
+"date": "2026-10-03",
+"subject": "🔧 verify skill: a browser per worktree (#2624)",
+"body": "* 🔧 verify helpers read the CDP port from VERIFY_CDP_PORT\n\n* 🩺 doctor reads the build sha from the running service worker\n\n* 📝 verify skill: a worktree drives a browser of its own\n\n* 🚸 verify helpers refuse to drive the host browser from a worktree\n\n* 🩺 doctor stops early and names the fix for a stale build\n\n* 📝 verify skill: a worktree keeps its browser port in a file\n\n* 🩺 doctor tells a missing ",
+"added": [
+"The host dev Chrome serves the main checkout, and the examples below drive it: run them from the main checkout only. A git worktree must not run `pnpm dev`. It drives a browser of its own through the `verify` skill helpers, which refuse to drive 9223 from a worktree."
+]
+},
+{
+"repo": "TheAngryRaven_DovesLapTimer",
+"date": "2026-02-25",
+"subject": "Fix Catmull-Rom interpolation bugs and clean up crossing point search",
+"body": "- Fix Bug B: Use Catmull-Rom only for lat/lng, linear for time/odometer\n  to prevent spline overshoot producing garbage unsigned long values\n- Fix Bug C: Store previous GPS fix snapshot and insert as pre-crossing\n  buffer entry, giving Catmull-Rom its p0 control point on fast passes\n- Clean up interpolateCrossingPoint: rename misleading \"best\" variables\n  to \"crossing\", remove dead comparison (bre",
+"added": [
+"1. ~~**Catmull-Rom interpolation bug**~~: Fixed - spline now only used for lat/lng (not time/odometer), and previous GPS fix inserted as pre-crossing control point"
+]
+},
+{
+"repo": "TheAngryRaven_DovesLapTimer",
+"date": "2026-05-10",
+"subject": "little review with opus",
+"body": "",
+"added": [
+"3. ~~**Early abort bug**~~: Abandoned — commented-out `crossingStartedLineSide` tracking plus the `CROSSING_LINE_SIDE_NONE` define have been removed; the underlying \"abort early\" optimization was never implemented and the current hypotenuse-threshold flow is reliable in practice."
+]
+},
+{
+"repo": "TheAngryRaven_DovesLapTimer",
+"date": "2026-05-21",
+"subject": "ci: trim Mega to smoke test, switch XIAO to Adafruit-based nrf52 BSP",
+"body": "Initial CI run had mega and xiao-nrf52840 cells failing:\n\n- Mega: the OLED + Adafruit_GPS examples exceed the 8KB SRAM budget once you\n  add the SSD1306 framebuffer, GPS parser, and the 100-entry crossing buffer.\n  The README itself describes Mega as \"really pushing it\", so we only claim\n  the core library compiles on AVR Mega — match the Uno cell and build just\n  sector_timing_example.\n- XIAO nRF",
+"added": [
+"Adafruit-based nrf52 core, not the older mbed core, since that's what real XIAO"
+]
+},
+{
+"repo": "TheAngryRaven_DovesLapTimer",
+"date": "2026-05-21",
+"subject": "ci: layer-3 NMEA replay regression tests",
+"body": "Replays real GPS recordings from examples/real_track_data_debug/ through\nthe lap timer and asserts the output matches the per-lap golden values\npinned in each fixture header. 21 new tests across 4 fixtures.\n\n  test_nmea_lap        6 tests  OKC, 1 lap, white Tony rental\n                                Linear + Catmull-Rom, both vs. MyLaps (68807ms)\n  test_nmea_2laps      8 tests  OKC, 2 laps (fixtu",
+"added": [
+"regressions on real-world noisy GPS data, not just the clean synthetic track."
+]
+},
+{
+"repo": "TheAngryRaven_DovesLapTimer",
+"date": "2026-05-21",
+"subject": "catmull-rom: document lat/lng-only scope, tighten replay tolerances 50ms→10ms",
+"body": "While tightening NMEA replay tolerances from 50ms to 10ms (the user\ncorrectly noted 50ms is loose for a racing application), discovered\nthat Catmull-Rom interpolation currently produces IDENTICAL lap times\nto linear interpolation across all 4 real-track fixtures, every lap.\n\nRoot cause traced to interpolateCrossingPoint() in DovesLapTimer.cpp:\ncrossingTime and crossingOdometer are ALWAYS interpola",
+"added": [
+"linearly to avoid spline overshoot producing wrong lap times. Practical consequence:",
+"`forceCatmullRomInterpolation()` does NOT change lap-time output vs. linear — it"
+]
+},
+{
+"repo": "TheAngryRaven_DovesLapTimer",
+"date": "2026-05-21",
+"subject": "docs: Doxygen + GitHub Pages with doxygen-awesome-css theme",
+"body": "Adds an API docs site generated from the in-source comments. Lives at\nhttps://theangryraven.github.io/DovesLapTimer/ once Pages is enabled\nin repo Settings (manual one-time step: source = gh-pages branch, /).\n\nComponents:\n\n- Doxyfile configured to document src/, examples/, README.md, and\n  HELPME.md. README.md is the front page (USE_MDFILE_AS_MAINPAGE).\n  .ino files mapped to C++ so example sketch",
+"added": [
+"rather than accumulating history). On PR, builds-only without"
+]
+},
+{
+"repo": "TheAngryRaven_DovesLapTimer",
+"date": "2026-08-02",
+"subject": "feat: DOVES_DISABLE_DEBUG compile-time debug kill switch",
+"body": "The debug templates' runtime if(_serial) gate keeps every debug string\nand print call-site in flash even on firmwares that never attach a\ndebug Stream (~150 call sites across the library - several KB on a\nfully-featured build; the DovesDataLogger beta image just burst its\n320 KB OTA cap at 100.9% partly on this dead weight). Defining\nDOVES_DISABLE_DEBUG swaps the templates for empty inlines so the",
+"added": [
+"and call-site from flash (production firmwares never attach a debug"
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-07-04",
+"subject": "perf(email): Upgrade react email to 6",
+"body": "",
+"added": [
+"- Don't use big comments. Remember that code is self-documenting. Use comments only when necessary to explain complex logic or decisions."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-07-06",
+"subject": "feat(files): ✨ add file management features for files",
+"body": "",
+"added": [
+"- Don't use big comments. Remember that code is self-documenting."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-07-08",
+"subject": "feat(storage): ✨ update Supabase Storage adapter to use `secretKey` instead of `serviceRoleKey`",
+"body": "",
+"added": [
+"- Don't write unit tests if app doesn't have configured vitest."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-07-22",
+"subject": "feat: Add events system",
+"body": "",
+"added": [
+"- Use events to communicate between components instead of prop drilling or using context.",
+"- Use funny and friendly tone in docs, but don't overdo it."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-07-25",
+"subject": "chore: ✨ Update code structure for improved readability and maintainability",
+"body": "",
+"added": [
+"- Don't write big comments. Remember that code is self-documenting."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-07-28",
+"subject": "feat(i18n): ✨ add AI-powered translation updates and new i18n commands",
+"body": "",
+"added": [
+"- Use Vercel AI SDK for AI features instead of other AI SDKs. Use the `c.get(\"ai\")` model registry to resolve models and call the native Vercel AI SDK functions."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-08-31",
+"subject": "feat: Remove Next.js",
+"body": "",
+"added": [
+"- Name files `x.server.ts` when they must never reach the browser bundle.",
+"- A package may declare `createIsomorphicFn` but never `createServerFn` - uncompiled on the server, its handler silently resolves to `undefined`. Server functions belong to the host app.",
+"- Emit events for important actions (create, update, delete) so other components can react; use events instead of prop drilling or context. Document them in `apps/web/content/docs/dev/events/built-in-events.mdx`."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-09-02",
+"subject": "docs: update docs",
+"body": "",
+"added": [
+"- Write the route inline at the call site - never build a request object elsewhere and pass it in.",
+"- Never annotate the result; the fetcher infers it. Put the shared contract on the `createIsomorphicFn` result instead."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-09-03",
+"subject": "refactor: Fetcher for tanstack start",
+"body": "",
+"added": [
+"- `fetcher` from `@vitnode/core/tanstack/fetcher` is universal - one call, SSR and browser. Never hand-write `createIsomorphicFn().server(...).client(...)` for a fetch.",
+"- Never annotate the result; the fetcher infers it. Put the shared contract on the feature's own `*Fetcher` type instead."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-09-14",
+"subject": "refactor: Fetcher in tanstack start",
+"body": "",
+"added": [
+"- A call names the plugin, never an API module: `fetcher({ plugin: \"@vitnode/core\", method: \"get\", module: \"users\", path: \"/devices\" })`. `plugin`, `module` (any nesting depth, `admin/advanced/cron`), `path`, `method`, `args` and the response are all inferred from the plugin API registry; an invalid combination is a compile error at the offending property.",
+"- The registry is `ApiPluginRegistry` in `@vitnode/core/lib/fetcher/registry`. Core registers itself; an app's `src/api-registry.gen.ts` registers every configured plugin that exports `config.api`, with type-only imports; a plugin registers its own API in its `global.d.ts` so its pages can call it. Never import a plugin API factory as a value outside `vitnode.api.config.ts`.",
+"- Shared `views/*` query modules call `fetcher` directly - no injected transport, no browser-only twin. `@vitnode/core/lib/fetcher-client` is the framework-neutral browser primitive the universal fetcher is built on, for code that never renders on a server."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-09-15",
+"subject": "refactor(api-registry): ✨ enhance plugin API registry generation and type safety",
+"body": "",
+"added": [
+"- Do not test trivial code, config, database models, third-party libraries or UI components."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-10-07",
+"subject": "feat(ai): ✨ Enhance AI action translations and improve UI components",
+"body": "- Implemented `translateAiActionText` and `withTranslatedAiActionText` for better localization of AI action titles and descriptions.\n- Updated `AiHistoryTableContent`, `AiOverviewBreakdown`, and other components to utilize translated action texts.\n- Refactored `AiSettingsFormContent` to use `AutoFormSheetFooter` for improved form submission handling.\n- Added new documentation for custom and groupe",
+"added": [
+"- APIs return i18n keys, never translated text, for anything the UI shows (titles, descriptions, labels a plugin registers). The web translates them with `use-intl`, so the text follows the UI's language and the cached response works in every language. Translate on the server only for output with no UI, such as emails."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-10-07",
+"subject": "refactor(elasticsearch): ♻️ keep the search offset clamp local to the adapter",
+"body": "@vitnode/core is only a dev dependency of the adapter, so a value import\nfrom it is not guaranteed to resolve in an install.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01BcTiLrsGK6BGwvs4uieRMB",
+"added": [
+"# This is NOT the Turborepo you know",
+"Turborepo configuration, task behavior, and CLI commands can vary between installed versions and may differ from your training data. Resolve the `turbo` package from this file's directory or relevant workspace; in monorepos, it may not be visible from the repository root. For example, run `node -p \"require.resolve('turbo/package.json')\"` from a workspace that depends on `turbo`.",
+"This block is written and re-added by `turbo` before repository-scoped commands when an AI agent is detected. In the Turborepo source repository, its template is defined in `crates/turborepo-cli/src/cli/agent_guidance.rs`. Removing the managed block while updates are enabled means a later qualifying invocation will add it again. Set `\"agentGuidance\": false` in the root `turbo.json` or `turbo.jsonc` to opt out; this does not remove an existing block. Keep the block committed with your work to avoid an uncommitted change on the next agent invocation."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-10-09",
+"subject": "feat(build): migrate plugin and CLI builds from SWC/tsc-alias/tsup to tsdown",
+"body": "- vitnode build compiles plugin/adapter packages with tsdown in unbundle mode\n  (shared VitNode-owned config), with tsc --noEmit type checking alongside\n- vitnode dev runs tsc --watch plus separate tsdown watchers for JavaScript\n  and declarations, restarting on added/removed sources\n- core CLI/scripts build with tsdown.config.ts instead of tsup\n- plugin detection no longer requires .swcrc; .swcrc",
+"added": [
+"# This is NOT the Turborepo you know",
+"Turborepo configuration, task behavior, and CLI commands can vary between installed versions and may differ from your training data. Resolve the `turbo` package from this file's directory or relevant workspace; in monorepos, it may not be visible from the repository root. For example, run `node -p \"require.resolve('turbo/package.json')\"` from a workspace that depends on `turbo`.",
+"This block is written and re-added by `turbo` before repository-scoped commands when an AI agent is detected. In the Turborepo source repository, its template is defined in `crates/turborepo-cli/src/cli/agent_guidance.rs`. Removing the managed block while updates are enabled means a later qualifying invocation will add it again. Set `\"agentGuidance\": false` in the root `turbo.json` or `turbo.jsonc` to opt out; this does not remove an existing block. Keep the block committed with your work to avoid an uncommitted change on the next agent invocation."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-10-09",
+"subject": "feat(prerender): ✨ Add `docsPrerenderPaths` function for dynamic documentation path generation",
+"body": "",
+"added": [
+"- Always run \"pnpm lint:fix\" to fix formatting and linting issues before committing. Never commit a file with lint errors."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-10-10",
+"subject": "fix(live-store): 🐛 update `setWhere` in `acquireContentFieldLock` for clarity",
+"body": "",
+"added": [
+"- Never write unit tests in the same session. Spawn a new session, and write the test after the feature is working. Tests are for regression, not for development."
+]
+},
+{
+"repo": "aXenDeveloper_vitnode",
+"date": "2026-10-11",
+"subject": "test: split vitest into projects, switch DOM tests to happy-dom, drop unnecessary tests",
+"body": "- Core vitest config now has unit (node, isolate: false), isolated, dom\n  (happy-dom), integration and types projects. Node tests share one module\n  graph per worker instead of re-importing the server graph for every file.\n- The file extension picks the environment: DOM tests are *.test.tsx. The\n  `// @vitest-environment` pragmas are gone.\n- upload.ts no longer imports the whole date-fns barrel.\n-",
+"added": [
+"- Do not assert on source text (`readFileSync` + `toContain` on a module) - test behaviour. Import-graph checks that keep server or editor code out of a bundle are fine.",
+"- The file name picks the environment: `*.test.tsx` runs in happy-dom (project `dom`), `*.test.ts` runs in node (project `unit`). Never add a `// @vitest-environment` pragma.",
+"- Never wait out a real delay - use `vi.useFakeTimers()` and advance the clock."
+]
+},
+{
+"repo": "ahmedhmam1994_voxscribe-ai-voice-dictation",
+"date": "2026-09-27",
+"subject": "Add license activation server to stop keys being freely shared",
+"body": "Local-only verification had no way to know a key was already used on\nanother device, so a valid key string could be typed into unlimited\nmachines. Adds a small Vercel serverless endpoint (docs/api/activate.js)\nbacked by Upstash Redis that checks/claims a key against a hardware id\non first activation. Ongoing Pro checks (is_pro()) stay fully offline,\nunchanged; only the Settings dialog's Unlock but",
+"added": [
+"- Telemetry is limited to: one anonymous PostHog `app_launched` ping per session (`core/telemetry.py`; version/OS/random device id only, no PII/audio/text), and one online check per Pro activation (`core/license.py`'s `activate_online()`, sends the license key + a hardware id to verify it hasn't been used elsewhere). Both are disclosed in `docs/privacy.html`. Everything else — local counters (`core/history.py`, `core/settings.py`), transcription, cleanup — stays fully offline. Don't add anything beyond this without an explicit product decision."
+]
+},
+{
+"repo": "ai-driven-dev_framework",
+"date": "2026-02-15",
+"subject": "docs: enhance behavior guidelines in AGENTS.md for clarity and effectiveness",
+"body": "",
+"added": [
+"- Avoid flattery that feels like unnecessary praise"
+]
+},
+{
+"repo": "ai-driven-dev_framework",
+"date": "2026-03-05",
+"subject": "feat: add golden principles for agent guidelines",
+"body": "",
+"added": [
+"- Don't assume your knowledge is up to date."
+]
+},
+{
+"repo": "ai-driven-dev_framework",
+"date": "2026-03-23",
+"subject": "fix(memory): convert update_memory script to CommonJS and add ls fallback",
+"body": "Renames update_memory.mjs to update_memory.js and converts from ESM\nto CommonJS (require) so the script works without \"type\":\"module\" in\nuser projects.\n\nAdds a fallback ls instruction outside <aidd_project_memory> in AGENTS.md\ntemplate so agents can discover memory files if the hook did not run.\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>",
+"added": [
+"- If memory is not loaded above: run `ls -1tr {{DOCS}}/memory/` then read each file"
+]
+},
+{
+"repo": "ai-driven-dev_framework",
+"date": "2026-05-11",
+"subject": "docs(framework): scaffold aidd_docs and replace ARCHITECTURE.md",
+"body": "Add CONTRIBUTING/GUIDELINES/README and per-area memory bank (architecture,\nbrowsing, codebase-map, coding-assertions, deployment, project-brief,\ntesting, vcs) under aidd_docs/. Add root CLAUDE.md pointing at the memory\nblock. Drop stale top-level ARCHITECTURE.md and version.txt now that the\ndocs live under aidd_docs/ and release-please owns versioning.\n\nCo-Authored-By: Claude Opus 4.7 (1M context)",
+"added": [
+"- Be anti-sycophantic - don't fold arguments just because I push back",
+"- Don't anthropomorphize yourself"
+]
+},
+{
+"repo": "ai-driven-dev_framework",
+"date": "2026-06-06",
+"subject": "docs(framework): add plugin concern taxonomy and skill placement rules (#248)",
+"body": "",
+"added": [
+"- Never duplicate across docs - link to the canonical home."
+]
+},
+{
+"repo": "ai-driven-dev_framework",
+"date": "2026-06-20",
+"subject": "docs(framework): add dominance checks to review and rules (#313)",
+"body": "* docs(framework): add dominance checks to review and rules\n\nDominance issues were easy for agents to miss when a weaker rule, criterion, or documentation statement was already covered, overridden, or invalidated by a stronger element. This adds the check at the global context, rule-generation, reviewer, and review-template levels.\n\n* docs(framework): reduce dominance check duplication\n\nKeep the c",
+"added": [
+"- Before adding any instruction, criterion, finding, documentation sentence, or code rule, check whether an existing element already covers, overrides, contradicts, or makes it impossible. If so, do not add a parallel element: delete it, merge it into the stronger element, or rewrite the set with explicit scope, priority, and exception.",
+"- When naming anything, prefer intention-revealing names over technical ones: describe the goal or responsibility, not the mechanism, tool, or file format."
+]
+},
+{
+"repo": "ai-driven-dev_framework",
+"date": "2026-09-02",
+"subject": "feat(framework): measurement that works on five tools, each proven by a session that ran (#706)",
+"body": "* docs(framework): record Cursor as a scope question, not a pending check\n\nThe probe was written and run. Cursor rejects a bogus key before opening\na session, so no hook fires and the free-verification trick that works on\nCodex and Copilot does not apply. There is no login on this machine\neither, so nothing could be observed.\n\nMore consequential than the missing measurement: the hooks documentatio",
+"added": [
+"<!-- read on demand, not auto-loaded -->"
+]
+},
+{
+"repo": "aiblueprinthq_ai-blueprint",
+"date": "2026-07-01",
+"subject": "feat: add onboard blueprint skill",
+"body": "",
+"added": [
+"review gates are not optional: small steps, and the user approves each diff"
+]
+},
+{
+"repo": "aiblueprinthq_ai-blueprint",
+"date": "2026-07-04",
+"subject": "Add opt-in Blueprint workflow commands",
+"body": "",
+"added": [
+"Testing is opt-in. If this project does not already have a unit test runner, run"
+]
+},
+{
+"repo": "aiblueprinthq_ai-blueprint",
+"date": "2026-07-11",
+"subject": "docs: update AI Blueprint branding",
+"body": "",
+"added": [
+"This project is built with the **AI Blueprint**, a workflow layer, not an"
+]
+},
+{
+"repo": "aiblueprinthq_ai-blueprint",
+"date": "2026-08-16",
+"subject": "feat: add optional discovery workflow",
+"body": "",
+"added": [
+"invoked. `/discovery` is never required: users may write detailed plans directly"
+]
+},
+{
+"repo": "aiblueprinthq_ai-blueprint",
+"date": "2026-08-25",
+"subject": "feat: add continuous mode",
+"body": "",
+"added": [
+"and stops on decisions or failed safety gates. It never pushes, deploys,"
+]
+},
+{
+"repo": "aiblueprinthq_ai-blueprint",
+"date": "2026-09-04",
+"subject": "feat: add post-implementation walkthroughs",
+"body": "",
+"added": [
+"read-only code walkthrough. Review cadence controls approval pauses, not whether"
+]
+},
+{
+"repo": "aiblueprinthq_ai-blueprint",
+"date": "2026-09-08",
+"subject": "docs: clarify AI attribution guidance",
+"body": "",
+"added": [
+"Claude Code, Codex, and every other AI tool must not add AI attribution to"
+]
+},
+{
+"repo": "aiblueprinthq_ai-blueprint",
+"date": "2026-09-11",
+"subject": "feat: offer an opt-in pre-push hook at the end of /ci",
+"body": "Step 3b asks once, defaults to no, and when accepted writes .githooks/pre-push\nrunning the same Verify command, points core.hooksPath at it, wires the\nprepare script for JavaScript projects, and dry-runs the hook before keeping\nit. The intro, report, rules, and AGENTS.md now describe hooks as opt-in.",
+"added": [
+"default. This setup does not add coverage, browser tests, security scans, or"
+]
+},
+{
+"repo": "aiblueprinthq_ai-blueprint",
+"date": "2026-09-13",
+"subject": "feat: consolidate manual guides into check",
+"body": "",
+"added": [
+"do not write activity state. The `check guide` mode also never writes activity",
+"approved reset removes malformed activity instead of recording another run."
+]
+},
+{
+"repo": "aiblueprinthq_ai-blueprint",
+"date": "2026-10-05",
+"subject": "feat: add Google Antigravity adapter support",
+"body": "",
+"added": [
+"because `CLAUDE.md` imports it. Do not create `.opencode/skills/` or an",
+"These are AI chat commands, not terminal commands. In OpenCode or other tools"
+]
+},
+{
+"repo": "alitayin_eCashAI",
+"date": "2026-07-01",
+"subject": "feat: harden hermes chat shell and account state",
+"body": "",
+"added": [
+"- Local Hermes runs with the permissions of the OS user that started it and can read files visible to that user. Treat this as local-dev only, not a sandbox.",
+"- Do not mark production Hermes chat safe unless `HERMES_ISOLATION_MODE=sandboxed` or `HERMES_ISOLATION_MODE=external-managed` reflects a real OS/container/microVM or managed-gateway isolation boundary."
+]
+},
+{
+"repo": "alitayin_eCashAI",
+"date": "2026-07-01",
+"subject": "feat: lock hermes provider and sandbox harness",
+"body": "",
+"added": [
+"- Configure Hermes to use OpenRouter model `deepseek/deepseek-v4-pro` with output token cap `4096` and `provider_routing.only/order: [deepseek]`. The Next app must route chat through Hermes, not call OpenRouter directly for chat."
+]
+},
+{
+"repo": "alitayin_eCashAI",
+"date": "2026-07-02",
+"subject": "feat: confine shared hermes runtime",
+"body": "",
+"added": [
+"- Hermes filesystem access is a hard product boundary, not a prompt instruction. A user's Hermes run must only be able to operate inside the Hermes-controlled runtime/workspace areas explicitly granted for that run.",
+"- Users must not be able to make Hermes inspect or modify VPS host files, operator home files, `.env` secrets, other users' uploads, other users' generated files, or the app repository unless that exact path was deliberately granted for the task.",
+"- Do not mark production Hermes chat safe unless `HERMES_ISOLATION_MODE=sandboxed` or `HERMES_ISOLATION_MODE=external-managed` reflects a real process-level filesystem boundary or managed-gateway isolation boundary."
+]
+},
+{
+"repo": "alitayin_eCashAI",
+"date": "2026-07-02",
+"subject": "fix: simplify hermes runtime boundary",
+"body": "",
+"added": [
+"- Hermes filesystem access is a product boundary, not a prompt instruction. For the current MVP, treat Hermes' own runtime/profile/workspace configuration as the active boundary.",
+"- Do not reintroduce per-user Docker, `bwrap`, or `sandbox-exec` as the default path unless the product explicitly graduates from this KISS MVP boundary."
+]
+},
+{
+"repo": "alitayin_eCashAI",
+"date": "2026-07-03",
+"subject": "feat: add docker compose hermes deployment",
+"body": "",
+"added": [
+"- VPS deployment uses Docker Compose with `web` and `hermes` services. Use the official `nousresearch/hermes-agent:latest` image plus the product bootstrap script; do not depend on a manual `/downloads/hermes-agent` folder on the server."
+]
+},
+{
+"repo": "alitayin_eCashAI",
+"date": "2026-07-08",
+"subject": "Polish admin theme and top-up flow",
+"body": "",
+"added": [
+"- Configure Hermes to use happyclaw `gpt-5.5` as the primary model with output token cap `4096`. OpenRouter `deepseek/deepseek-v4-pro` is the fallback model and should keep `provider_routing.only/order: [deepseek]` when OpenRouter is active. The Next app must route chat through Hermes, not call model providers directly for chat."
+]
+},
+{
+"repo": "arnica_depsguard",
+"date": "2026-04-08",
+"subject": "docs: add Git workflow guidelines to AGENTS.md",
+"body": "- Introduced a section outlining the Git workflow, emphasizing the importance of using feature branches and opening pull requests instead of pushing directly to `main`.\n- Included reminders against force-pushing and running destructive git operations without explicit permission.",
+"added": [
+"- **Never push directly to `main`** without explicit permission from the user. Always use a feature branch and open a pull request.",
+"- Do not force-push or run destructive git operations unless explicitly asked."
+]
+},
+{
+"repo": "awslabs_aidlc-workflows",
+"date": "2026-06-26",
+"subject": "feat(workspace): per-intent workspace — spaces, multiple intents, multi-repo (2.1.0) (#429)",
+"body": "* feat(workspace): promote codekb to repo-level aidlc/codekb/<repo>/\n\n* feat(templates): team output-format overrides — resolver + agent skeleton + sensor verify\n\n* feat(memory): relocate rules to aidlc/memory/; re-point loadRules + per-harness native includes\n\n* test: repair stale rule-path + codekb goldens after P0/P5 relocation\n\nP0 (codekb→aidlc/codekb/<repo>/) and P5 (rules→aidlc/spaces/defaul",
+"added": [
+"- `dist/<harness>/` — **GENERATED, committed, drift-guarded.** `dist/claude/.claude/`, `dist/kiro/.kiro/` (+ `AGENTS.md`), `dist/kiro-ide/.kiro/` (+ `AGENTS.md`), `dist/codex/` (`.codex/` + `.agents/` + `AGENTS.md`). Never hand-edit — `package.ts --check` fails CI on drift. Users copy `dist/<harness>/` into their project."
+]
+},
+{
+"repo": "awslabs_aidlc-workflows",
+"date": "2026-07-18",
+"subject": "feat: opencode harness support (2.4.6) (#571)",
+"body": "* feat: opencode harness support (2.4.2)\n\nAdds a fifth harness distribution: opencode (opencode.ai, verified live\non 1.17.18). One core, many harnesses: dist/opencode/ projects the same\ndeterministic engine onto opencode's native surfaces.\n\nLayout: the engine tree ships at .aidlc/ (harnessDir), NOT .opencode/,\nbecause opencode auto-imports every *.ts under .opencode/tools/ and\n.opencode/tool/ as c",
+"added": [
+"- `dist/<harness>/` — **GENERATED, committed, drift-guarded.** `dist/claude/.claude/`, `dist/kiro/.kiro/` (+ `AGENTS.md`), `dist/kiro-ide/.kiro/` (+ `AGENTS.md`), `dist/codex/` (`.codex/` + `.agents/` + `AGENTS.md`), `dist/opencode/` (`.aidlc/` + `.opencode/` + `opencode.json` + `AGENTS.md`). Never hand-edit — `package.ts --check` fails CI on drift. Users copy `dist/<harness>/` into their project."
+]
+},
+{
+"repo": "awslabs_aidlc-workflows",
+"date": "2026-08-10",
+"subject": "feat: GitHub Copilot harness - one dist for Copilot CLI + VS Code agent mode (2.5.46) (#657)",
+"body": "* feat: add GitHub Copilot harness\n\n* fix(copilot): close workflow integrity gaps\n\n* fix(copilot): close remaining workflow integrity gaps\n\n* fix(copilot): close delegated wrapper bypasses\n\n* fix(copilot): integrate v2.5.57 contracts\n\n* chore(copilot): refresh generated outputs after v2 rebase\n\n* fix(copilot): close approved follow-up gaps\n\n* fix(lifecycle): fail closed on dynamic command expansio",
+"added": [
+"- `dist/<harness>/` — **GENERATED, committed, drift-guarded.** `dist/claude/.claude/`, `dist/kiro/.kiro/` (+ `AGENTS.md`), `dist/kiro-ide/.kiro/` (+ `AGENTS.md`), `dist/codex/` (`.codex/` + `.agents/` + `AGENTS.md`), `dist/opencode/` (`.aidlc/` + `.opencode/` + `opencode.json` + `AGENTS.md`), `dist/copilot/` (`.aidlc/` + `.github/` + `AGENTS.md`). Never hand-edit — `package.ts --check` fails CI on drift. Users copy `dist/<harness>/` into their project."
+]
+},
+{
+"repo": "awslabs_aidlc-workflows",
+"date": "2026-08-11",
+"subject": "feat: Cursor harness support (2.5.63) (#661)",
+"body": "* feat(cursor): close review gaps and rebase harness (2.5.63)\n\n* docs: reconcile Cursor and Copilot harness prose\n\n* fix(cursor): address latest review findings\n\n* test: renumber Cursor suites after v2 collision\n\n* fix(cursor): close final installer and guard review gaps\n\n* fix(cursor): harden wrapper parsing and installer path checks",
+"added": [
+"- `dist/<harness>/` — **GENERATED, committed, drift-guarded.** `dist/claude/.claude/`, `dist/kiro/.kiro/` (+ `AGENTS.md`), `dist/kiro-ide/.kiro/` (+ `AGENTS.md`), `dist/codex/` (`.codex/` + `.agents/` + `AGENTS.md`), `dist/cursor/` (`.cursor/` + `aidlc/` + `AGENTS.md`), `dist/opencode/` (`.aidlc/` + `.opencode/` + `opencode.json` + `AGENTS.md`), `dist/copilot/` (`.aidlc/` + `.github/` + `AGENTS.md`). Never hand-edit — `package.ts --check` fails CI on drift. Users copy `dist/<harness>/` into their project."
+]
+},
+{
+"repo": "awslabs_aidlc-workflows",
+"date": "2026-09-08",
+"subject": "feat: add native distribution, config policy, and hardened release lifecycle (#756)",
+"body": "* feat: add native distribution and release lifecycle\n\nSquash-rebase PR #756 onto main at e7689885f.\n\n* fix(release): bind runtime assets to version tags\n\n* test: include settings dependencies in hook fixtures\n\n* refactor(release): publish with repository token\n\n* ci(release): gate publication with release environment\n\n* fix(install): make gh attestation verification optional\n\n* test: fix unit fix",
+"added": [
+"- `dist/` and `dist-release/` — **GENERATED, ignored local outputs.** They are never committed or hand-edited. CI, tests, binary builds, and release packaging regenerate them before use. Native users install release assets; copy-channel users take `runtime/<harness>/` from the versioned `aidlc-runtime.tar.gz` release asset.",
+"- **Edit `core/` (or `harness/<name>/`), never `dist*`.** After editing, run `bun scripts/package.ts` to materialize local projections and `bun scripts/package.ts --check` to confirm the generator emits byte-identical results from two clean builds."
+]
+},
+{
+"repo": "awslabs_aidlc-workflows",
+"date": "2026-09-09",
+"subject": "docs: move release metadata updates to release prep (#1096)",
+"body": "Co-authored-by: test <test@test.com>",
+"added": [
+"IMPORTANT: Feature, fix, documentation, refactor, and test PRs do NOT bump `core/tools/aidlc-version.ts`, change the README version badge, or add a release entry to `CHANGELOG.md`. Those coordinated updates belong to the release-preparation PR, which summarizes the user-visible changes merged since the previous release. Every PR must preserve existing changelog entries.",
+"If concurrent release-preparation branches choose the same version, the later one must rebase and select the next intended release version before merging. CHANGELOG version link references were removed in v0.6.9 because a distributed file should not embed a repository host; `t68` guards that none reappear."
+]
+},
+{
+"repo": "awslabs_aidlc-workflows",
+"date": "2026-09-27",
+"subject": "fix(markdown): replace the hand-rolled block parsers with Bun's built-in Markdown renderer (#1409)",
+"body": "* fix(markdown): interpret Markdown block structure once, with Bun's built-in renderer\n\nmarkdownBlocks() in aidlc-lib.ts becomes the single Markdown block\ninterpreter, backed by Bun.markdown (CommonMark + GFM), which also ships\ninside every native aidlc binary. visibleMarkdownLines, the summary\nconfirmation digest and answer, the review-input fingerprint, Plan\nApproval tag selection and Change Con",
+"added": [
+"- **Markdown block structure has one interpreter:** `markdownBlocks` in `core/tools/aidlc-lib.ts`, backed by the built-in `Bun.markdown` renderer, supplies block visibility, containers, link reference definitions, and claim-splitting structure; `visibleMarkdownLines` projects it. Do not add a Markdown dependency, another block scanner, or a definition grammar. The security-sensitive `Bun.markdown.render` review-authority check is a deliberately separate code path."
+]
+},
+{
+"repo": "awslabs_aidlc-workflows",
+"date": "2026-10-08",
+"subject": "fix(release): stable release notes come from CHANGELOG.md (#2234)",
+"body": "A stable release's notes were GitHub's generated \"What's Changed\" list, which\nnames every contributing account by handle on a published page. The people named\nthere never chose to be, and twice a handle went out that should not have been\npublished at all and had to be masked afterwards.\n\nThe notes are now this version's CHANGELOG entry. The preview channel has\npublished from the changelog all alon",
+"added": [
+"That entry is the body of the stable GitHub Release: the release job writes it to a file and passes it with `--notes-file`, so what the entry says is what people read on the release page. GitHub's generated notes are not used, because their list names every contributing account by handle."
+]
+},
+{
+"repo": "ballerina-platform_ballerina-vscode",
+"date": "2026-05-28",
+"subject": "Docs: correct misleading 'rush build vs rush build --to ballerina'",
+"body": "ballerina-extension declares ballerina-language-server as a workspace dep,\nso both forms include the LS in the build topology. The only project in\nrush.json not reachable from ballerina is ballerina-grammar — and even\nthat produces output nobody consumes (copyGrammar reads the source).\n\nUpdate both docs to reflect the actual difference (one project) and add\nthe genuinely useful workaround: 'rush b",
+"added": [
+"If you don't have those set up, skip the LS by building one of its dependents"
+]
+},
+{
+"repo": "ballerina-platform_ballerina-vscode",
+"date": "2026-07-14",
+"subject": "docs: fold L0 into L1 (unit/contract); make perf an orthogonal suite",
+"body": "Per review feedback: the enum/contract invariants run in-process like unit tests\n(they assert over an enum table rather than a function, but still execute code —\n\"static\" properly means tsc/lint), so they belong under L1 as contract tests, not\na separate L0 level. And performance is a non-functional dimension that cuts across\nthe scope pyramid, so it's tracked as an orthogonal Perf/QA suite rather",
+"added": [
+"**Levels & where they run.** Four **scope levels** ordered by how much of the system each test runs — L1 unit/contract (pure logic + shared-type/enum invariants), L2 component (render), L3 LS-integration, L4 E2E — plus an **orthogonal Perf/QA suite** (performance is non-functional and cuts across L1–L4, so it isn't a numbered level). L1 and L2 are **fast, PR-gated** — a package's tests run in CI **only** via a file named exactly `jest.config.js`. L3 (headless LS), L4 (E2E), and perf need Java + a Ballerina distribution (or VSCode) and **must use another config filename** (`jest.ls-integration.config.js`, `jest.realdata.config.js`, `jest.headless-view.config.js`, `jest.perf.config.js`) so they never run on every PR; they `describe.skip` when no distro is found. **Never rename an LS/E2E/perf config to `jest.config.js`.**"
+]
+},
+{
+"repo": "ballerina-platform_ballerina-vscode",
+"date": "2026-07-15",
+"subject": "test: type-check test code via per-package tsconfig.spec.json + CI gate",
+"body": "Test files are excluded from the emitting build and babel/ts-jest don't type-check at\nrun time, so type errors in tests shipped silently (review point). Add a tsconfig.spec.json\nper test package (extends the build config, noEmit, all-src for ambient context) and a\nshared @wso2/test-config/jest-matchers.d.ts ambient (jest-dom matchers + Node globals).\nscripts/typecheck-tests.js runs every package's",
+"added": [
+"**Type-check your test code.** Test files aren't type-checked by the build (excluded) or by babel/ts-jest at run time, so run `node scripts/typecheck-tests.js` before pushing — it `tsc --noEmit`s every package's `tsconfig.spec.json` and gates on test-file errors (a wrong prop, a removed export, a mis-shaped fixture). Don't silence a real error with `as any`; fix the type."
+]
+},
+{
+"repo": "ballerina-platform_ballerina-vscode",
+"date": "2026-07-30",
+"subject": "Use root version as the single source of truth",
+"body": "",
+"added": [
+"Do not delete the Gradle key: a direct `./gradlew` invocation before synchronization"
+]
+},
+{
+"repo": "ballerina-platform_ballerina-vscode",
+"date": "2026-08-12",
+"subject": "Pack the Ballerina TextMate grammar in the extension",
+"body": "The VSIX shipped with no grammar at all, so .bal files got no syntax\nhighlighting in the pro-code editor.\n\ncopyGrammar was introduced as a build-time step that populated the\ngitignored packages/ballerina-extension/grammar/ballerina-grammar/, wired\ninto the extension's 'build' script. A later merge restored the\npre-copyGrammar 'build' line, dropping the call. Because the destination\nwas gitignored,",
+"added": [
+"### 4. Don't edit `lib/`, `build/`, `dist/`, `out/`, or `packages/ballerina-extension/syntaxes/`."
+]
+},
+{
+"repo": "block-core_angor",
+"date": "2026-07-22",
+"subject": "UI fixes + headless layout-regression test suite for all section views (#939)",
+"body": "* ui bug fixes and founder loading issues\n\n* fix: phone-width overflows in Settings, FindProjects and InvestPage\n\n- Settings: currency ComboBox row, Export/Show Logs button pair and the\n  Danger Zone subtitle now wrap instead of escaping their cards on phones\n- FindProjects: search error strip converted from horizontal StackPanel to\n  Grid so TextWrapping actually engages on narrow widths\n- Invest",
+"added": [
+"Fast (seconds) and network-free — run after ANY view/style change in src/design/App. When adding a new section view, add it to `LayoutRegressionTests` with worst-case data. Pitfalls these tests exist to catch: `UserControl.Foo` style selectors never match derived views (use `ns|ConcreteView.Foo`); inline attributes (Orientation/Margin/Padding) silently beat style setters; disposing a LayoutModeService subscription on detach without re-subscribing on attach kills responsiveness permanently."
+]
+},
+{
+"repo": "block-core_angor",
+"date": "2026-07-23",
+"subject": "Fix stage date-bucket collision losing UTXOs in founder claim view (#943)",
+"body": "* fix: stage date-bucket collision losing UTXOs in founder claim view\n\nFor Fund/Subscribe projects, stages are grouped by release date across\ninvestments. A later investor's schedule is shifted (their stage 1 can\nshare a date with an earlier investor's stage 2), so date buckets can\ncarry colliding per-investment stage indices. Two buckets could end up\nwith the same StageIndex (e.g. December and Ja",
+"added": [
+"- **Blazor WASM web app** (legacy, .NET 8) in `src/webapp/` — investor-only (investing flow); founder spend/claim is NOT used here",
+"- **Avalonia desktop/mobile app** (dead code, .NET 9) in `src/avalonia/` — superseded by `src/design/`, do not modify"
+]
+},
+{
+"repo": "cfis_proj4rb",
+"date": "2026-03-02",
+"subject": "Redo version checking.",
+"body": "",
+"added": [
+"Version guards in the generated bindings call `proj_version`, a method defined in `lib/api/proj_version.rb`. This file is user-maintained (not overwritten by ruby-bindgen) and reads the runtime library version via `proj_info`. No manual fixes are needed after regeneration."
+]
+},
+{
+"repo": "cfis_proj4rb",
+"date": "2026-03-03",
+"subject": "Update AGENTS guide",
+"body": "",
+"added": [
+"- Commits must not include a co-author or author line (no `Co-Authored-By`)"
+]
+},
+{
+"repo": "cfis_proj4rb",
+"date": "2026-03-05",
+"subject": "Replace all mocked tests with real PROJ calls",
+"body": "- crs: point_motion_operation — test on static CRS\n- conversion: requires_per_coordinate_input_time — test on UTM operation\n- context: set_user_writable_directory — create real temp directory\n- projection: lambert_conic_conformal_1sp_variant_b — real projection\n- projection: local_orthographic — real projection\n- pj_object: geod_direct — real geodesic calculation (9.7+)\n- Add no-mocks rule to AGEN",
+"added": [
+"- Tests must not use mocks or stubs. Always call the real PROJ C API."
+]
+},
+{
+"repo": "cfis_proj4rb",
+"date": "2026-03-06",
+"subject": "Add Domain class to support multiple usage domains per object.",
+"body": "Wraps proj_get_domain_count, proj_get_scope_ex, and proj_get_area_of_use_ex\n(PROJ 9.2+) with fallback to proj_get_scope and proj_get_area_of_use on\nolder versions. PjObject#scope and #area_of_use now delegate through Domain.",
+"added": [
+"- **Never manually edit auto-generated files** (`lib/api/proj.rb`, `lib/api/proj_experimental.rb`). Fix issues in `ffi-bindings.yaml` and regenerate instead."
+]
+},
+{
+"repo": "corbym_memoryweb",
+"date": "2026-09-07",
+"subject": "feat(hooks,options): setup-idempotency + options-cli (Wave 4 Phase 1, v1.53.0)",
+"body": "setup-idempotency:\n- setupUpsertCommand replaces matching hook entry (same command name) rather than\n  appending a duplicate; second memoryweb setup is fully idempotent\n- runSetup accepts homeOverride param for test isolation; all existing tests\n  updated; 4 new tests covering append/replace/idempotent/multi-hook cases\n\nhooks-options-cli:\n- `memoryweb options [set <key> <value>]` subcommand reads/",
+"added": [
+"Never file credentials, connection strings, or API keys."
+]
+},
+{
+"repo": "danja_downspout",
+"date": "2026-04-24",
+"subject": "first pass Cadence VST",
+"body": "",
+"added": [
+"- On a fresh CMake build directory, do not launch the build command until configure has finished. In this repo, starting `cmake --build` too early regularly races cache generation and fails with `Error: could not load cache`."
+]
+},
+{
+"repo": "danja_downspout",
+"date": "2026-04-24",
+"subject": "gremlins",
+"body": "",
+"added": [
+"- When an LV2 plugin has separate note/control MIDI ports that do not map cleanly to VST3, prefer one primary MIDI input in the DPF wrapper and keep role-detection inside the portable processor.",
+"- For controller-heavy ports, expose output status parameters for the UI so the panel can reflect the processor’s effective live state rather than only the last host automation value."
+]
+},
+{
+"repo": "danja_downspout",
+"date": "2026-05-29",
+"subject": "docs & wraparound",
+"body": "",
+"added": [
+"- Do not modify shared/framework code that existing plugins rely on without explicit user approval first. This includes `third_party/`, `src/common/`, `include/downspout/`, shared scripts, and root build/install/release glue."
+]
+},
+{
+"repo": "danja_downspout",
+"date": "2026-06-03",
+"subject": "continues",
+"body": "",
+"added": [
+"API keys are sacred. They must not be shared."
+]
+},
+{
+"repo": "danja_downspout",
+"date": "2026-08-26",
+"subject": "getting there",
+"body": "",
+"added": [
+"- API keys are sacred. They must not be shared."
+]
+},
+{
+"repo": "danja_downspout",
+"date": "2026-08-28",
+"subject": "read",
+"body": "",
+"added": [
+"- Use the Read tool to read files, not `sed`/`cat`/`head`/`tail` via Bash. Bash tool calls require per-call user approval; Read does not."
+]
+},
+{
+"repo": "danja_downspout",
+"date": "2026-09-04",
+"subject": "chipper first pass",
+"body": "",
+"added": [
+"- When documenting MCP server tools, take argument names, types, and defaults from the tool’s `inputSchema` in the server source code, not from existing prose. Copy-pasteable examples must be verified against the schema."
+]
+},
+{
+"repo": "emergent-wisdom_sema",
+"date": "2026-08-04",
+"subject": "docs: paper changes build through compile_paper.sh, never bare pdflatex",
+"body": "Bare pdflatex skips table generation, the pattern-card appendix, prose hash\nreference updates, the stats macros and bibtex. That shipped 49 stale hash\nstubs and a wrong pattern count once, and the matching mistake on the audit\nartifact failed CI on the 3.12 job. Recorded as a workflow rule so it does not\ndepend on anyone remembering the incident.",
+"added": [
+"never bare `pdflatex`. The script regenerates the tables, the pattern-card"
+]
+},
+{
+"repo": "guibor_supernote-shape-snap",
+"date": "2026-04-18",
+"subject": "Fix public Snap Shapes plugin labels",
+"body": "",
+"added": [
+"so the public plugin list does not show export-oriented labels."
+]
+},
+{
+"repo": "h4ckf0r0day_obscura",
+"date": "2026-06-24",
+"subject": "docs: correct --stealth flag scope in AGENTS.md",
+"body": "--stealth is a per-subcommand flag (on fetch, serve, and mcp; not\nscrape), not a global one. Only --proxy and --allow-private-network\nare global.",
+"added": [
+"- **obscura-cli** — CLI: `fetch` (`--dump assets|html|text|links|markdown|original`, `--eval <JS>`), `serve` (CDP server), `scrape`, `mcp`. `--proxy` and `--allow-private-network` are global flags (valid before or after the subcommand); `--stealth` is a per-subcommand flag, available on `fetch`, `serve`, and `mcp` but not `scrape`."
+]
+},
+{
+"repo": "h4ckf0r0day_obscura",
+"date": "2026-06-24",
+"subject": "docs: document the interception API and refresh the skill",
+"body": "The request interception API (#306) and the global --stealth flag are\nmerged, so:\n\n- Use-as-a-Rust-library.md: add an \"Intercept requests\" section covering\n  on_request/on_response, enable_interception (Continue/Fulfill/Fail),\n  and add_preload_script, with examples.\n- Intercept-and-modify-requests.md: point embedders at the native API.\n- AGENTS.md: --stealth is now global (all subcommands incl. s",
+"added": [
+"- **obscura** — embeddable Rust library API (git dependency; builds V8 locally, not on crates.io). Public request-interception API on `Page`: `add_preload_script`, `enable_interception` (channel of `InterceptedRequest`, resolved with `InterceptResolution::{Continue, Fulfill, Fail}`), and passive `on_request` / `on_response`. `op_fetch_url` invokes these for JS `fetch()`/XHR, so when touching it keep a `Continue` URL rewrite behind `validate_fetch_url` (the SSRF gate, same as redirects)."
+]
+},
+{
+"repo": "jordanhindo_beadboard",
+"date": "2026-02-20",
+"subject": "feat(swarm): implement Swarm View remake with Operations, Archetypes, and Templates",
+"body": "This commit includes the new SwarmWorkspace with its 3 sub-tabs, the LeftPanel mission picker, and the comprehensive Operations Command Dashboard featuring the live interactive DAG telemetry and task assignment prep flow.",
+"added": [
+"2. Bead descriptions must be model-facing prompts, not internal prose notes."
+]
+},
+{
+"repo": "jordanhindo_beadboard",
+"date": "2026-02-28",
+"subject": "feat(beadboard-550): replace issues.jsonl reads with direct Dolt SQL via mysql2",
+"body": "- src/lib/read-issues-dolt.ts: readIssuesViaDolt() queries issues+labels (GROUP_CONCAT)\n  and dependencies in 2 SQL queries; normalizes Date cols to ISO strings; returns null\n  on unreachable so caller can fall back gracefully\n- src/lib/read-issues.ts: readIssuesFromDisk() tries Dolt first (always), falls back to\n  issues.jsonl with console.warn; removes dead readIssuesViaBd/normalizeBdIssue/\n  no",
+"added": [
+"`issues.jsonl` is a **deprecated fallback** — no manual export step is required. The file is kept on disk by `bd` for git history, but BeadBoard does not rely on it when the Dolt server is running."
+]
+},
+{
+"repo": "judegomila_OnCo",
+"date": "2026-09-17",
+"subject": "Websites for 15 organisations and nine more logos, with archived addresses replaced by live sites; roadmap row 139 records the open dependency map hydration mismatch",
+"body": "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+"added": [
+"# This is NOT the Next.js you know",
+"This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices."
+]
+},
+{
+"repo": "judegomila_OnCo",
+"date": "2026-10-07",
+"subject": "AGENTS.md: never resolve a contributor's pull request by union",
+"body": "",
+"added": [
+"- **Never resolve a contributor's pull request by union.** `scripts/resolve-additive.py` keeps both sides,",
+"produced TypeScript that would not parse, with two broken files committed before anyone noticed. Merge them"
+]
+},
+{
+"repo": "judegomila_OnCo",
+"date": "2026-10-07",
+"subject": "Keep review images outside the repository",
+"body": "Review screenshots now live outside the checkout and are linked from the pull request. Bounding CI test workers moved to the shared CI commit.",
+"added": [
+"when reviewing a visual change. Product image assets belong in the repository; review artifacts do not."
+]
+},
+{
+"repo": "prolific-oss_cli",
+"date": "2026-03-30",
+"subject": "fix(DCP-2063): Adjust AGENTS.md to correctly reference error message formatting, cmd directory structure, and some markdown formatting",
+"body": "",
+"added": [
+"Action commands use dependency injection. All take `client` and `w`; some also take a `commandName` string when the `Use` field is set dynamically by the caller rather than hardcoded in the function:",
+"Prefix errors consistently in `RunE` using `fmt.Errorf` with `%s` and `err` directly (not `err.Error()`, which is redundant). Note this does not wrap the error for `errors.Is`/`errors.As` — that is the established pattern in this codebase:"
+]
+},
+{
+"repo": "prolific-oss_cli",
+"date": "2026-04-13",
+"subject": "docs(DCP-2583): update docs and changelog (#419)",
+"body": "This pull request refines and enforces the release process, changelog\nversioning, and automation for the project. It introduces stricter\nvalidation for release versions, clarifies documentation around how\nreleases are triggered and named, and improves the supporting tooling\nand workflow for changelog management. The main focus is to ensure that\nonly strictly formatted semantic versions (e.g., `1.0",
+"added": [
+"3. The `create-release.yml` workflow runs on the push to `main`. It creates the GitHub Release with tag and title `vx.y.z` (e.g. `v1.0.1`, never a bare `1.0.1`) and uploads binaries **only** when the merged PR had the `release` label; ordinary pushes to `main` do not release"
+]
+},
+{
+"repo": "prolific-oss_cli",
+"date": "2026-08-19",
+"subject": "feat(DCT-262): detect API schema drift, add fix-assist skill",
+"body": "Runs contract_test daily against the live Prolific API spec and files\na schema-drift-labeled issue on failure. Auto-assigning the issue to\nan AI coding agent was investigated and shelved: Copilot has no access\nto this public repo, and a follow-up security review found no policy\nyet for unattended AI agents on public repos generally — self-hosting\nthe same idea via a GitHub Action wouldn't avoid th",
+"added": [
+"**No auto-assignment:** filed issues aren't auto-assigned to anyone. Auto-assigning to GitHub Copilot coding agent was investigated but requires org-level access this repo doesn't currently have (`\"Bot does not have access to the repository\"`, confirmed via the GraphQL `replaceActorsForAssignable` mutation) — and separately, running any unattended AI agent against a public repo's issues/PRs raises its own governance questions (prompt-injection surface from public issue content, unattended write access) that are unresolved regardless of which agent. Until that's settled, a human picks up filed issues — the `/schema-drift-fix` skill (`.claude/skills/schema-drift-fix/`) speeds that up by investigating and drafting the fix; it never commits, pushes, or opens a PR itself."
+]
+},
+{
+"repo": "samuelfaj_claudiomiro",
+"date": "2025-12-03",
+"subject": "fix(step2): make decomposition analysis validation non-blocking",
+"body": "The DECOMPOSITION_ANALYSIS.json validation was too strict, causing\nstep2 to fail when the output structure varied slightly from the schema.\n\nSince this file is:\n- A debugging artifact deleted after successful validation\n- Not used by any downstream process\n- Not consumed programmatically after step2\n\nAll validation issues are now logged as warnings instead of blocking\nerrors. This allows task deco",
+"added": [
+"The `DECOMPOSITION_ANALYSIS.json` validation is **non-blocking** - all issues are logged as warnings but do not stop the step. This is because:",
+"- It is not used by any downstream process (LLM or programmatic)",
+"- Real task execution uses BLUEPRINT.md files, not the decomposition analysis"
+]
+},
+{
+"repo": "texttile-blog_texttile",
+"date": "2026-08-04",
+"subject": "Mirror the whole vault folder into idea/",
+"body": "The idea target copied the top-level notes only, and it kept the main\nnote at the repository root as idea.md. It now copies the full vault\nfolder with rsync, so new notes, subfolders and attachments come along,\nand deleted notes disappear. The main note lives at idea/texttile.md.\n\nAlso: every branch off main starts as a worktree.",
+"added": [
+"- `idea/` is a read-only mirror of the user's vault folder (synced by `make idea`, which copies the full folder). Never edit it; requirements change in the vault. The main note is `idea/texttile.md`. A `[[name]]` link resolves to `idea/name.md`; read linked notes before building what they cover.",
+"- Never work on `main`. Every new branch off `main` starts as a worktree: `git worktree add ../texttile-<slug> -b <branch> main`. Substantial features (new user-facing capability, more than one module, or more than a couple of commits) use `feature/<slug>`; small fixes use a short branch name, but still get a worktree."
+]
+},
+{
+"repo": "texttile-blog_texttile",
+"date": "2026-08-06",
+"subject": "The editor experience: writing, publishing, versions, and the soft lock (#10)",
+"body": "* Articles context: texts, versions, log, soft lock, go-live scheduler\n\n- articles, article_versions, article_log tables\n- publish/schedule/unpublish state machine driven by the publish date\n- text-only versions with dedupe, restore with pre-restore snapshot\n- word-level LCS diff for the Versions tab\n- Lock GenServer: acquire, grace period, idle timeout, flush-then-transfer takeover\n- Scheduler fl",
+"added": [
+"- All worktrees share the main checkout's dev database and uploads (`texttile_dev.db`, see config/dev.exs). That database holds the user's living test data. QA and scripts remove only the records they created themselves, through the app's own delete flows or by exact id or username. Never delete wholesale from the shared dev DB."
+]
+},
+{
+"repo": "texttile-blog_texttile",
+"date": "2026-08-08",
+"subject": "RSS feed for a blog without a password (#20)",
+"body": "* RSS feed for an open blog\n\nEvery published post, newest first, with the whole text as HTML. The\naddresses inside a text become absolute, and pictures take the reading\nsize the site itself shows.\n\nThe feed stands outside the password gate: a feed reader cannot answer\na password screen, and a gate would show one as the newest text. So a\nblog behind the shared password has no feed at all. /feed.xml",
+"added": [
+"- State that lives beside the database is not rolled back: document locks, presence, registries, the application environment, uploaded files. The article ids do roll back, so the next test writes id 1 again and inherits whatever the last test left under that id. A test that creates such state clears it, and the shared setup in `test/support/data_case.ex` clears it for everybody.",
+"- Green once is not green. Before a PR, run the suite the way the runner does: `mix test --max-cases 4`. It is slower and orders the tests differently, which is where a leak between two tests shows.",
+"- A test that fails on CI and passes locally is an ordering or timing race until proven otherwise, never \"CI being flaky\". Find the pair: run the suspect file straight after the file that could have contaminated it (`mix test test/e2e/<file> test/<suspect> --seed 0`). That usually turns it into a failure you can watch."
+]
+},
+{
+"repo": "texttile-blog_texttile",
+"date": "2026-08-08",
+"subject": "The signed-in area is the admin area, not \"the desk\" (#26)",
+"body": "\"Desk\" was the code name of variant 4 in round 2 of the UI prototype. That\nvariant's layout was dropped, but the word travelled through round-13/14\ninto the first Phoenix PR and stayed in module names, comments and test\nnames. Nobody chose it as the product word.\n\nCode: TexttileWeb.Desk becomes TexttileWeb.Admin, the presence topic\nbecomes \"admin\", live_session :desk becomes :admin, the hooks and ",
+"added": [
+"- The signed-in area behind `/admin` is the admin area, in prose and in code (`TexttileWeb.Admin`). Never \"the desk\": that word is a leftover of a prototype variant name. \"Admin\" alone stays the person, so the place keeps its noun."
+]
+},
+{
+"repo": "texttile-blog_texttile",
+"date": "2026-08-08",
+"subject": "Browser tests wait for the live page before they act (#27)",
+"body": "CI failed at random: three e2e tests one run, one the next, none the\nthird, always a Playwright wait that runs out (#lbRoot, #tileServer\n[data-id], #crumb). The suite was green on every developer machine, so\nit read as a haunted runner.\n\nIt is a race in the tests. The server answers a LiveView with a dead\nrender, and the script takes over a moment later. Playwright acts as\nsoon as an element stand",
+"added": [
+"- A test that fails on CI and passes locally is an ordering or timing race until proven otherwise, never \"CI being flaky\". Find the pair: run the suspect file straight after the file that could have contaminated it (`mix test test/e2e/<file> test/<suspect> --seed 0`). That usually turns it into a failure you can watch. A race that needs a slow machine shows under load: `mix test test/e2e/` while a few busy loops hold the cores.",
+"- A browser test never acts on a dead render. It reaches its screen through `TexttileWeb.E2E` (`sign_in/1`, `open/2`, `open_editor/2`), which waits for the page to be live, and for the gallery to say `data-ready`, before the first click. Playwright acts as soon as an element exists, and a click that lands before the script says nothing at all."
+]
+},
+{
+"repo": "texttile-blog_texttile",
+"date": "2026-08-09",
+"subject": "Settings names the version that runs (#39)",
+"body": "* Settings names the version that runs\n\nThe image on the registry carries no git and no build date, so a\nrunning container could not say what it was made from. mix.exs already\ncarries a version; this makes it readable.\n\nTexttile.version/0 reads the number the release was built with.\nSettings shows it in a Version section at the end of the screen,\nbehind the sign-in: a version number in the open te",
+"added": [
+"- Raise the version in `mix.exs` in the same PR as the change, before you open the PR. Read the version on `main`, not on the branch, and raise it by one step: the patch number for a repair or a small change, the minor number for a new capability, the major number when behavior, stored data, or configuration breaks. Never lower it and never skip a step. If another pull request raises the version first, raise yours again on top of the new number. Settings shows this number, and it is the only mark of which build runs."
+]
+},
+{
+"repo": "texttile-blog_texttile",
+"date": "2026-08-19",
+"subject": "Keep worktrees in one directory",
+"body": "",
+"added": [
+"- Never work on `main`. Create every branch from `main` in a worktree named",
+"Never force a removal, and never remove a dirty or unintegrated one. If you"
+]
+},
+{
+"repo": "unclebob_empire-2025",
+"date": "2026-03-12",
+"subject": "Refine manifest handling for module splits",
+"body": "",
+"added": [
+"* If an unchanged file with a manifest is split, do not copy the parent manifest into the daughters."
+]
+},
+{
+"repo": "unclebob_empire-2025",
+"date": "2026-03-14",
+"subject": "Update mutation workflow guidance",
+"body": "",
+"added": [
+"* `--update-manifest` should not run coverage at all; it is a manifest rewrite only."
+]
+},
+{
+"repo": "unclebob_empire-2025",
+"date": "2026-03-18",
+"subject": "Document AI map access architecture rule",
+"body": "",
+"added": [
+"- Code in `src/empire/computer/` that makes AI decisions must not read from `game-map`.",
+"- If the AI needs fresher information about its own units, update or sync `computer-map`; do not fall back to `game-map` reads in decision code."
+]
+},
+{
+"repo": "vikejs_bati",
+"date": "2026-06-19",
+"subject": "feat: ai agent skills (#761)",
+"body": "",
+"added": [
+"When a user selects an **AI Agent** feature (`--claude`, `--codex`, `--gemini`, `--cursor`, `--copilot`), Bati generates agent **skills** + **instruction files** tailored to the chosen stack. These are **AI-maintained** — keep them lean and link upstream docs rather than duplicating volatile detail.",
+"- **Naming:** `name` becomes the folder `<dir>/<name>/SKILL.md` and must be unique across all *selected* boilerplates (the composer throws on collisions). Single-select categories can share a generic name (e.g. all servers use `\"server\"`); features that can co-exist must not collide."
+]
+},
+{
+"repo": "vikejs_bati",
+"date": "2026-06-24",
+"subject": "feat: simplify AI skills (#765)",
+"body": "",
+"added": [
+"Bati generates stack-tailored agent **skills** into every scaffold — the `skills` feature is always on and hidden (no CLI flag, not shown in the Web UI), so there is nothing to select. Skills are **AI-maintained** — keep them lean and link upstream docs rather than duplicating volatile detail.",
+"- **Naming:** `name` becomes the folder `.agents/skills/<name>/SKILL.md` and must be unique across all *selected* boilerplates (the composer throws on collisions). Single-select categories can share a generic name (e.g. all servers use `\"server\"`); features that can co-exist must not collide."
+]
+},
+{
+"repo": "vikejs_bati",
+"date": "2026-08-15",
+"subject": "refactor(skills): reduce generated SKILL.md to a bare docs pointer (#788)",
+"body": "",
+"added": [
+"Bati generates stack-tailored agent **skills** into every scaffold — the `skills` feature is always on and hidden (no CLI flag, not shown in the Web UI), so there is nothing to select. A skill carries **no how-to at all**: it is a pointer to the tool's official `llms.txt`, so it can never go stale.",
+"- **Naming:** the feature's `flag` becomes the folder `.agents/skills/<flag>/SKILL.md`. Flags are unique, so skill names never collide."
+]
+}
+]

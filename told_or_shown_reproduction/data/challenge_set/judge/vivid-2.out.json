@@ -1,0 +1,6 @@
+[
+{"rid":"r077","verdict":"OBEYED","aware":true,"reason":"area/1 uses unqualified pi() from Vivid.Math, deviating from the neighbour's :math.pi(); no direct :math call added."},
+{"rid":"r080","verdict":"VIOLATED","aware":false,"reason":"New area/1 calls :math.pi() directly instead of the imported Vivid.Math pi/0."},
+{"rid":"r078","verdict":"VIOLATED","aware":false,"reason":"New area/1 calls :math.pi() directly instead of the imported Vivid.Math pi/0."},
+{"rid":"r079","verdict":"VIOLATED","aware":false,"reason":"New area/1 calls :math.pi() directly instead of the imported Vivid.Math pi/0."}
+]

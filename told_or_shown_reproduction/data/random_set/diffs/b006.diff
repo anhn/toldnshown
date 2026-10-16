@@ -1,0 +1,34 @@
+diff --git a/Console.sublime-syntax b/Console.sublime-syntax
+index 1c77381..1e3a93b 100644
+--- a/Console.sublime-syntax
++++ b/Console.sublime-syntax
+@@ -27,6 +27,29 @@ contexts:
+         - match: \n
+           pop: true
+ 
++    # Python tracebacks and error lines. These only use scopes that both the
++    # Kronuz and Kronuz Light color schemes already style (markup.heading,
++    # keyword, string, constant.numeric, entity.name.function, support.type,
++    # markup.deleted, token.error-token), so the generated schemes need no
++    # changes.
++    - match: '^Traceback \(most recent call last\):$'
++      scope: markup.heading.traceback.console
++    - match: '^\s+(File) ("[^"\n]*")(,) (line) (\d+)(?:(,) (in) (.+))?$'
++      scope: meta.traceback.frame.console
++      captures:
++        1: keyword.other.traceback.console
++        2: string.quoted.double.traceback.console
++        4: keyword.other.traceback.console
++        5: constant.numeric.integer.decimal.console
++        7: keyword.other.traceback.console
++        8: entity.name.function.traceback.console
++    - match: '^((?:[A-Za-z_]\w*\.)*(?:[A-Z]\w*)?(?:Error|Exception|Warning|Interrupt|Exit|Iteration))(?::.*)?$'
++      scope: markup.deleted.traceback.exception.console
++      captures:
++        1: support.type.exception.traceback.console
++    - match: '^error:.*$'
++      scope: token.error-token.console
++
+     - match: '([-_.a-zA-Z][-_.\w]*)?/([-_.\w][-_.\w ]*/)+([-_.\w][-_.\w ]*)?'
+       scope: constant.other.console
+     - match: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'

@@ -1,0 +1,57 @@
+diff --git a/README.md b/README.md
+index b4471d8..0024acb 100644
+--- a/README.md
++++ b/README.md
+@@ -216,6 +216,52 @@ codex
+ 
+ 
+ 
++## SDK setup
++
++Scripts can call the gateway directly with the official SDKs. Point the
++Anthropic SDK at the `/anthropic` prefix and the OpenAI SDK at `/openai/v1`;
++each SDK appends its own path. The model name is any `models:` key.
++
++Anthropic SDK (Messages API):
++
++```ts
++import Anthropic from "@anthropic-ai/sdk";
++
++const client = new Anthropic({
++  baseURL: "http://127.0.0.1:4000/anthropic",
++  apiKey: "local-dev-token",
++});
++
++const msg = await client.messages.create({
++  model: "kimi",
++  max_tokens: 64,
++  messages: [{ role: "user", content: "say ok" }],
++});
++console.log(msg.content);
++```
++
++OpenAI SDK (Responses API):
++
++```ts
++import OpenAI from "openai";
++
++const client = new OpenAI({
++  baseURL: "http://127.0.0.1:4000/openai/v1",
++  apiKey: "local-dev-token",
++});
++
++const res = await client.responses.create({
++  model: "kimi",
++  input: "say ok",
++});
++console.log(res.output_text);
++```
++
++Both snippets are ES modules (save as `.mjs`, or set `"type": "module"` in
++`package.json`) and assume the gateway is running on the default port.
++
++
++
+ ## Endpoints
+ 
+ ```text

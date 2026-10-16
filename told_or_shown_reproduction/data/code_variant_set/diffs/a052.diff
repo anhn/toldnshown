@@ -1,0 +1,233 @@
+diff --git a/src/exabgp/bgp/message/open/capability/__init__.py b/src/exabgp/bgp/message/open/capability/__init__.py
+index 5c60813..cc5816b 100644
+--- a/src/exabgp/bgp/message/open/capability/__init__.py
++++ b/src/exabgp/bgp/message/open/capability/__init__.py
+@@ -31,6 +31,7 @@ from exabgp.bgp.message.open.capability.refresh import REFRESH
+ from exabgp.bgp.message.open.capability.linklocal import LinkLocalNextHop
+ from exabgp.bgp.message.open.capability.role import Role
+ from exabgp.bgp.message.open.capability.role import RoleValue
++from exabgp.bgp.message.open.capability.llgr import LongLivedGracefulRestart
+ 
+ # Do not remove this include or unknown capability will not be handled
+ from exabgp.bgp.message.open.capability.unknown import UnknownCapability
+@@ -53,5 +54,6 @@ __all__ = [
+     'LinkLocalNextHop',
+     'Role',
+     'RoleValue',
++    'LongLivedGracefulRestart',
+     'UnknownCapability',
+ ]
+diff --git a/src/exabgp/bgp/message/open/capability/capability.py b/src/exabgp/bgp/message/open/capability/capability.py
+index ffec782..5ce793e 100644
+--- a/src/exabgp/bgp/message/open/capability/capability.py
++++ b/src/exabgp/bgp/message/open/capability/capability.py
+@@ -64,6 +64,7 @@ class CapabilityCode(IntValue):
+ 
+     # 6-63      Unassigned
+     GRACEFUL_RESTART: ClassVar[int] = 0x40  # [RFC4724]
++    LONG_LIVED_GRACEFUL_RESTART: ClassVar[int] = 0x47  # [RFC9494]
+     FOUR_BYTES_ASN: ClassVar[int] = 0x41  # [RFC4893]
+     # 66        Deprecated
+     DYNAMIC_CAPABILITY: ClassVar[int] = 0x43  # [Chen]
+@@ -98,6 +99,7 @@ class CapabilityCode(IntValue):
+         EXTENDED_MESSAGE: 'extended-message',
+         ROLE: 'role',
+         GRACEFUL_RESTART: 'graceful-restart',
++        LONG_LIVED_GRACEFUL_RESTART: 'long-lived-graceful-restart',
+         FOUR_BYTES_ASN: 'asn4',
+         DYNAMIC_CAPABILITY: 'dynamic-capability',
+         MULTISESSION: 'multi-session',
+@@ -145,6 +147,7 @@ class CapabilityCodes:
+     EXTENDED_MESSAGE: ClassVar[CapabilityCode] =         CapabilityCode(CapabilityCode.EXTENDED_MESSAGE)
+     ROLE: ClassVar[CapabilityCode] =                     CapabilityCode(CapabilityCode.ROLE)
+     GRACEFUL_RESTART: ClassVar[CapabilityCode] =         CapabilityCode(CapabilityCode.GRACEFUL_RESTART)
++    LONG_LIVED_GRACEFUL_RESTART: ClassVar[CapabilityCode] = CapabilityCode(CapabilityCode.LONG_LIVED_GRACEFUL_RESTART)
+     FOUR_BYTES_ASN: ClassVar[CapabilityCode] =           CapabilityCode(CapabilityCode.FOUR_BYTES_ASN)
+     DYNAMIC_CAPABILITY: ClassVar[CapabilityCode] =       CapabilityCode(CapabilityCode.DYNAMIC_CAPABILITY)
+     MULTISESSION: ClassVar[CapabilityCode] =             CapabilityCode(CapabilityCode.MULTISESSION)
+diff --git a/src/exabgp/bgp/message/open/capability/llgr.py b/src/exabgp/bgp/message/open/capability/llgr.py
+new file mode 100644
+index 0000000..f1cba3c
+--- /dev/null
++++ b/src/exabgp/bgp/message/open/capability/llgr.py
+@@ -0,0 +1,104 @@
++"""llgr.py
++
++Long-Lived Graceful Restart capability (RFC 9494, capability code 71).
++
++The value is zero or more tuples <AFI, SAFI, Flags, Long-lived Stale Time>, seven octets
++each. The most significant bit of the Flags octet is the F bit (Forwarding State); the
++other bits are reserved, so they are kept as received and sent back as they came. The
++stale time is a 24 bit count of seconds.
++
++ExaBGP only parses and displays what a peer sends. Nothing here configures the capability
++or changes how routes are retained.
++
++Created for ExaBGP.
++Copyright (c) 2009-2017 Exa Networks. All rights reserved.
++License: 3-clause BSD. (See the COPYRIGHT file)
++"""
++
++from __future__ import annotations
++
++import json
++from typing import ClassVar, NamedTuple
++
++from exabgp.protocol.family import AFI, SAFI, FamilyTuple
++from exabgp.bgp.message.open.capability.capability import Capability, CapabilityCode, CapabilityDict
++from exabgp.bgp.message.notification import Notify
++from exabgp.logger import log, lazymsg
++
++
++class LongLivedEntry(NamedTuple):
++    """What a peer says about one family: the Flags octet and the stale time in seconds."""
++
++    flags: int
++    stale_time: int
++
++
++class LongLivedGracefulRestart(CapabilityDict[FamilyTuple, LongLivedEntry]):
++    """RFC 9494 Long-Lived Graceful Restart capability, one entry per family."""
++
++    ID: ClassVar = Capability.CODE.LONG_LIVED_GRACEFUL_RESTART
++
++    ENTRY_SIZE: ClassVar[int] = 7  # AFI(2) + SAFI(1) + Flags(1) + Long-lived Stale Time(3)
++    STALE_TIME_SIZE: ClassVar[int] = 3
++    STALE_TIME_MAX: ClassVar[int] = 0xFFFFFF
++    FORWARDING_STATE: ClassVar[int] = 0x80  # RFC 9494 3: the F bit is the most significant bit
++
++    def add(self, afi: AFI, safi: SAFI, flags: int, stale_time: int) -> None:
++        assert 0 <= flags <= 0xFF, 'the Flags field is one octet'
++        assert 0 <= stale_time <= LongLivedGracefulRestart.STALE_TIME_MAX, 'the stale time is 24 bits'
++        self[(afi, safi)] = LongLivedEntry(flags, stale_time)
++
++    def extract_capability_bytes(self) -> list[bytes]:
++        if not self:
++            return []
++        entries = [
++            afi.pack_afi()
++            + safi.pack_safi()
++            + bytes([entry.flags])
++            + entry.stale_time.to_bytes(LongLivedGracefulRestart.STALE_TIME_SIZE, 'big')
++            for (afi, safi), entry in self.items()
++        ]
++        return [b''.join(entries)]
++
++    def __str__(self) -> str:
++        if not self:
++            return 'Long-Lived Graceful Restart (no families)'
++        families = ' '.join(
++            f'{afi}/{safi}={hex(entry.flags)} stale {entry.stale_time}' for (afi, safi), entry in self.items()
++        )
++        return f'Long-Lived Graceful Restart {families}'
++
++    def json(self) -> str:
++        families = {
++            f'{afi}/{safi}': {
++                'forwarding': bool(entry.flags & LongLivedGracefulRestart.FORWARDING_STATE),
++                'flags': entry.flags,
++                'stale-time': entry.stale_time,
++            }
++            for (afi, safi), entry in self.items()
++        }
++        return json.dumps({'name': 'long-lived graceful restart', 'families': families})
++
++    @classmethod
++    def unpack_capability(cls, instance: Capability, data, capability: CapabilityCode) -> Capability:  # pylint: disable=W0613
++        assert isinstance(instance, LongLivedGracefulRestart)
++        # The peer controls this length, so it is checked, never asserted.
++        raw = bytes(data)
++        if len(raw) % cls.ENTRY_SIZE:
++            detail = f'Long-Lived Graceful Restart capability is {len(raw)} octets, not a multiple of {cls.ENTRY_SIZE}'
++            raise Notify(2, 0, detail)
++        # RFC 5492 section 5: a repeated capability replaces the one before it, as Graceful Restart does.
++        if len(instance) > 0:
++            log.debug(lazymsg('capability.llgr.duplicate action=replace'), 'parser')
++            instance.clear()
++        for offset in range(0, len(raw), cls.ENTRY_SIZE):
++            entry = raw[offset : offset + cls.ENTRY_SIZE]
++            afi = AFI.unpack_afi(entry[:2])
++            safi = SAFI.unpack_safi(entry[2:3])
++            flags = entry[3]
++            stale_time = int.from_bytes(entry[4:], 'big')
++            instance.add(afi, safi, flags, stale_time)
++        return instance
++
++
++Capability.register()(LongLivedGracefulRestart)
+diff --git a/tests/unit/test_llgr_capability.py b/tests/unit/test_llgr_capability.py
+new file mode 100644
+index 0000000..e8d5533
+--- /dev/null
++++ b/tests/unit/test_llgr_capability.py
+@@ -0,0 +1,70 @@
++#!/usr/bin/env python3
++# encoding: utf-8
++"""test_llgr_capability.py
++
++RFC 9494 Long-Lived Graceful Restart capability (code 71).
++
++The value is zero or more seven octet tuples <AFI, SAFI, Flags, Long-lived Stale Time>.
++The tests hold the wire format for a well formed value, the refusal of a value cut
++short inside a tuple, and the encoding back to the same octets.
++
++Created for ExaBGP testing framework
++License: 3-clause BSD
++"""
++
++import json
++
++import pytest
++
++from exabgp.bgp.message.notification import Notify
++from exabgp.bgp.message.open.capability.capability import Capability
++from exabgp.bgp.message.open.capability.capability import CapabilityCode
++from exabgp.bgp.message.open.capability.llgr import LongLivedEntry
++from exabgp.bgp.message.open.capability.llgr import LongLivedGracefulRestart
++from exabgp.protocol.family import AFI
++from exabgp.protocol.family import SAFI
++
++# IPv4 unicast, F bit set, 3600 seconds; then IPv6 unicast, F bit clear, 0x010203 seconds
++WELL_FORMED = bytes.fromhex('00010180000e10' '00020100010203')
++
++
++def test_capability_code_is_71_and_named() -> None:
++    """RFC 9494 assigns capability code 71, and the registry names it for logs and JSON."""
++    assert Capability.CODE.LONG_LIVED_GRACEFUL_RESTART == 71
++    assert LongLivedGracefulRestart.ID == 71
++    assert CapabilityCode(71).name() == 'long-lived-graceful-restart'
++
++
++def test_well_formed_capability_decodes() -> None:
++    """Each tuple gives its family, its Forwarding State bit and its 24 bit stale time."""
++    parsed = Capability.unpack(CapabilityCode(71), {}, WELL_FORMED)
++
++    assert isinstance(parsed, LongLivedGracefulRestart)
++    assert len(parsed) == 2
++    assert parsed[(AFI.ipv4, SAFI.unicast)] == LongLivedEntry(0x80, 3600)
++    assert parsed[(AFI.ipv6, SAFI.unicast)] == LongLivedEntry(0x00, 0x010203)
++
++    rendered = json.loads(parsed.json())
++    assert rendered['name'] == 'long-lived graceful restart'
++    assert rendered['families']['ipv4/unicast'] == {'forwarding': True, 'flags': 0x80, 'stale-time': 3600}
++    assert rendered['families']['ipv6/unicast']['forwarding'] is False
++    assert 'Long-Lived Graceful Restart' in str(parsed)
++
++
++def test_truncated_capability_is_refused() -> None:
++    """A tuple cut short is a malformed capability, answered with a NOTIFICATION, not an IndexError."""
++    truncated = WELL_FORMED[:-3]  # the second tuple is 4 of its 7 octets
++
++    with pytest.raises(Notify) as raised:
++        Capability.unpack(CapabilityCode(71), {}, truncated)
++
++    assert raised.value.code == 2
++    assert raised.value.subcode == 0
++
++
++def test_decoded_entries_encode_back_to_the_same_octets() -> None:
++    """What a peer sent is what we would send back: the same families, flags and stale times."""
++    parsed = Capability.unpack(CapabilityCode(71), {}, WELL_FORMED)
++
++    assert isinstance(parsed, LongLivedGracefulRestart)
++    assert parsed.extract_capability_bytes() == [WELL_FORMED]

@@ -1,0 +1,593 @@
+diff --git a/AI-README.md b/AI-README.md
+index 1d41ec3b..18d454e2 100644
+--- a/AI-README.md
++++ b/AI-README.md
+@@ -1306,6 +1306,23 @@ steps: |
+   Switch back to window index "win_0".
+ ```
+ 
++#### Closing Windows (`CLOSE_WINDOW`)
++
++Once a popup or tab is no longer needed, the `CLOSE_WINDOW` action closes the currently focused window and moves focus to one of the remaining windows. The optional target is resolved **against the remaining windows only** (the window being closed is excluded):
++
++* **Default**: If no target or value is provided, focus moves to the first remaining window (usually the original window).
++* **Window Index**: E.g., `win_0` for the first remaining window, `win_1` for the second remaining window.
++* **Title / Name**: Matches a remaining window's handle name or page title (contains/ignore-case).
++
++The follow-up window is resolved before anything is closed, so an unknown target fails the step without closing the current window. Closing the last open window is refused, because it would end the browser session.
++
++```yaml
++steps: |
++  Switch to the newest window.
++  Click "Approve".
++  Close this window and continue in window "win_0".
++```
++
+ ---
+ 
+ ### 2. Interactive HUD Cross-Window Synchronization
+diff --git a/openspec/changes/add-close-window-action/.openspec.yaml b/openspec/changes/add-close-window-action/.openspec.yaml
+new file mode 100644
+index 00000000..b9ebfc72
+--- /dev/null
++++ b/openspec/changes/add-close-window-action/.openspec.yaml
+@@ -0,0 +1,2 @@
++schema: spec-driven
++created: 2026-10-12
+diff --git a/openspec/changes/add-close-window-action/proposal.md b/openspec/changes/add-close-window-action/proposal.md
+new file mode 100644
+index 00000000..d0ef2f64
+--- /dev/null
++++ b/openspec/changes/add-close-window-action/proposal.md
+@@ -0,0 +1,24 @@
++## Why
++
++Playbooks can enter a newly opened popup or tab with `SWITCH_WINDOW`, but there is no action to close that window once the test is done with it. Popups that do not close themselves stay open for the rest of the test, which clutters window indices and keeps unrelated pages alive.
++
++## What Changes
++
++- Introduce a new core AI action type: `CLOSE_WINDOW`.
++- Add a new action plugin `CloseWindowAction` (modelled on `SwitchWindowAction`) that closes the currently focused window and switches focus to a remaining window: the first remaining window by default, or a remaining window selected by index (`win_0`, `0`, ...), handle or title.
++- Provide prompt instructions so the LLM knows about the action.
++
++## Capabilities
++
++### New Capabilities
++
++- `close-window`: Close the active window or tab and move focus to a remaining window, optionally selected by index or title.
++
++### Modified Capabilities
++
++None.
++
++## Impact
++
++- **Core AI Engine**: Registers a new action type in `ActionRegistry`.
++- **Selenium/Selenide integration**: Uses `WebDriver#close()` and window handles to close and refocus windows.
+diff --git a/openspec/changes/add-close-window-action/specs/close-window/spec.md b/openspec/changes/add-close-window-action/specs/close-window/spec.md
+new file mode 100644
+index 00000000..4af62951
+--- /dev/null
++++ b/openspec/changes/add-close-window-action/specs/close-window/spec.md
+@@ -0,0 +1,24 @@
++## ADDED Requirements
++
++### Requirement: CLOSE_WINDOW action type
++The Neodymium AI engine MUST support a browser action type named `CLOSE_WINDOW` that closes the currently focused window or tab and switches the WebDriver focus to a remaining window. The follow-up window SHALL be resolved against the remaining windows only, before the current window is closed.
++
++#### Scenario: Close window and focus the first remaining window
++- **WHEN** a `CLOSE_WINDOW` action is executed with empty `target` and `value` fields while more than one window is open
++- **THEN** the AI engine SHALL close the current window and switch focus to the first remaining window
++
++#### Scenario: Close window and focus a remaining window by index
++- **WHEN** a `CLOSE_WINDOW` action is executed with a `target` or `value` specifying an index (such as `win_0`, `0`, `win_1`, or `1`)
++- **THEN** the AI engine SHALL close the current window and switch focus to the remaining window at that index
++
++#### Scenario: Close window and focus a remaining window by title
++- **WHEN** a `CLOSE_WINDOW` action is executed with a `target` or `value` specifying a window handle or title
++- **THEN** the AI engine SHALL close the current window and switch focus to the remaining window whose handle equals, or whose title matches or contains, the specified text
++
++#### Scenario: Refuse to close the last window
++- **WHEN** a `CLOSE_WINDOW` action is executed while only one window is open
++- **THEN** the AI engine SHALL fail the action and leave the window open
++
++#### Scenario: Unresolvable follow-up window
++- **WHEN** a `CLOSE_WINDOW` action specifies an index, handle or title that matches no remaining window
++- **THEN** the AI engine SHALL fail the action without closing the current window and keep the focus on it
+diff --git a/openspec/changes/add-close-window-action/tasks.md b/openspec/changes/add-close-window-action/tasks.md
+new file mode 100644
+index 00000000..b953c399
+--- /dev/null
++++ b/openspec/changes/add-close-window-action/tasks.md
+@@ -0,0 +1,12 @@
++## 1. Core Implementation
++
++- [x] 1.1 Implement `CloseWindowAction.java` under `com.xceptance.neodymium.ai.action.plugins`
++- [x] 1.2 Register `CloseWindowAction` in `ActionRegistry.java`
++- [x] 1.3 Document `CLOSE_WINDOW` in `AI-README.md`
++
++## 2. Testing and Verification
++
++- [x] 2.1 Create test pages under `src/test/resources/ai-test-pages/CloseWindowActionTest/`
++- [x] 2.2 Create offline playbooks under `src/test/resources/ai-playbooks/com/xceptance/neodymium/ai/action/CloseWindowActionTest/`
++- [x] 2.3 Implement test methods in `CloseWindowActionTest.java`
++- [ ] 2.4 Run the test suite and verify that the tests pass successfully
+diff --git a/src/main/java/com/xceptance/neodymium/ai/action/ActionRegistry.java b/src/main/java/com/xceptance/neodymium/ai/action/ActionRegistry.java
+index 99dccd48..d6ae2515 100644
+--- a/src/main/java/com/xceptance/neodymium/ai/action/ActionRegistry.java
++++ b/src/main/java/com/xceptance/neodymium/ai/action/ActionRegistry.java
+@@ -33,6 +33,7 @@ import com.xceptance.neodymium.ai.action.plugins.CheckAction;
+ import com.xceptance.neodymium.ai.action.plugins.ClearAction;
+ import com.xceptance.neodymium.ai.action.plugins.ClearCookiesAction;
+ import com.xceptance.neodymium.ai.action.plugins.ClickAction;
++import com.xceptance.neodymium.ai.action.plugins.CloseWindowAction;
+ import com.xceptance.neodymium.ai.action.plugins.ForwardAction;
+ import com.xceptance.neodymium.ai.action.plugins.IncludeAction;
+ import com.xceptance.neodymium.ai.action.plugins.JavaMethodAction;
+@@ -131,6 +132,7 @@ public class ActionRegistry {
+         register(new RefreshAction());
+         register(new ClearCookiesAction());
+         register(new SwitchWindowAction());
++        register(new CloseWindowAction());
+         register(new SplitAction());
+     }
+ 
+diff --git a/src/main/java/com/xceptance/neodymium/ai/action/plugins/CloseWindowAction.java b/src/main/java/com/xceptance/neodymium/ai/action/plugins/CloseWindowAction.java
+new file mode 100644
+index 00000000..3005af48
+--- /dev/null
++++ b/src/main/java/com/xceptance/neodymium/ai/action/plugins/CloseWindowAction.java
+@@ -0,0 +1,200 @@
++/*
++ * GNU Affero General Public License (AGPLv3)
++ *
++ * Copyright (c) 2026 Xceptance
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU Affero General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Affero General Public License for more details.
++ *
++ * You should have received a copy of the GNU Affero General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
++ */
++package com.xceptance.neodymium.ai.action.plugins;
++
++import java.util.ArrayList;
++import java.util.List;
++
++import org.openqa.selenium.WebDriver;
++import org.slf4j.Logger;
++import org.slf4j.LoggerFactory;
++
++import com.codeborne.selenide.WebDriverRunner;
++import com.xceptance.neodymium.ai.action.Action;
++import com.xceptance.neodymium.ai.action.ActionExecutor;
++import com.xceptance.neodymium.ai.action.ActionExecutor.ActionExecutionException;
++import com.xceptance.neodymium.ai.action.AiActionPlugin;
++
++/**
++ * AI action plugin that closes the currently focused browser window or tab and moves the WebDriver focus to one of
++ * the remaining windows. It is the counterpart of {@link SwitchWindowAction}: a playbook typically uses
++ * {@code SWITCH_WINDOW} to enter a popup and {@code CLOSE_WINDOW} to dispose of it once it is no longer needed.
++ * <p>
++ * The window to continue with after closing is taken from the action's {@code target} (or {@code value} if the target
++ * is empty) and is resolved <b>against the remaining windows only</b>, i.e. the window that is about to be closed is
++ * excluded from the candidate list:
++ * <ul>
++ * <li><b>empty</b> - focus moves to the first remaining window (usually the main/original window).</li>
++ * <li><b>index</b> - {@code win_0}, {@code 0}, {@code win_1}, ... selects the remaining window at that index, in the
++ * order reported by {@link WebDriver#getWindowHandles()}.</li>
++ * <li><b>handle</b> - an exact WebDriver window handle of a remaining window.</li>
++ * <li><b>title</b> - the first remaining window whose title equals (ignoring case) or contains the given text.</li>
++ * </ul>
++ * The follow-up window is resolved <i>before</i> anything is closed, so an unresolvable target fails the action without
++ * destroying the current window. Closing the last open window is refused, because it would terminate the browser
++ * session and leave the test without a usable driver.
++ *
++ * @author AI-generated: Claude Opus 5.5
++ * @author Xceptance GmbH 2026
++ */
++public class CloseWindowAction implements AiActionPlugin
++{
++    private static final Logger LOG = LoggerFactory.getLogger(CloseWindowAction.class);
++
++    /**
++     * Prefix that marks a window index, shared with {@link SwitchWindowAction} (e.g. {@code win_0}).
++     */
++    private static final String WINDOW_INDEX_PREFIX = "win_";
++
++    @Override
++    public final String getActionName()
++    {
++        return "CLOSE_WINDOW";
++    }
++
++    @Override
++    public final List<Action> parseDirectInstruction(final String instruction)
++    {
++        return null;
++    }
++
++    @Override
++    public final boolean requiresLlm(final Action action)
++    {
++        return false;
++    }
++
++    @Override
++    public final String getPromptInstructions()
++    {
++        return "CLOSE_WINDOW: close the currently focused browser window or tab (e.g. a popup that is no longer needed) and switch focus back to a remaining window. "
++               + "Optionally, the target can name the window to continue with, either as an index into the remaining windows (e.g. 'win_0' for the first remaining window) or as a window title/name. "
++               + "If no target or value is provided, focus moves to the first remaining window (usually the original window). The last open window can never be closed.";
++    }
++
++    /**
++     * Closes the current window and switches to the requested (or default) remaining window.
++     *
++     * @param action
++     *            the action carrying the optional follow-up window in {@code target} or {@code value}
++     * @param testInstance
++     *            the running test instance (unused)
++     * @param executor
++     *            the executing {@link ActionExecutor} (unused)
++     * @throws ActionExecutionException
++     *             if only one window is open or the follow-up window cannot be resolved
++     */
++    @Override
++    public final void execute(final Action action, final Object testInstance, final ActionExecutor executor)
++    {
++        final WebDriver driver = WebDriverRunner.getWebDriver();
++        final String target = action.getTarget();
++        final String value = action.getValue();
++        final String windowParam = (target != null && !target.isBlank()) ? target : value;
++
++        final String currentHandle = driver.getWindowHandle();
++
++        // Collect the windows that survive the close, preserving the driver's handle order so that
++        // indices are stable and predictable for playbook authors.
++        final List<String> remainingHandles = new ArrayList<>(driver.getWindowHandles());
++        remainingHandles.remove(currentHandle);
++        if (remainingHandles.isEmpty())
++        {
++            throw new ActionExecutionException("Cannot close the only open window. Closing it would end the browser session.");
++        }
++
++        // Resolve the follow-up window first; a failure here must not leave the test with a closed window.
++        final String nextHandle = resolveNextHandle(driver, currentHandle, remainingHandles, windowParam);
++
++        LOG.debug("Closing current window and switching focus to window {}", nextHandle);
++        driver.close();
++        driver.switchTo().window(nextHandle);
++    }
++
++    /**
++     * Determines which of the remaining windows should receive the focus after the current one is closed.
++     * <p>
++     * Title lookups need to visit each candidate window; the method always returns with the focus restored to
++     * {@code currentHandle}, so that the subsequent {@link WebDriver#close()} closes the right window.
++     *
++     * @param driver
++     *            the active driver
++     * @param currentHandle
++     *            the handle of the window that is going to be closed
++     * @param remainingHandles
++     *            the non-empty list of windows that will remain open, in driver order
++     * @param windowParam
++     *            the requested follow-up window (index, handle or title), may be {@code null} or blank
++     * @return the handle of the window to switch to after closing
++     * @throws ActionExecutionException
++     *             if the index is out of bounds or no remaining window matches the given handle or title
++     */
++    private String resolveNextHandle(final WebDriver driver, final String currentHandle, final List<String> remainingHandles,
++                                     final String windowParam)
++    {
++        if (windowParam == null || windowParam.isBlank())
++        {
++            return remainingHandles.get(0);
++        }
++
++        final String trimmedParam = windowParam.trim();
++        final String indexCandidate = trimmedParam.startsWith(WINDOW_INDEX_PREFIX) ? trimmedParam.substring(WINDOW_INDEX_PREFIX.length())
++                                                                                   : trimmedParam;
++        try
++        {
++            final int index = Integer.parseInt(indexCandidate);
++            if (index < 0 || index >= remainingHandles.size())
++            {
++                throw new ActionExecutionException("Window index " + index + " is out of bounds. Remaining windows after closing: "
++                                                   + remainingHandles.size());
++            }
++            return remainingHandles.get(index);
++        }
++        catch (final NumberFormatException e)
++        {
++            // Not an index, fall through to handle and title matching.
++        }
++
++        if (remainingHandles.contains(trimmedParam))
++        {
++            return trimmedParam;
++        }
++
++        try
++        {
++            for (final String handle : remainingHandles)
++            {
++                driver.switchTo().window(handle);
++                final String title = driver.getTitle();
++                if (title != null && (title.equalsIgnoreCase(trimmedParam) || title.contains(trimmedParam)))
++                {
++                    LOG.debug("Resolved follow-up window by title matching: {}", trimmedParam);
++                    return handle;
++                }
++            }
++        }
++        finally
++        {
++            // Always return to the window that is about to be closed.
++            driver.switchTo().window(currentHandle);
++        }
++
++        throw new ActionExecutionException("Could not find a remaining window matching name, title or handle: " + trimmedParam);
++    }
++}
+diff --git a/src/test/java/com/xceptance/neodymium/ai/action/CloseWindowActionTest.java b/src/test/java/com/xceptance/neodymium/ai/action/CloseWindowActionTest.java
+new file mode 100644
+index 00000000..0a1a4607
+--- /dev/null
++++ b/src/test/java/com/xceptance/neodymium/ai/action/CloseWindowActionTest.java
+@@ -0,0 +1,166 @@
++/*
++ * GNU Affero General Public License (AGPLv3)
++ *
++ * Copyright (c) 2026 Xceptance Software Technologies GmbH
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU Affero General Public License as published by
++ * the Free Software Foundation, either version 3 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Affero General Public License for more details.
++ *
++ * You should have received a copy of the GNU Affero General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
++ */
++package com.xceptance.neodymium.ai.action;
++
++import static com.codeborne.selenide.Selenide.$;
++import static com.codeborne.selenide.Selenide.open;
++import static com.codeborne.selenide.Selenide.switchTo;
++import static org.junit.jupiter.api.Assertions.assertEquals;
++import static org.junit.jupiter.api.Assertions.assertThrows;
++
++import com.codeborne.selenide.Condition;
++import com.codeborne.selenide.WebDriverRunner;
++import com.xceptance.neodymium.ai.BaseAiTest;
++import com.xceptance.neodymium.ai.action.ActionExecutor.ActionExecutionException;
++import com.xceptance.neodymium.ai.action.plugins.CloseWindowAction;
++import com.xceptance.neodymium.common.browser.Browser;
++import com.xceptance.neodymium.junit5.NeodymiumTest;
++import com.xceptance.neodymium.util.Neodymium;
++
++/**
++ * Validates the behavior of the {@link CloseWindowAction} AI plugin: closing popups via playbook steps, choosing the
++ * follow-up window by default, title and index, and refusing destructive closes that cannot be completed.
++ * <p>
++ * The playbook driven tests run in offline mode against the recorded playbooks under
++ * {@code src/test/resources/ai-playbooks/com/xceptance/neodymium/ai/action/CloseWindowActionTest/}.
++ *
++ * @author AI-generated: Claude Opus 5.5
++ * @author Xceptance GmbH 2026
++ */
++@Browser("Chrome_1500x1000")
++public final class CloseWindowActionTest extends BaseAiTest
++{
++    /**
++     * Closing a popup without a target returns the focus to the first remaining (original) window.
++     */
++    @NeodymiumTest
++    public void testCloseWindow()
++    {
++        System.setProperty("neodymium.ai.offline", "true");
++        try
++        {
++            open(currentTestUrl);
++
++            // Open a popup and move into it
++            $("#open-window").click();
++            Neodymium.ai().execute("Switch to the new window");
++            $("#welcome").shouldHave(Condition.exactText("Welcome to the new window!"));
++            assertEquals(2, openWindowCount());
++
++            // Close the popup; focus must fall back to the original window
++            Neodymium.ai().execute("Close the current window");
++
++            $("#open-window").should(Condition.exist);
++            assertEquals(1, openWindowCount());
++        }
++        finally
++        {
++            System.clearProperty("neodymium.ai.offline");
++        }
++    }
++
++    /**
++     * Closing with an explicit title or index target focuses that remaining window instead of the default one.
++     */
++    @NeodymiumTest
++    public void testCloseWindowWithTarget()
++    {
++        System.setProperty("neodymium.ai.offline", "true");
++        try
++        {
++            open(currentTestUrl);
++
++            // Windows: [Original, New, Other]
++            $("#open-window").click();
++            $("#open-other-window").click();
++            assertEquals(3, openWindowCount());
++
++            Neodymium.ai().execute("Switch to window 'Other Window Title'");
++            $("#other").should(Condition.exist);
++
++            // Close "Other" and continue in "New" by title (the default would have been "Original")
++            Neodymium.ai().execute("Close this window and continue in window 'New Window Title'");
++            $("#welcome").should(Condition.exist);
++            assertEquals(2, openWindowCount());
++
++            // Windows: [Original, New, Other]
++            Neodymium.ai().execute("Switch to window win_0");
++            $("#open-other-window").click();
++            assertEquals(3, openWindowCount());
++
++            Neodymium.ai().execute("Switch to the window titled 'Other Window Title'");
++            $("#other").should(Condition.exist);
++
++            // Close "Other"; remaining are [Original, New], so win_1 must resolve to "New"
++            Neodymium.ai().execute("Close this window and continue in window win_1");
++            $("#welcome").should(Condition.exist);
++            assertEquals(2, openWindowCount());
++
++            // Close "New" without a target; only "Original" remains
++            Neodymium.ai().execute("Close the remaining popup window");
++            $("#open-window").should(Condition.exist);
++            assertEquals(1, openWindowCount());
++        }
++        finally
++        {
++            System.clearProperty("neodymium.ai.offline");
++        }
++    }
++
++    /**
++     * The plugin must neither close the last open window nor close anything when the follow-up target cannot be
++     * resolved.
++     */
++    @NeodymiumTest
++    public void testCloseWindowFailureKeepsWindowsOpen()
++    {
++        open(currentTestUrl);
++        final CloseWindowAction plugin = new CloseWindowAction();
++
++        // Only one window is open: closing it would end the session
++        assertThrows(ActionExecutionException.class,
++                     () -> plugin.execute(new Action("CLOSE_WINDOW", null, "Close current window"), this, null));
++        $("#open-window").should(Condition.exist);
++        assertEquals(1, openWindowCount());
++
++        // Unresolvable follow-up target: nothing is closed and the focus stays on the popup
++        $("#open-window").click();
++        switchTo().window(1);
++        $("#welcome").should(Condition.exist);
++
++        assertThrows(ActionExecutionException.class,
++                     () -> plugin.execute(new Action("CLOSE_WINDOW", "No Such Window", "Close current window"), this, null));
++        assertEquals(2, openWindowCount());
++        $("#welcome").should(Condition.exist);
++
++        // Out of bounds index: there is only one remaining window (index 0)
++        assertThrows(ActionExecutionException.class,
++                     () -> plugin.execute(new Action("CLOSE_WINDOW", "win_1", "Close current window"), this, null));
++        assertEquals(2, openWindowCount());
++        $("#welcome").should(Condition.exist);
++    }
++
++    /**
++     * @return the number of currently open browser windows/tabs of the active driver
++     */
++    private static int openWindowCount()
++    {
++        return WebDriverRunner.getWebDriver().getWindowHandles().size();
++    }
++}
+diff --git a/src/test/resources/ai-test-pages/CloseWindowActionTest/newWindow.html b/src/test/resources/ai-test-pages/CloseWindowActionTest/newWindow.html
+new file mode 100644
+index 00000000..e9cbb536
+--- /dev/null
++++ b/src/test/resources/ai-test-pages/CloseWindowActionTest/newWindow.html
+@@ -0,0 +1,10 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <title>New Window Title</title>
++</head>
++<body>
++    <h1>New Window</h1>
++    <div id="welcome">Welcome to the new window!</div>
++</body>
++</html>
+diff --git a/src/test/resources/ai-test-pages/CloseWindowActionTest/otherWindow.html b/src/test/resources/ai-test-pages/CloseWindowActionTest/otherWindow.html
+new file mode 100644
+index 00000000..03e6ba07
+--- /dev/null
++++ b/src/test/resources/ai-test-pages/CloseWindowActionTest/otherWindow.html
+@@ -0,0 +1,10 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <title>Other Window Title</title>
++</head>
++<body>
++    <h1>Other Window</h1>
++    <div id="other">Welcome to the other window!</div>
++</body>
++</html>
+diff --git a/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindow.html b/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindow.html
+new file mode 100644
+index 00000000..28f6a76d
+--- /dev/null
++++ b/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindow.html
+@@ -0,0 +1,10 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <title>Original Window</title>
++</head>
++<body>
++    <h1>Original Window</h1>
++    <button id="open-window" onclick="window.open('newWindow.html', '_blank')">Open New Window</button>
++</body>
++</html>
+diff --git a/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindowFailureKeepsWindowsOpen.html b/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindowFailureKeepsWindowsOpen.html
+new file mode 100644
+index 00000000..28f6a76d
+--- /dev/null
++++ b/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindowFailureKeepsWindowsOpen.html
+@@ -0,0 +1,10 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <title>Original Window</title>
++</head>
++<body>
++    <h1>Original Window</h1>
++    <button id="open-window" onclick="window.open('newWindow.html', '_blank')">Open New Window</button>
++</body>
++</html>
+diff --git a/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindowWithTarget.html b/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindowWithTarget.html
+new file mode 100644
+index 00000000..eef59acf
+--- /dev/null
++++ b/src/test/resources/ai-test-pages/CloseWindowActionTest/testCloseWindowWithTarget.html
+@@ -0,0 +1,11 @@
++<!DOCTYPE html>
++<html>
++<head>
++    <title>Original Window</title>
++</head>
++<body>
++    <h1>Original Window</h1>
++    <button id="open-window" onclick="window.open('newWindow.html', '_blank')">Open New Window</button>
++    <button id="open-other-window" onclick="window.open('otherWindow.html', '_blank')">Open Other Window</button>
++</body>
++</html>
